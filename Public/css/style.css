@@ -1,0 +1,171 @@
+body {
+	color: grey;
+	min-height: 100vh; /* pour définir une hauteur égale à la hauteur de la fenêtre (100% viewport height) - pour mettre le footer en bas de page */
+}
+.pushFooter {
+    flex-grow: 1; /* pousse le footer en bas de bloc */
+}
+
+/* BUTTONS */
+.buttonStyle {
+	color: white;
+	background-color: grey;
+	margin: 10px;
+    padding: 5px;
+    border: 1px grey solid;
+}
+	.buttonStyle:hover {
+		color: grey;
+		background-color: white;
+		border: 1px solid grey;
+	}
+
+/* FORMS */
+form {
+	text-align: center;
+}
+	form input {
+		margin-bottom: 10px;
+		width: 50%;
+	}
+	form textarea {
+		margin-bottom: 10px;
+		width: 50%;
+	}
+
+/* HEADER */
+#titleBlog {
+    font-family: 'Merienda One', cursive;
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+	#titleBlog h1 {
+		font-size: 4em;
+	}
+	#titleBlog a {
+		color: grey;
+	}
+	    #titleBlog a:hover {
+	    text-decoration: none;
+	}
+
+/* SIDEBAR */
+#sidebar {	   
+	display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+	#titleSidebar, .menu, #connexion {
+		border: 2px solid;
+    	padding: 15px;
+    	margin-top: 20px;
+	}
+		#title {
+			font-size: 1.8em;
+			text-align: center;
+			margin-bottom: 15px;
+		}
+			#titleSidebar {
+	    	font-family: 'Merienda One', cursive;
+	    	text-align: justify;
+		}
+			#titleSidebar a {
+			color: grey;
+		}
+		    #titleSidebar a:hover {
+		    text-decoration: none;
+		}
+	#introduction {
+		display: flex;
+	}
+		.logo {
+			width: 100%;
+		}
+		#textIntro {
+			padding: 35px;
+		}
+
+/* MENU */
+.menu {
+	display: flex;
+    justify-content: center;
+    text-align: center;
+}
+	.menu ul {
+		list-style-type: none;
+		margin: 0;
+	    padding: 0;
+	    color: black;
+	}
+	#menuLinks a {
+		color: black;
+	}
+		#menuLinks a:hover {
+			text-decoration: none;
+		    color: white;
+		    background-color: grey;
+		    padding: 5px;
+		}
+		#menuLinks .svg-inline--fa {
+			margin-left: 15px;
+		}
+	.menu li {
+		margin: 10px;
+	}
+
+/* CONNEXION */
+#connexion {
+	text-align: center;
+}
+
+/* FOOTER */
+#footerSidebar {
+	border: 2px solid;
+    padding: 15px 15px 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* CONTENT */
+
+#contentDiv {
+	margin-top: 20px;
+	display: flex;
+    flex-direction: column;
+}
+	#footerContent {
+    	text-align: center;
+    	margin-bottom: 45px;
+    	display: flex;
+    	position: relative;
+    	justify-content: center;
+	}
+		#footerContent:before {
+		content: "";
+	    display: block;
+	    border-bottom: 1px solid grey;
+	    width: 100%;
+	    height: 1px;
+	    position: absolute;
+	    top: 50%;
+	    transform: translateY(-50%);
+		}
+		#footerContent .svg-inline--fa {
+			padding: 7px 2px;
+		    border: solid 1px;
+		    width: 40px;
+		    height: 40px;
+		    border-radius: 50%;
+		    margin: 2.5px;
+		    outline: 5px solid white;
+		    background-color: white;
+    		color: grey;
+    		z-index: 1;
+    		position: relative;
+		}
+			#footerContent .svg-inline--fa:hover {
+				background-color: grey;
+				color: white;
+			}
