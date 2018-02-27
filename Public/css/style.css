@@ -1,23 +1,31 @@
 body {
-	color: grey;
+	color: #5b2e92;
 	min-height: 100vh; /* pour définir une hauteur égale à la hauteur de la fenêtre (100% viewport height) - pour mettre le footer en bas de page */
 }
 .pushFooter {
     flex-grow: 1; /* pousse le footer en bas de bloc */
+    margin: 10px;
+}
+.feather {
+    width: 15%;
+    align-self: flex-end;
+    margin: 0 20px;
 }
 
 /* BUTTONS */
 .buttonStyle {
-	color: white;
-	background-color: grey;
-	margin: 10px;
-    padding: 5px;
-    border: 1px grey solid;
+    color: white;
+    background-color: #b48ed4;
+    margin: 5px;
+    border: 1px #b48ed4 solid;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 }
 	.buttonStyle:hover {
-		color: grey;
-		background-color: white;
-		border: 1px solid grey;
+	    color: white;
+	    background-color: #5b2e92;
 	}
 
 /* FORMS */
@@ -32,22 +40,37 @@ form {
 		margin-bottom: 10px;
 		width: 50%;
 	}
+.formStyle {
+	border: solid 1px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    padding: 15px 0;
+}
 
 /* HEADER */
 #titleBlog {
     font-family: 'Merienda One', cursive;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 40px;
+    margin: 30px 0 20px;
 }
 	#titleBlog h1 {
 		font-size: 4em;
+		text-align: center;
 	}
 	#titleBlog a {
-		color: grey;
+		color: #5b2e92;
+		align-self: center;
 	}
 	    #titleBlog a:hover {
 	    text-decoration: none;
+	}
+	#titleBlog .feather {
+		align-self: center;
+		margin: 0;
+		width: 10%;
 	}
 
 /* SIDEBAR */
@@ -55,43 +78,44 @@ form {
 	display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    margin-left: 15px;
 }
 	#titleSidebar, .menu, #connexion {
 		border: 2px solid;
     	padding: 15px;
     	margin-top: 20px;
+		border-bottom-left-radius: 8px;
+	    border-top-right-radius: 8px;
+	    text-align: center;
 	}
 		#title {
 			font-size: 1.8em;
-			text-align: center;
 			margin-bottom: 15px;
+			text-align: end;
+			padding: 0 20px;
 		}
 			#titleSidebar {
 	    	font-family: 'Merienda One', cursive;
 	    	text-align: justify;
 		}
 			#titleSidebar a {
-			color: grey;
+			color: #5b2e92;
 		}
 		    #titleSidebar a:hover {
 		    text-decoration: none;
 		}
-	#introduction {
-		display: flex;
-	}
 		.logo {
 			width: 100%;
+    		padding: 5px 20px;
+    		border-radius: 10%;
 		}
 		#textIntro {
-			padding: 35px;
+			padding: 5px 20px;
 		}
 
 /* MENU */
 .menu {
 	display: flex;
     justify-content: center;
-    text-align: center;
 }
 	.menu ul {
 		list-style-type: none;
@@ -100,12 +124,12 @@ form {
 	    color: black;
 	}
 	#menuLinks a {
-		color: black;
+		color: #5b2e92;
 	}
 		#menuLinks a:hover {
 			text-decoration: none;
 		    color: white;
-		    background-color: grey;
+		    background-color: #5b2e92;
 		    padding: 5px;
 		}
 		#menuLinks .svg-inline--fa {
@@ -116,16 +140,19 @@ form {
 	}
 
 /* CONNEXION */
-#connexion {
-	text-align: center;
+#connexion a {
+	color: #b48ed4;
 }
 
 /* FOOTER */
 #footerSidebar {
-	border: 2px solid;
     padding: 15px 15px 0;
     margin-top: 20px;
     text-align: center;
+	background-color: #5b2e92;
+	color: white;
+	border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 /* CONTENT */
@@ -134,18 +161,24 @@ form {
 	margin-top: 20px;
 	display: flex;
     flex-direction: column;
-}
+}	
+	#content  .contentTitle {
+		background-color: #5b2e92;
+	    color: white;
+	    text-align: center;
+	    padding: 7px;
+	    margin-bottom: 30px;
+	}
 	#footerContent {
-    	text-align: center;
-    	margin-bottom: 45px;
-    	display: flex;
-    	position: relative;
-    	justify-content: center;
+		text-align: center;
+	    display: flex;
+	    position: relative;
+	    justify-content: center;
 	}
 		#footerContent:before {
 		content: "";
 	    display: block;
-	    border-bottom: 1px solid grey;
+	    border-bottom: 1px solid #5b2e92;
 	    width: 100%;
 	    height: 1px;
 	    position: absolute;
@@ -161,11 +194,66 @@ form {
 		    margin: 2.5px;
 		    outline: 5px solid white;
 		    background-color: white;
-    		color: grey;
+    		color: #5b2e92;
     		z-index: 1;
     		position: relative;
 		}
 			#footerContent .svg-inline--fa:hover {
-				background-color: grey;
+				background-color: #5b2e92;
 				color: white;
 			}
+
+	/* HOME */
+	#homeText {
+		padding: 15px 0;
+	    display: flex;
+	    flex-direction: column;
+	    text-align: center;
+
+	}
+	.homeBlocks {
+	    display: flex;
+	    flex-direction: column;
+	    text-align: justify;
+	}
+		.homeBlocks a {
+			color: white;
+		    background-color: #b48ed4;
+		    padding: 5px;
+		    text-align: center;
+		    border-bottom-left-radius: 8px;
+   			border-top-right-radius: 8px;
+		}
+		.homeBlocks a:hover {
+			text-decoration: none;
+		    color: white;
+		    background-color: #5b2e92;
+		}
+			#homeIntro img {
+			    width: 40%;
+			    align-self: center;
+			    padding-bottom: 20px;
+			}
+
+	#homeImg {
+		display: flex;
+	    justify-content: center;
+	}
+			#homeImg img {
+				width: 50%;
+				height: 50%;
+			    border: #5b2e92 solid 2px;
+			    border-radius: 10%;
+			}
+
+#checkBoxContact input {
+	width: fit-content;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+#listContact {
+	margin: 20px 0;
+}
+	#listContact #subject {
+   		width: 50%;
+   	}

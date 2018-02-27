@@ -18,6 +18,7 @@
 				<div id="header" class="col-md">
 					<div id="titleBlog">
 			            <a href="index.php"><h1>MODELES VIVANTS</h1></a>
+						<img class="feather" src="./Public/img/feather07.png" alt="logo_MV" />		         
 			        </div>
 			    </div>
 			</div>
@@ -33,19 +34,13 @@
 			            <a href="index.php">
 			            	<h1 id="title">Modèles vivants</h1>
 			        	</a>
-
-			        	<div id="introduction">
-			        		<div>
-					        	<a href="index.php">
-					        		<img class="logo" src="./Public/img/logo.png" alt="logo_MV" />
-					        	</a>
-					        </div>
-
-					        <div id="textIntro">
-					        	<p>Bienvenue sur ce site dédié aux modèles vivants, qui s'adresse aux modèles, aux artistes et aux curieux.<br />
-			                	J'y parlerais de ce métier original via des anecdotes vécues et rapportées, mais aussi des bonnes pratiques à avoir.</p>
-			                </div>
-					    </div>
+			        	
+				        <a href="index.php"><img class="logo" src="./Public/img/lecture.png" alt="logo_MV" /></a>
+				        
+				        <div id="textIntro">
+				        	<p>Ce site est dédié aux modèles vivants, aux artistes et aux curieux.<br />
+		                	Vous y trouverez des anecdotes vécues et rapportées, ainsi que des pratiques propres à ce métier original.</p>
+		                </div>
 			        </div>
 
 	<!-- MENU -->
@@ -68,16 +63,16 @@
 					<div id="connexion">
 						<h2>Connexion</h2>
 					    <form action="index.php?action=login" method="post" class="connexion">
-					        <label for="email">Email</label><br />
-					        <input type="email" id="email" name="email" required /><br />
+					        <label for="mail">Email</label><br />
+					        <input type="mail" class="mail" name="mail" required /><br />
 					        <label for="password">Mot de passe</label><br />
 					        <input type="password" class="password" name="password" required /><br />
-					        <input type="submit" name="connexion" class="buttonStyle" value="Connexion" />
+					        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
 					    </form>				    
 
   						<a href="index.php?action=createAccount" class="" id="createAccount">Pas encore de compte ?</a><br />
 
-					    <a href="index.php?action=recoverPassword" class="" id="recoverPassword">Mot de passe oublié ?</a>
+					    <a href="index.php?action=forgotPassword" class="" id="forgotPassword">Mot de passe oublié ?</a>
 					</div>
 
 	<!-- FOOTER -->
@@ -102,8 +97,11 @@
 				    	<a href="https://www.linkedin.com/in/kaldir/"><i class="fab fa-linkedin-in"></i></a>
 				    	<a href="https://www.deviantart.com/"><i class="fab fa-deviantart"></i></a>
 					</div>
+
+					<img class="feather" alt="feather_pic" src="./Public/img/feather03.png" />
 				</div>
 			</div>
+		</div>
 
 <!-- SCRIPTS -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

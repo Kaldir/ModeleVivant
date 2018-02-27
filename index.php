@@ -11,7 +11,7 @@ if (isset($_GET['action'])) {
     switch ($_GET['action']) {
 // ACCOUNT
         case 'login':
-            $frontendController->checkLogin();
+            $frontendController->login();
             break;
 
 	    case 'createAccount':
@@ -22,24 +22,24 @@ if (isset($_GET['action'])) {
             $frontendController->sendMailAccount();
             break;
 
-	    case 'recoverPassword':
-            $frontendController->recoverPassword();
+        case 'forgotPassword':
+            $frontendController->forgotPassword();
             break;
 
-        case 'pseudoUpdate':
-            $frontendController->pseudoUpdate();
+        case 'updatePassword':
+            $frontendController->updatePassword();
             break;
-       
-        case 'passUpdate':
-            $frontendController->passUpdate();
+            
+        case 'pseudoUpdate':
+            $frontendController->updatePseudo();
             break;
 
         case 'mailUpdate':
-            $frontendController->mailUpdate();
+            $frontendController->updateMail();
             break;
 
         case 'avatarUpdate':
-            $frontendController->avatarUpdate();
+            $frontendController->updateAvatar();
             break;
 
     	case 'logout':

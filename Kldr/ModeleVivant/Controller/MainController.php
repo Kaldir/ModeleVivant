@@ -20,21 +20,8 @@ class MainController
 	}
 
 // ACCOUNTS
-/*
-	public function sendMailAccount() {
-        $userManager = new \Kldr\ModeleVivant\Model\UserManager();
-        if (isset($_POST['submit'])) {
-        	$subject = 'Réinitialisation mot de passe - Modèles vivants';
-        	$sendMailAccount = '<p>Bonjour '. $_POST['pseudo'] .', votre mot de passe vient d\'être réinitialisé. Connectez vous avec vos informations habituelles et rentrez <div class="mdp">'. $_POST['newPasswordAuto'] .'</div>comme mot de passe.<br />Vous pourrez le modifier par la suite dans vos paramètres de compte.</p>';
-        	$mailSended = mail($_POST['mail'], $subject, $sendMailAccount, 'From : <lulu@kldr.fr>');
-        	if ($mailSended) {
-        		$success = 'Un email avec un mot de passe temporaire vient de vous être envoyé !';
-        	}
-        } else {
-            $this->home();
-        }
-	}
 
+/*
 	public function pseudoUpdate($pseudo, $password) {
 		$userManager = new \Kldr\ModeleVivant\Model\UserManager();
 		$pseudoUp = $userManager->pseudoUpdate($pseudo, $password);

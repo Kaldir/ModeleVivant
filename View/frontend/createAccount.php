@@ -1,7 +1,7 @@
 <?php $title = 'MV - Création d\'un compte utilisateur';
 ob_start(); ?>
 
-<h3>Création de compte utilisateur</h3>
+<h3 class="contentTitle">Création de compte utilisateur</h3>
 
 <div class="formStyle">
     <form action="index.php?action=createAccount" method="post" class="connexionUser">
@@ -13,7 +13,7 @@ ob_start(); ?>
 		<input type="password" class="password" name="password" required /><br />
 		<label for="checkPassword">Confirmation du mot de passe</label><br />
 		<input type="password" class="checkPassword" name="checkPassword" required /><br />
-        <input type="submit" name="submit" class="buttonStyle" value="Créer !" />
+        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
 
         <?php
         if (isset($errors)) {

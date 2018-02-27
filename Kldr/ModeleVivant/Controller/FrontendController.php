@@ -8,10 +8,12 @@ class FrontendController extends MainController
         if (isset($_POST['submit'])) { // si le formulaire est envoyé
             $errors = array(); // $errors contiendra les différentes erreurs possibles
             if (empty(trim($_POST['pseudo'])) || empty(trim($_POST['mail'])) || empty(trim($_POST['password'])) || empty(trim($_POST['checkPassword']))) { // on vérifie si un ou plusieurs des champs ne sont pas remplis
-                $errors[] = 'Tous les champs ne sont pas remplis !'; // sinon, on stocke une erreur dans $error
-            } if ($_POST['password'] != $_POST['checkPassword']) {
+                $errors[] = 'Tous les champs ne sont pas remplis !'; // sinon, on stocke une erreur dans $errors
+            }
+            if ($_POST['password'] != $_POST['checkPassword']) {
                 $errors[] = 'Les mots de passe ne sont pas identiques !';
-            } if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+            }
+            if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
                 $errors[] = 'L\'adresse mail n\'est pas valide !';
             }
             if (!empty($errors)) { // si il y a une erreur avec les champs
@@ -19,13 +21,25 @@ class FrontendController extends MainController
                 $this->view('frontend/createAccount', $variables); // on affiche la page de creation de compte avec le message d'erreur
             } else {
                 $userManager = new \Kldr\ModeleVivant\Model\UserManager(); // on crée l'objet UserManager
-                $result = $userManager->createAccount($_POST['pseudo'], $_POST['mail'], $_POST['password']); // on envoie ces infos à la bdd afin de créer un compte
-                if ($result['success'] == false) { // si aucun compte n'est créé :
-                    $errors[] = $result['message'];
-                    $variables = compact(['errors']); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
-                    $this->view('frontend/createAccount', $variables); // on affiche la page de creation de compte avec le message d'erreur
+                if ($userManager->checkUserByMail($_POST['mail']) == true) {
+                    $errors[] = 'Cet email est déjà utilisé !';
+                }
+                if ($userManager->checkUserByPseudo($_POST['pseudo']) == true) {
+                    $errors[] = 'Ce pseudo est déjà pris !';
+                }
+                if (!empty($errors)) {
+                    $variables = compact(['errors']);
+                    $this->view('frontend/createAccount', $variables);
                 } else {
-                    $this->home(); // si tout a fonctionné (un compte est créé), on affiche la page d'accueil
+                    $userManager = new \Kldr\ModeleVivant\Model\UserManager(); // on crée l'objet UserManager
+                    $result = $userManager->createAccount($_POST['pseudo'], $_POST['mail'], $_POST['password']); // on envoie ces infos à la bdd afin de créer un compte
+                    if ($result['success'] == false) { // si aucun compte n'est créé :
+                        $errors[] = $result['message'];
+                        $variables = compact(['errors']); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
+                        $this->view('frontend/createAccount', $variables); // on affiche la page de creation de compte avec le message d'erreur
+                    } else {
+                        $this->home(); // si tout a fonctionné (un compte est créé), on affiche la page d'accueil
+                    }
                 }
             }
         } else {
@@ -33,46 +47,69 @@ class FrontendController extends MainController
         }
     }
 
-/*
-    public function recoverPassword() {
+    public function updatePassword() {
         if (isset($_POST['submit'])) {
-            if (empty(trim($_POST['pseudo'])) || empty(trim($_POST['mail']))) {
-                $error = 'Il manque des informations dans les champs !';
-            } else {
-                if ($_POST['pseudo'] && $_POST['mail'] == NULL) {
-                $error = 'Aucun compte attaché à cet email...';
-                }
-            } if (isset($error)) {
-                $variables = compact(['error']);
-                $this->view('frontend/recoverPasswordForm', $variables);
+            $errors = array(); // $errors contiendra les différentes erreurs possibles
+            if (empty(trim($_POST['mail']))) {
+                $errors[] = 'Il manque des informations dans les champs !';
             } else {
                 $userManager = new \Kldr\ModeleVivant\Model\UserManager();
-                $recoverPass = $userManager->recoverPassword($_GET['id'], $_POST['mail']);
-                if ($recoverPass > 0) { // rapport au rowCount, on vérifie si une ligne a été modifiée (voir userManager.php méthode recoverPassword)
-                    $_SESSION['mail'] = $mail;
-                    header('Location: index.php?action=sendMail');
+                if ($userManager->checkUserByMail($_POST['mail']) == false) {
+                    $errors[] = 'Aucun compte ne correspond à cet email...';
+                }
+            }
+            if (!empty($errors)) { // si il y a des erreurs :
+                $variables = compact(['errors']);
+                $this->view('frontend/forgotPassword', $variables);
+            } else {
+                $newPassword = bin2hex(openssl_random_pseudo_bytes(4)); // génère un pass de 8 caractères
+                $result = $userManager->updatePassword($newPassword, $_POST['mail']);
+                if ($result == false) { // rapport au rowCount, on vérifie si une ligne a été modifiée (voir userManager.php méthode updatePassword)
+                    $errors[] = 'Le mot de passe n\'a pas été mis à jour...';
+                    $variables = compact(['errors']);
+                    $this->view('frontend/forgotPassword', $variables);
+                } else {
+                    $to = $_POST['mail'];
+                    $subject = 'Réinitialisation mot de passe - Modèles vivants';
+                    $message = "Bonjour, votre mot de passe vient d'être réinitialisé. Connectez vous avec vos informations habituelles et rentrez " . $newPassword . " comme mot de passe. Vous pourrez le modifier par la suite dans vos paramètres de compte.";
+                    $headers = 'From: lulu@kldr.fr';
+                    $mailSent = mail($to, $subject, $message, $headers);
+                    if ($mailSent == false) {
+                        $errors[] = 'Le mail n\'a pu être envoyé...';
+                        $variables = compact(['errors']);
+                        $this->view('frontend/forgotPassword', $variables);
+                    } else {
+                        $success = 'Un email contenant un mot de passe temporaire vient de vous être envoyé !';
+                        $variables = compact(['success']);
+                        $this->view('frontend/forgotPassword', $variables);
+                    }
                 }
             }
         } else {
-            $this->view('frontend/recoverPasswordForm');
+            $this->view('frontend/forgotPassword');
         }
     }
-
-	public function checkLogin($password, $email) {
+/*
+	public function login($password, $mail) {
 		$userManager = new \Kldr\ModeleVivant\Model\UserManager();
-		$userInfo = $userManager->checkLogin($_POST['password'], $_POST['email']);
-        if (is_array($userInfo)) { // on vérifie que l'on est en présence d'un tableau, car la méthode checkLogin retourne soit un tableau (dans la variabe $userInfo), soit false.
+		$userInfos = $userManager->checkLogin($_POST['password'], $_POST['mail']);
+
+/*
+        if (is_array($userInfos)) { // on vérifie que l'on est en présence d'un tableau, car la méthode checkLogin retourne soit un tableau (dans la variabe $userInfos), soit false.
             $_SESSION['user'] = true;
-            $_SESSION['pseudo'] = $userInfo['pseudo']; // va chercher l'info pseudo contenu dans le tableau data contenu dans la variable userInfo lorsque status = ok
-            $_SESSION['email'] = $userInfo['email'];
-            if (!empty($_POST['password']) AND !empty($_POST['email'])) {
-    			$frontendController->checkLogin($_POST['password'], $_POST['email']);
+            $_SESSION['pseudo'] = $userInfos['pseudo']; // va chercher l'info pseudo contenu dans le tableau data contenu dans la variable userInfos lorsque status = ok
+            $_SESSION['mail'] = $userInfos['mail'];
+            if (!empty($_POST['password']) AND !empty($_POST['mail'])) {
+    			$frontendController->checkLogin($_POST['password'], $_POST['mail']);
         		header('Location: index.php?action=');
             }
         } else {
-    		$this->error('Votre pseudo ou votre mot de passe est incorrect !');
+    		$this->errors('Votre pseudo ou votre mot de passe est incorrect !');
 	    }
     }
+/*
+
+
 
     public function sendMailContact() {
         if (isset($_POST['submit'])) {
@@ -82,13 +119,17 @@ class FrontendController extends MainController
             if ($mailSended) {
                 $success = 'Votre email a bien été envoyé !';
             } else {
-                $error = 'Echec de l\'envoi du mail...';
+                $errors = 'Echec de l\'envoi du mail...';
             }
         } else {
             $this->view('frontend/contact');
         }
     }
 */
+    public function forgotPassword() {
+        $this->view('frontend/forgotPassword');
+    }
+
     public function contact() {
         $this->view('frontend/contact');
     }

@@ -6,7 +6,7 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
 }
 ?>
 
-<h2>Modification du pseudo</h2>
+<h3 class="contentTitle">Modification du pseudo</h3>
 
 <div class="formStyle">
     <form action="index.php?action=pseudoUpdate" method="post" class="connexionUser">
@@ -16,12 +16,12 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
         <input type="text" id="newPseudo" name="newPseudo" required /><br />
         <label for="password">Mot de passe actuel</label>
         <input type="password" class="password" name="password" required /><br />
-        <input type="submit" name="connexion" class="buttonStyle" value="Modifier" />
+        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
     </form>
 </div>
 
 
-<h2>Modification du mail</h2>
+<h3 class="contentTitle">Modification du mail</h3>
 
 <div class="formStyle">
     <form action="index.php?action=mailUpdate" method="post" class="connexionUser">
@@ -33,11 +33,11 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
         <input type="text" id="newMail" name="newMail" required /><br />
         <label for="password">Mot de passe</label>
         <input type="password" class="password" name="password" required /><br />
-        <input type="submit" name="connexion" class="buttonStyle" value="Modifier" />
+        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
     </form>
 </div>
 
-<h2>Modification de l'avatar</h2>
+<h3 class="contentTitle">Modification de l'avatar</h3>
 
 <div class="formStyle">
     <form action="index.php?action=avatarUpdate" method="post" class="connexionUser">
@@ -45,11 +45,11 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
         <div class="msgStyle"><?php echo $_SESSION['avatar']; ?></div><br />
         <label for="newAvatar">Télécharger un avatar depuis votre ordinateur</label>
         <input type="" id="newAvatar" name="newAvatar" required /><br />
-        <input type="submit" name="connexion" class="buttonStyle" value="Valider" />
+        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
     </form>
 </div>
 
-<h2>Modification du mot de passe</h2>
+<h3 class="contentTitle">Modification du mot de passe</h3>
 
 <div class="formStyle">
     <form action="index.php?action=passUpdate" method="post" class="connexionUser">
@@ -59,7 +59,7 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
         <input type="password" id="newPassword" name="newPassword" required /><br />
         <label for="newPassword">Confirmation du nouveau mot de passe</label>
         <input type="password" id="checkPassword" name="checkPassword" required /><br />
-        <input type="submit" name="connexion" class="buttonStyle" value="Modifier" />
+        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
     </form>
 </div>
 
