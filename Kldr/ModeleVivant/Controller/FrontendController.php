@@ -33,8 +33,8 @@ class FrontendController extends MainController
                 } else {
                     $userManager = new \Kldr\ModeleVivant\Model\UserManager(); // on crée l'objet UserManager
                     $result = $userManager->createAccount($_POST['pseudo'], $_POST['mail'], $_POST['password']); // on envoie ces infos à la bdd afin de créer un compte
-                    if ($result['success'] == false) { // si aucun compte n'est créé :
-                        $errors[] = $result['message'];
+                    if ($result == false) { // si aucun compte n'est créé :
+                        $errors[] = $result['Le compte n\'a pas pu être créé...'];
                         $variables = compact(['errors']); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
                         $this->view('frontend/createAccount', $variables); // on affiche la page de creation de compte avec le message d'erreur
                     } else {
@@ -47,7 +47,7 @@ class FrontendController extends MainController
         }
     }
 
-    public function updatePassword() {
+    public function generatePassword() {
         if (isset($_POST['submit'])) {
             $errors = array(); // $errors contiendra les différentes erreurs possibles
             if (empty(trim($_POST['mail']))) {
@@ -89,28 +89,41 @@ class FrontendController extends MainController
             $this->view('frontend/forgotPassword');
         }
     }
-/*
-	public function login($password, $mail) {
-		$userManager = new \Kldr\ModeleVivant\Model\UserManager();
-		$userInfos = $userManager->checkLogin($_POST['password'], $_POST['mail']);
 
-/*
-        if (is_array($userInfos)) { // on vérifie que l'on est en présence d'un tableau, car la méthode checkLogin retourne soit un tableau (dans la variabe $userInfos), soit false.
-            $_SESSION['user'] = true;
-            $_SESSION['pseudo'] = $userInfos['pseudo']; // va chercher l'info pseudo contenu dans le tableau data contenu dans la variable userInfos lorsque status = ok
-            $_SESSION['mail'] = $userInfos['mail'];
-            if (!empty($_POST['password']) AND !empty($_POST['mail'])) {
-    			$frontendController->checkLogin($_POST['password'], $_POST['mail']);
-        		header('Location: index.php?action=');
-            }
-        } else {
-    		$this->errors('Votre pseudo ou votre mot de passe est incorrect !');
-	    }
+    public function updatePassword() {
+        if (empty(trim($_POST['password'])) || empty(trim($_POST['newPassword'])) || empty(trim($_POST['checkPassword']))) {
+            $errors = array();
+            $errors[] = 'Il manque des informations dans les champs !';
+            $variables = compact(['errors']);
+            $this->view('frontend/modifyAccount', $variables);
+    //    } elseif {
+
+// on vérifie que newpassword et checkpassword sont identiques
+
+// on vérifie que le mdp est le bon (avec login du usermanager)
+    // si le mdp est bon, on fait une requete qui maj le mdp dans la bdd (rowcount pour checker) - if > 0 ce sera true, alors c'est ok
+
+// on vérifie que la requête a fonctionné
+        }
     }
+
+	public function login() {
+		$userManager = new \Kldr\ModeleVivant\Model\UserManager();
+		$login = $userManager->login($_POST['password'], $_POST['mail']);
+        if ($login == false) {
+            $errors[] = 'Impossible de se connecter...';
+            $variables = compact(['errors']);
+            $this->view('common/error', $variables);
+        } else {
+            $_SESSION['connected'] = true;
+            $_SESSION['pseudo'] = $userManager->pseudo;
+            $_SESSION['mail'] = $userManager->mail;
+            $_SESSION['avatar'] = $userManager->avatar;
+            $_SESSION['admin'] = $userManager->admin;
+            header('Location: ./?action=modifyAccount');
+        }
+    }  
 /*
-
-
-
     public function sendMailContact() {
         if (isset($_POST['submit'])) {
             $subject = 'Modèles vivants - Quelqu\'un vous a écrit !';
@@ -126,6 +139,11 @@ class FrontendController extends MainController
         }
     }
 */
+
+    public function modifyAccount() {
+        $this->view('common/modifyAccount');
+    }
+
     public function forgotPassword() {
         $this->view('frontend/forgotPassword');
     }
@@ -148,5 +166,10 @@ class FrontendController extends MainController
 
     public function advertisements() {
         $this->view('common/advertisements');
+    }
+
+    public function logout() {
+        session_destroy();
+        header('Location: ./');
     }
 }

@@ -28,7 +28,7 @@ class MainController
 		if ($pseudoUp > 0) { // rapport au rowCount, on vérifie si une ligne a été modifiée (voir userManager.php méthode pseudoUpdate)
 			$_SESSION['pseudo'] = $pseudo;
 		    if (!empty($_POST['newPseudo']) && !empty($_POST['password'])) {
-		   		header('Location: index.php?action=pseudoUpdate' .$_POST['newPseudo'], $_POST['password']); ;
+		   		header('Location: ./?action=pseudoUpdate' .$_POST['newPseudo'], $_POST['password']); ;
 		    } else {
                 $backendControler->error('Tous les champs ne sont pas remplis !');
             }
@@ -42,7 +42,7 @@ class MainController
 		$passUp = $userManager->passUpdate($password, $newPassword);
 		if ($passUp > 0 && $_POST['newPassword'] == $_POST['checkPassword']) {
 			if  (!empty($_POST['password']) && !empty($_POST['newPassword']) && !empty($_POST['checkPassword'])) {
-				header('Location: index.php?action=accountModify' .$_POST['password'], $_POST['newPassword'].'&success=true');
+				header('Location: ./?action=accountModify' .$_POST['password'], $_POST['newPassword'].'&success=true');
             } else {
                 $backendControler->error('Tous les champs ne sont pas remplis !');
             }
@@ -58,10 +58,6 @@ class MainController
 	public function avatarUpdate() {
 		
 	}
-
-	public function logout() {
-	    session_destroy();
-		header('Location: index.php');
-	}
 */
+
 }

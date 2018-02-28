@@ -6,7 +6,7 @@ ob_start(); ?>
 <p>Entrez votre email, vous recevrez un nouveau mot de passe que vous pourrez changer dans les paramètres de votre compte par la suite.</p>
 
 <div class="formStyle">
-    <form action="index.php?action=updatePassword" method="post" class="connexionUser">
+    <form action="index.php?action=generatePassword" method="post" class="connexionUser">
         <label for="mail">Email</label><br />
         <input type="mail" class="mail" name="mail" required /><br />
         <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>

@@ -5,11 +5,12 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
     echo '<div class="msgStyle">Mot de passe mis à jour avec succès !</div>';
 }
 ?>
+<h3 class="contentTitle">Gestion du compte</h3>
 
-<h3 class="contentTitle">Modification du pseudo</h3>
+<h4 class="contentTitle">Modification du pseudo</h4>
 
 <div class="formStyle">
-    <form action="index.php?action=pseudoUpdate" method="post" class="connexionUser">
+    <form action="index.php?action=updatePseudo" method="post" class="connexionUser">
         <label for="pseudo">Pseudo actuel</label>
         <div class="msgStyle"><?php echo $_SESSION['pseudo']; ?></div><br />
         <label for="newPseudo">Nouveau pseudo</label>
@@ -21,10 +22,10 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
 </div>
 
 
-<h3 class="contentTitle">Modification du mail</h3>
+<h4 class="contentTitle">Modification du mail</h4>
 
 <div class="formStyle">
-    <form action="index.php?action=mailUpdate" method="post" class="connexionUser">
+    <form action="index.php?action=updateMail" method="post" class="connexionUser">
         <label for="mail">Mail actuel</label>
         <div class="msgStyle"><?php echo $_SESSION['mail']; ?></div><br />
         <label for="newMail">Nouvel email</label>
@@ -37,10 +38,10 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
     </form>
 </div>
 
-<h3 class="contentTitle">Modification de l'avatar</h3>
+<h4 class="contentTitle">Modification de l'avatar</h4>
 
 <div class="formStyle">
-    <form action="index.php?action=avatarUpdate" method="post" class="connexionUser">
+    <form action="index.php?action=updateAvatar" method="post" class="connexionUser">
         <label for="avatar">Avatar actuel</label>
         <div class="msgStyle"><?php echo $_SESSION['avatar']; ?></div><br />
         <label for="newAvatar">Télécharger un avatar depuis votre ordinateur</label>
@@ -49,10 +50,10 @@ if (!empty($_GET['success'])) { // si la variable n'est pas vide (c'est à dire 
     </form>
 </div>
 
-<h3 class="contentTitle">Modification du mot de passe</h3>
+<h4 class="contentTitle">Modification du mot de passe</h4>
 
 <div class="formStyle">
-    <form action="index.php?action=passUpdate" method="post" class="connexionUser">
+    <form action="index.php?action=updatePassword" method="post" class="connexionUser">
         <label for="password">Mot de passe actuel</label>
         <input type="password" class="password" name="password" required /><br />
         <label for="newPassword">Nouveau mot de passe</label>

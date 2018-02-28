@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (empty($_SESSION['connected'])) {
+    $_SESSION['connected'] = false;
+}
+
 require('Autoloader/autoloader.php'); // chargement de l'autoloader
 Autoloader::register();
 
@@ -26,20 +31,28 @@ if (isset($_GET['action'])) {
             $frontendController->forgotPassword();
             break;
 
+        case 'generatePassword':
+            $frontendController->generatePassword();
+            break;
+
         case 'updatePassword':
             $frontendController->updatePassword();
             break;
             
-        case 'pseudoUpdate':
+        case 'updatePseudo':
             $frontendController->updatePseudo();
             break;
 
-        case 'mailUpdate':
+        case 'updateMail':
             $frontendController->updateMail();
             break;
 
-        case 'avatarUpdate':
+        case 'updateAvatar':
             $frontendController->updateAvatar();
+            break;
+
+        case 'modifyAccount':
+            $frontendController->modifyAccount();
             break;
 
     	case 'logout':
@@ -68,12 +81,54 @@ if (isset($_GET['action'])) {
 // FRIENDS
         case 'friends':
             $frontendController->friends();
+            break;
+
+// POSTS
+        case 'addPost':
+            $frontendController->addPost();
+            break;
+
+        case 'editPost':
+            $frontendController->editPost();
+            break; 
+
+        case 'deletePost':
+            $frontendController->deletePost();
+            break; 
+
+// COMMENTS
+        case 'addComment':
+            $frontendController->addComment();
+            break;
+
+        case 'editComment':
+            $frontendController->editComment();
+            break; 
+
+        case 'deleteComment':
+            $frontendController->deleteComment();
+            break;
+
+        case 'signalComment':
+            $frontendController->signalComment();
             break; 
 
 // ADVERTISEMENTS
         case 'advertisements':
             $frontendController->advertisements();
             break; 
+
+        case 'addAdvertisement':
+            $frontendController->addAdvertisement();
+            break; 
+
+        case 'editAd':
+            $frontendController->editAdvertisement();
+            break;
+
+        case 'deleteAd':
+            $frontendController->deleteAdvertisement();
+            break;
 
 // PAR DEFAUT, AFFICHAGE DE LA PAGE D'ACCUEIL
         default:

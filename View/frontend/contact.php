@@ -9,8 +9,8 @@ ob_start(); ?>
     <form action="index.php?action=sendMailContact" method="post" class="connexionUser">
         <label for="pseudo">Pseudo</label><br />
         <input type="text" id="pseudo" name="pseudo" required /><br />
-        <label for="email">Email</label><br />
-        <input type="email" class="email" name="<?php $_POST['mail'] ?>" required /><br />
+        <label for="mail">Email</label><br />
+        <input type="mail" class="mail" name="<?php $_POST['mail'] ?>" required /><br />
 
         <div id="checkBoxContact">
             <p>Vous êtes...</p>
