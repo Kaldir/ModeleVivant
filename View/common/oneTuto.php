@@ -26,6 +26,7 @@ if (!empty($_SESSION['admin'])) {
 
 <div id="commentDisplay">
     <form action="index.php?action=addComment&amp;id=<?php echo htmlspecialchars($post['id']); ?>" method="post" id="formComment">
+        <input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <label for="author">Auteur</label><br />
         <input type="text" id="author" name="author" />
         <label for="content">Commentaire</label><br />

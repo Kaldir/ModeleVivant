@@ -71,7 +71,8 @@ class UserManager extends Manager
             return false;
         } 
         if ($req->rowCount() > 0) { // permet de compter le nombre de ligne affectées par la dernière requête
-        return true;
+            return true;
+        }
     }
 
         public function updateMail($mail, $password) {

@@ -5,6 +5,7 @@ ob_start(); ?>
 
 <div class="formStyle">
     <form action="index.php?action=createAccount" method="post" class="connexionUser">
+        <input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <label for="pseudo">Pseudo</label><br />
         <input type="text" id="pseudo" name="pseudo" required /><br />
         <label for="mail">Email</label><br />

@@ -64,7 +64,7 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
 ?>
 					<div id="connexion">
 						<h2>Connexion</h2>
-					    <form action="index.php?action=login" method="post" class="connexion">
+					    <form action="index.php?action=login" method="post" class="connexion">			   
 					        <label for="mail">Email</label><br />
 					        <input type="mail" class="mail" name="mail" required /><br />
 					        <label for="password">Mot de passe</label><br />
@@ -120,6 +120,7 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	<script src="./Public/js/slider.js"></script>
+	<script src="./Public/js/script.js"></script>
 	<script src="./Public/js/tinymce/tinymce.min.js"></script>
 	<script>tinymce.init({ selector:'textarea' });</script>
 	<script src="./Public/js/tinymce/jquery.tinymce.min.js"></script>

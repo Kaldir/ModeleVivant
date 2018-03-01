@@ -9,15 +9,15 @@ if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une s
 
 <div class="formStyle">
     <form action="index.php?action=addPost" method="post">
+    		<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <div>
         	<label for="title">Titre</label><br />
             <input type="text" id="title" name="title" /><br />
-            <label for="content">Contenu</label><br /> <!-- mettre TyniMCE -->
-            <textarea id="content" name="content" /></textarea><br />
-
-<!-- CHAMP POUR UPLOADER UNE IMAGE DU PC -->
-
-            <button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
+            <label for="content">Contenu</label><br /> 
+            <div class="textareaTinyMce">
+            	<textarea id="message" name="message" /></textarea>
+	            <button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
+	        </div>
         </div>
     </form>
 </div>

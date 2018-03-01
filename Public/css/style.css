@@ -6,6 +6,11 @@ body {
     flex-grow: 1; /* pousse le footer en bas de bloc */
     margin: 10px;
 }
+.textareaTinyMce {
+	width: 50%;
+    align-self: center;
+    display: inline-block;
+}
 
 /* BUTTONS */
 .buttonStyle {
@@ -31,6 +36,7 @@ body {
     border-bottom-left-radius: 8px;
 	border-top-right-radius: 8px;
 	transition : all 0.5s;
+	cursor: pointer;
 }
 	.subButtonsStyle:hover {
 		text-decoration: none;
@@ -166,7 +172,6 @@ form {
 }
 
 /* CONTENT */
-
 #contentDiv {
 	margin-top: 20px;
 	display: flex;
@@ -272,7 +277,6 @@ form {
 }
 
 /* SLIDER */
-
 .slideshow {
 	padding: 0 !important;
 	display: flex;
@@ -298,3 +302,24 @@ form {
 		.startStop:hover {
 			color: white;
 		}
+
+/* MODIFY ACOUNT */
+.modifyAccount {
+	margin-bottom: 30px;
+}
+.infosUser {
+	background-color: #5b2e92;
+    border-radius: 5px;
+    color: white;
+    width: fit-content;
+    padding: 5px;
+    display: inline;
+    align-self: center;
+	margin-bottom: 10px;
+}
+.infoUserAvatar {
+    width: 100px;
+    height: 100px;
+    border: #5b2e92 solid 1px;
+    background-color: white;
+}

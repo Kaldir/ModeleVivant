@@ -5,14 +5,17 @@ ob_start(); ?>
 
 <div class="formStyle">
     <form action="index.php?action=addAdvertisment" method="post">
+    	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <div>
         	<label for="title">Intitulé</label><br />
             <input type="text" id="title" name="title" /><br />
             <label for="location">Lieu</label><br />
             <input type="text" id="location" name="location" /><br />
             <label for="content">Contenu</label><br />
-            <textarea id="content" name="content" /></textarea><br />
-            <button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
+            <div class="textareaTinyMce">
+            	<textarea id="message" name="message" /></textarea><br />
+            	<button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
+           	</div>
         </div>
     </form>
 </div>

@@ -7,6 +7,7 @@ ob_start(); ?>
 
 <div class="formStyle">
     <form action="index.php?action=sendMailContact" method="post" class="connexionUser">
+        <input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <label for="pseudo">Pseudo</label><br />
         <input type="text" id="pseudo" name="pseudo" required /><br />
         <label for="mail">Email</label><br />
@@ -33,8 +34,10 @@ ob_start(); ?>
         </div>
 
         <label for="message">Message</label><br />
-        <textarea id="message" name="message" required ></textarea><br />
-        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
+        <div class="textareaTinyMce">
+          <textarea id="message" name="message" required ></textarea><br />
+          <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
+        </div>
 
         <?php if (!empty($error)) { ?>
         <div class="alert alert-danger" role="alert">

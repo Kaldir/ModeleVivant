@@ -7,6 +7,7 @@ ob_start(); ?>
 
 <div class="formStyle">
     <form action="index.php?action=generatePassword" method="post" class="connexionUser">
+        <input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <label for="mail">Email</label><br />
         <input type="mail" class="mail" name="mail" required /><br />
         <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
