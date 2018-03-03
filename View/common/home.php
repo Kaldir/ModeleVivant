@@ -41,7 +41,7 @@ ob_start(); ?>
 		
 		<div class="homeBlocks col-md-4" id="homeAds">	
 			<a href="index.php?action=advertisements" class="subButtonsStyle">Petites annonces</a>
-			<p>Vous permet de poster ce que vous souhaitez, de la proposition de pose à la recherche de modèle, en passant par la vente de matériel ou d'oeuvres.</p>
+			<p>Vous permet de poster par catégorie, que ce soit des propositions de pose, une recherche de modèle ou encore pour diffuser un événement.</p>
 		</div>
 
 		<div class="homeBlocks col-md-4" id="homeFriends">	

@@ -34,19 +34,17 @@ ob_start(); ?>
         </div>
 
         <label for="message">Message</label><br />
-        <div class="textareaTinyMce">
-          <textarea id="message" name="message" required ></textarea><br />
-          <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
-        </div>
+        <textarea id="message" name="message" required></textarea><br />
+        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
 
         <?php if (!empty($error)) { ?>
         <div class="alert alert-danger" role="alert">
-        	<strong>Erreur ! </strong><?php echo $error; ?>
+        	<strong><?php echo $error; ?></strong>
         </div>
         <?php }
         if (!empty($success)) { ?>
         <div class="alert alert-success" role="alert">
-        	<strong>Succès ! </strong><?php echo $success; ?>
+          <strong><?php echo $success; ?></strong>
         </div>
         <?php } ?>
     </form>

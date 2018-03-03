@@ -3,51 +3,62 @@ ob_start(); ?>
 
 <h3 class="contentTitle">Petites annonces</h3>
 
-<div class="formStyle">
-    <form action="index.php?action=addAdvertisment" method="post">
+<?php
+if ($_SESSION['connected'] == true) {
+?>
+
+<div class="subButtonsStyle sbsToggler">
+	<h4>Déposer une annonce</h4>
+	<i class="fas fa-bars"></i>
+</div>
+<div class="formStyle fsContent">
+    <form action="index.php?action=addAdvertisement" method="post">
     	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
         <div>
-        	<label for="title">Intitulé</label><br />
-            <input type="text" id="title" name="title" /><br />
-            <label for="location">Lieu</label><br />
-            <input type="text" id="location" name="location" /><br />
-            <label for="content">Contenu</label><br />
-            <div class="textareaTinyMce">
-            	<textarea id="message" name="message" /></textarea><br />
-            	<button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
-           	</div>
+			<label for="id_category">Catégorie *</label><br />
+				<select name="id_category" id="id_category" required>
+				<option value="artist">Cherche artiste</option>
+				<option value="model">Cherche modèle</option>
+				<option value="event">Evénement</option>
+				<option value="other">Autre</option>
+			</select><br />
+        	<label for="title">Intitulé *</label><br />
+            <input type="text" id="title" name="title" required/><br />
+            <label for="town">Ville *</label><br />
+            <input type="text" id="town" name="town" required/><br />
+            <label for="location">Département *</label><br />
+            <input type="number" min="01" max="99" id="county" name="county" required/><br />
+            <label for="location">Emplacement précis</label><br />
+            <input type="text" id="location" name="location"/><br />
+			<label for="date">Date</label><br />
+	        <input type="date" name="date_event" /><br />
+            <label for="content">Contenu *</label><br />
+			<textarea id="content" name="content" required></textarea><br />
+            <button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
         </div>
     </form>
 </div>
-
+<?php
+}
+?>
 <!--  PAGINATION A GERER -->
-
-<h4 class="contentSubTitle">Annonces en ligne</h4>
 
 <div class="container-fluid advertisementsContainer">
 	<div class="row advertisementsRow">
 		<div class="advertisementsBlocks col-md-6">
-			<a href="" class="subButtonsStyle">Cherche artiste</a>
+			<a href="" class="subButtonsStyle"><?php echo $_POST['name']; ?>Cherche artiste</a>
 		</div>
 
 		<div class="advertisementsBlocks col-md-6">
-			<a href="" class="subButtonsStyle">Cherche modèle</a>
+			<a href="" class="subButtonsStyle"><?php echo $_POST['name']; ?>Cherche modèle</a>
 		</div>
 
 		<div class="advertisementsBlocks col-md-6">
-			<a href="" class="subButtonsStyle">Matériel à vendre</a>
+			<a href="" class="subButtonsStyle"><?php echo $_POST['name']; ?>Evénement</a>
 		</div>
 
 		<div class="advertisementsBlocks col-md-6">
-			<a href="" class="subButtonsStyle">Oeuvres à vendre</a>
-		</div>
-
-		<div class="advertisementsBlocks col-md-6">
-			<a href="" class="subButtonsStyle">Evénement</a>
-		</div>
-
-		<div class="advertisementsBlocks col-md-6">
-			<a href="" class="subButtonsStyle">Autre</a>
+			<a href="" class="subButtonsStyle"><?php echo $_POST['name']; ?>Autre</a>
 		</div>
 	</div>
 </div>

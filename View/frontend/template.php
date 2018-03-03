@@ -30,6 +30,18 @@
 				<div id="sidebar" class="col-md-4">
 
 	<!-- INTRODUCTION -->
+				<div id="researchSidebar">
+					<form action="index.php?action=research" method="Post">
+						<input type="text" name="keywords" placeholder="Rechercher"/>
+						<button type="submit" name="submit" class="buttonStyle" value="Rechercher"><i class='fas fa-search'></i></button>
+					</form>
+				</div>
+
+	            <div class="subButtonsStyle sbsTogglerSidebar">
+	                <h4>Présentation</h4>
+	                <i class="fas fa-bars"></i>
+	            </div>
+	            <div class="fsContentSidebar">
 					<div id="titleSidebar">
 			            <a href="index.php">
 			            	<h1 id="title">Modèles vivants</h1>
@@ -42,8 +54,14 @@
 		                	Vous y trouverez des anecdotes vécues et rapportées, ainsi que des pratiques propres à ce métier original.</p>
 		                </div>
 			        </div>
+			    </div>
 
 	<!-- MENU -->
+				<div class="subButtonsStyle sbsTogglerSidebar">
+	                <h4>Menu</h4>
+	                <i class="fas fa-bars"></i>
+	            </div>
+	            <div class="fsContentSidebar">
 			        <div class="menu">
 						<div id="menuLinks">
 							<nav>
@@ -57,11 +75,17 @@
 							</nav>
 						</div>
 					</div>
+				</div>
 
 	<!-- CONNEXION -->			
 <?php
 if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou pas. Si c'est non, on affiche le formulaire de connexion :
 ?>
+				<div class="subButtonsStyle sbsTogglerSidebar">
+	                <h4>Connexion</h4>
+	                <i class="fas fa-bars"></i>
+	            </div>
+	            <div class="fsContentSidebar">
 					<div id="connexion">
 						<h2>Connexion</h2>
 					    <form action="index.php?action=login" method="post" class="connexion">			   
@@ -75,6 +99,7 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
   						<a href="index.php?action=createAccount" class="" id="createAccount">Pas encore de compte ?</a><br />
 					    <a href="index.php?action=forgotPassword" class="" id="forgotPassword">Mot de passe oublié ?</a>
 					</div>
+				</div>
 <?php
 } else { // Si une session existe, on affiche le formulaire de gestion de compte (déconnexion et gestion)
 ?>
@@ -87,9 +112,9 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
 }
 ?>
 	<!-- FOOTER -->
-					<div class="pushFooter"></div>            
+					<div class="pushFooter"></div>
 
-                    <div id="footerSidebar">
+                    <div class="footer footerSidebar">
 						<p>Site créé par Lucie Kojadinovic - 2018</p>
 					</div>
 				</div>
@@ -109,6 +134,10 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
 				    	<a href="https://discordapp.com/"><i class="fab fa-discord"></i></a>
 				    	<a href="https://www.linkedin.com/in/kaldir/"><i class="fab fa-linkedin-in"></i></a>
 				    	<a href="https://www.deviantart.com/"><i class="fab fa-deviantart"></i></a>
+					</div>
+
+					<div class="footer footerResponsive">
+						<p>Site créé par Lucie Kojadinovic - 2018</p>
 					</div>					
 				</div>
 			</div>
@@ -122,7 +151,7 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
 	<script src="./Public/js/slider.js"></script>
 	<script src="./Public/js/script.js"></script>
 	<script src="./Public/js/tinymce/tinymce.min.js"></script>
-	<script>tinymce.init({ selector:'textarea' });</script>
+	<script>tinymce.init({ selector:'.formattingTinyMce' });</script>
 	<script src="./Public/js/tinymce/jquery.tinymce.min.js"></script>
 	<script>$("p:empty").remove();</script> <!-- permet d'enlever les <p> vides générés par tinyMCE -->
 

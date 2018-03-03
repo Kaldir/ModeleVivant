@@ -1,4 +1,5 @@
 <?php
+require('constants.php');
 session_start();
 
 if (empty($_SESSION['connected'])) {
@@ -122,13 +123,30 @@ if (isset($_GET['action'])) {
             $frontendController->addAdvertisement();
             break; 
 
-        case 'editAd':
+        case 'getAdvertisement':
+            $frontendController->getAdvertisement();
+            break;          
+
+        case 'editAdvertisement':
             $frontendController->editAdvertisement();
             break;
 
-        case 'deleteAd':
+        case 'deleteAdvertisement':
             $frontendController->deleteAdvertisement();
             break;
+
+        case 'signalAd':
+            $frontendController->signalAd();
+            break; 
+
+        case 'getAdsSignalised':
+            $frontendController->getAdsSignalised();
+            break;
+            
+// RESEARCH
+        case 'research':
+            $frontendController->research();
+            break;            
 
 // PAR DEFAUT, AFFICHAGE DE LA PAGE D'ACCUEIL
         default:

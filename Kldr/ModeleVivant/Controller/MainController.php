@@ -5,6 +5,7 @@ class MainController
 {
 // TOKENS
 	public $token;
+
     function __construct() {
         $this->token = bin2hex(random_bytes(32));
     }
@@ -34,45 +35,11 @@ class MainController
 		}
 	}
 
-// ACCOUNTS
-
-/*
-	public function pseudoUpdate($pseudo, $password) {
-		$userManager = new \Kldr\ModeleVivant\Model\UserManager();
-		$pseudoUp = $userManager->pseudoUpdate($pseudo, $password);
-		if ($pseudoUp > 0) { // rapport au rowCount, on vérifie si une ligne a été modifiée (voir userManager.php méthode pseudoUpdate)
-			$_SESSION['pseudo'] = $pseudo;
-		    if (!empty($_POST['newPseudo']) && !empty($_POST['password'])) {
-		   		header('Location: ./?action=pseudoUpdate' .$_POST['newPseudo'], $_POST['password']); ;
-		    } else {
-                $backendControler->error('Tous les champs ne sont pas remplis !');
-            }
-	    } else {
-			$this->error('Impossible de modifier le pseudo !');
-	    }
+// CATEGORY
+	public function getCategory() {
+		$categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
+		$categoryManager->getCategory($_POST['id'], $_POST['name']);
+		$_POST['id'] = $categoryManager->id;
+		$_POST['name'] = $categoryManager->name;
 	}
-
-	public function passUpdate($password, $newPassword) {
-		$userManager = new \Kldr\ModeleVivant\Model\userManager();
-		$passUp = $userManager->passUpdate($password, $newPassword);
-		if ($passUp > 0 && $_POST['newPassword'] == $_POST['checkPassword']) {
-			if  (!empty($_POST['password']) && !empty($_POST['newPassword']) && !empty($_POST['checkPassword'])) {
-				header('Location: ./?action=accountModify' .$_POST['password'], $_POST['newPassword'].'&success=true');
-            } else {
-                $backendControler->error('Tous les champs ne sont pas remplis !');
-            }
-	    } else {
-			$this->error('Impossible de modifier le mot de passe !');
-	    }
-	}
-
-	public function mailUpdate() {
-		
-	}
-
-	public function avatarUpdate() {
-		
-	}
-*/
-
 }

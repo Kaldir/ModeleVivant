@@ -3,12 +3,12 @@ namespace Kldr\ModeleVivant\Model;
 
 class UserManager extends Manager
 {
-    public $pseudo, $mail, $avatar, $admin;
+    public $pseudo, $mail, $avatar, $admin, $id;
 
 // LOGIN
     public function login($password, $mail) {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT pseudo, mail, avatar, password, admin FROM mv_user WHERE mail = ?');
+        $req = $db->prepare('SELECT pseudo, mail, avatar, password, admin, id FROM mv_user WHERE mail = ?');
         $req->execute(array($mail));
         $user = $req->fetch();
         if (!password_verify($password, $user['password'])) { // fonction PHP qui vérifie si les mots de passe (crypté et clair) sont identiques (celui rentré et celui de la bdd)
@@ -18,6 +18,7 @@ class UserManager extends Manager
         $this->mail = $user['mail'];
         $this->avatar = $user['avatar'];
         $this->admin = $user['admin'];
+        $this->id = $user['id'];
         return true;
    }
 
@@ -63,71 +64,33 @@ class UserManager extends Manager
         return true;
     }
 
-    public function updatePseudo($pseudo, $mail, $password) {
+    public function updatePseudo($pseudo, $mail) {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE mv_user SET pseudo = ? WHERE mail = ? AND password = ?');
-        $req->execute(array($pseudo, $mail, $password));
-        if ($this->login($password, $_SESSION['mail']) == false) {
-            return false;
-        } 
-        if ($req->rowCount() > 0) { // permet de compter le nombre de ligne affectées par la dernière requête
-            return true;
-        }
-    }
-
-        public function updateMail($mail, $password) {
-        $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE mv_user SET mail = ? WHERE password = ?');
-        $req->execute(array($mail, $password));
-        if ($req->rowCount() < 1) { // permet de compter le nombre de ligne affectées par la dernière requête
+        $req = $db->prepare('UPDATE mv_user SET pseudo = ? WHERE mail = ?');
+        $req->execute(array($pseudo, $mail));
+        if ($req->rowCount() < 1) {
             return false;
         }
         return true;
     }
 
-        public function updateAvatar($avatar, $mail, $password) {
+        public function updateMail($newMail, $mail) {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE mv_user SET password = ? WHERE mail = ? AND password = ?');
-        $req->execute(array($avatar, $mail, $password));
-        if ($req->rowCount() < 1) { // permet de compter le nombre de ligne affectées par la dernière requête
+        $req = $db->prepare('UPDATE mv_user SET mail = ? WHERE mail = ?');
+        $req->execute(array($newMail, $mail));
+        if ($req->rowCount() < 1) {
             return false;
         }
         return true;
     }
-/*
-    public function updatePseudo($pseudo, $password) {
+
+    public function updateAvatar($newAvatar, $mail) {
         $db = $this->dbConnect();
-        $checkLogin = $this->checkLogin($password, $_SESSION['mail']);
-        if (is_array($checkLogin)) {
-            $req = $db->prepare('UPDATE mv_user SET pseudo = ? WHERE mail = ?');
-            $req->execute(array($pseudo, $_SESSION['mail']));
-            $upPseudo = $req->rowCount(); // permet de compter le nombre de ligne affectées par la dernière requête
-            return $upPseudo;
-        } else {
+        $req = $db->prepare('UPDATE mv_user SET avatar = ? WHERE mail = ?');
+        $req->execute(array($newAvatar, $mail));
+        if ($req->rowCount() < 1) {
             return false;
         }
+        return true;
     }
-
-        public function passUpdate($password, $newPassword) {
-        $db = $this->dbConnect();
-        $login = $this->login($password, $_SESSION['mail']);
-        if (is_array($checkLogin)) {
-            $newPassword = password_hash($newPassword, PASSWORD_DEFAULT); // Hachage du mot de passe
-            $req = $db->prepare('UPDATE mv_user SET password = ? WHERE mail = ?');
-            $req->execute(array($newPassword, $_SESSION['mail']));
-            $passUp = $req->rowCount(); // permet de compter le nombre de ligne affectées par la dernière requête
-            return $passUp;
-        } else {
-            return false;
-        }
-    }
-
-	public function updateMail() {
-
-	}
-
-	public function updateAvatar() {
-
-	}
-*/
 }

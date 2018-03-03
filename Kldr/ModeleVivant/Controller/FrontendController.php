@@ -3,6 +3,35 @@ namespace Kldr\ModeleVivant\Controller;
 
 class FrontendController extends MainController
 {
+// RESEARCH
+    public function research() {
+        if (isset($_POST['submit'])) {
+            $errors = array();
+            $postManager = new \Kldr\ModeleVivant\Model\PostManager();
+            $adManager = new \Kldr\ModeleVivant\Model\AdManager();
+            if (empty(trim($_POST['keywords']))) {
+                $errors[] = 'Le champ n\'est pas rempli !';
+                $variables = compact(['errors']);
+                $this->view('common/error', $variables);
+            } else {
+                $keywords = trim($_POST['keywords']); // supprimer les espace en début et fin de chaîne
+                $keywords = preg_replace('!\s+!', '|', $keywords); // enlève tous les espaces et les remplace par |
+                $posts = $postManager->researchPost($_POST['keywords']);
+                $ads = $adManager->researchAd($_POST['keywords']);
+                if ($posts == false && $ads == false)  {
+                    $errors[] = 'Aucun résultat ne correspond à votre recherche !';
+                    $variables = compact(['errors']);
+                    $this->view('common/error', $variables);
+                } else {
+                    $variable = compact(['posts'], ['ads']);
+                    $this->view('common/research', $variable);
+                }
+            }  
+        } else {
+            $this->home();
+        }
+    }
+
 // ACCOUNT 
     public function createAccount() {
         if (isset($_POST['submit'])) { // si le formulaire est envoyé
@@ -97,38 +126,151 @@ class FrontendController extends MainController
 
     public function updatePassword() {
         if (isset($_POST['submit'])) {
-        $errors = array();
-        $userManager = new \Kldr\ModeleVivant\Model\UserManager();
-        }
-        if ($this->checkToken() == false) {
-            $errors[] = 'Erreur de session...';
-        } elseif (empty(trim($_POST['password'])) || empty(trim($_POST['newPassword'])) || empty(trim($_POST['checkPassword']))) {
-            $errors[] = 'Il manque des informations dans les champs !';
-        } elseif ($_POST['newPassword'] != $_POST['checkPassword']) {
-            $errors[] = 'Les mots de passe ne sont pas identiques !';
-        } elseif ($userManager->login($_POST['password'], $_SESSION['mail']) == false) {
-            $errors[] = 'Mauvais mot de passe !';
-        }
-        if(!empty($errors)) {
-            $variables = compact(['errors']);
-            $this->view('common/modifyAccount', $variables);
-        } else {
-            $result = $userManager->updatePassword($_POST['newPassword'], $_SESSION['mail']);
-            if ($result == false) {
-                $errors[] = 'Impossible de modifier le mot de passe, réessayer plus tard...';
+            $errors = array();
+            $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+            if ($this->checkToken() == false) {
+                $errors[] = 'Erreur de session...';
+            } elseif (empty(trim($_POST['password'])) || empty(trim($_POST['newPassword'])) || empty(trim($_POST['checkPassword']))) {
+                $errors[] = 'Il manque des informations dans les champs !';
+            } elseif ($_POST['newPassword'] != $_POST['checkPassword']) {
+                $errors[] = 'Les mots de passe ne sont pas identiques !';
+            } elseif ($userManager->login($_POST['password'], $_SESSION['mail']) == false) {
+                $errors[] = 'Mauvais mot de passe !';
+            }
+            if(!empty($errors)) {
                 $variables = compact(['errors']);
                 $this->view('common/modifyAccount', $variables);
             } else {
-                $success = 'Mail mis à jour avec succès !';
-                $variables = compact(['success']);
-                $this->view('common/modifyAccount', $variables);
+                $result = $userManager->updatePassword($_POST['newPassword'], $_SESSION['mail']);
+                if ($result == false) {
+                    $errors[] = 'Impossible de modifier le mot de passe, réessayer plus tard...';
+                    $variables = compact(['errors']);
+                    $this->view('common/modifyAccount', $variables);
+                } else {
+                    $success = 'Mot de passe mis à jour avec succès !';
+                    $variables = compact(['success']);
+                    $this->view('common/modifyAccount', $variables);
+                }
             }
+        } else {
+            $this->view('common/modifyAccount');
         }
     }
 
+    public function updatePseudo() {
+        if (isset($_POST['submit'])) {
+            $errors = array();
+            $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+            if ($this->checkToken() == false) {
+                $errors[] = 'Erreur de session...';
+            } elseif (empty(trim($_POST['newPseudo'])) || empty(trim($_POST['password']))) {
+                $errors[] = 'Il manque des informations dans les champs !';
+            } elseif ($userManager->checkUserByPseudo($_POST['newPseudo']) == true) {
+                $errors[] = 'Ce pseudo est déjà pris !';
+            } elseif ($userManager->login($_POST['password'], $_SESSION['mail']) == false) {
+                $errors[] = 'Mauvais mot de passe !';
+            }
+            if(!empty($errors)) {
+                $variables = compact(['errors']);
+                $this->view('common/modifyAccount', $variables);
+            } else {
+                $result = $userManager->updatePseudo($_POST['newPseudo'], $_SESSION['mail']);
+                if ($result == false) {
+                    $errors[] = 'Impossible de modifier le pseudo, réessayer plus tard...';
+                    $variables = compact(['errors']);
+                    $this->view('common/modifyAccount', $variables);
+                } else {
+                    $success = 'Pseudo modifié avec succès !';
+                    $variables = compact(['success']);
+                    $_SESSION['pseudo'] = $_POST['newPseudo'];
+                    $this->view('common/modifyAccount', $variables);
+                }
+            }
+        } else {
+            $this->view('common/modifyAccount');
+        }
+    }
 
-// une fois les update pseudo et mail fait, il faut relogger avec la method login (afin d'actualiser les variables de session)
+    public function updateMail() {
+        if (isset($_POST['submit'])) {
+            $errors = array();
+            $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+            if ($this->checkToken() == false) {
+                $errors[] = 'Erreur de session...';
+            } elseif (empty(trim($_POST['newMail'])) || empty(trim($_POST['checkMail'])) || empty(trim($_POST['password']))) {
+                $errors[] = 'Il manque des informations dans les champs !';
+            } elseif (!filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'L\'adresse mail n\'est pas valide !';
+            } elseif ($userManager->checkUserByMail($_POST['newMail']) == true) {
+                $errors[] = 'Ce mail est déjà pris !';
+            } elseif ($userManager->login($_POST['password'], $_SESSION['mail']) == false) {
+                $errors[] = 'Mauvais mot de passe !';
+            }
+            if(!empty($errors)) {
+                $variables = compact(['errors']);
+                $this->view('common/modifyAccount', $variables);
+            } else {
+                $result = $userManager->updateMail($_POST['newMail'], $_SESSION['mail']);
+                if ($result == false) {
+                    $errors[] = 'Impossible de modifier le mail, réessayer plus tard...';
+                    $variables = compact(['errors']);
+                    $this->view('common/modifyAccount', $variables);
+                } else {
+                    $success = 'Mail modifié avec succès !';
+                    $variables = compact(['success']);
+                    $_SESSION['mail'] = $_POST['newMail'];
+                    $this->view('common/modifyAccount', $variables);
+                }
+            }
+        } else {
+            $this->view('common/modifyAccount');
+        }
+    }
 
+    public function updateAvatar() {
+        if (isset($_POST['submit'])) {
+            $errors = array();
+            $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+            $size = filesize($_FILES['newAvatar']['tmp_name']);
+            $maxSize = 200000;
+            $extension = strtolower(strrchr($_FILES['newAvatar']['name'], '.')); // récupère l'extension du fichier uploadé et la met en minuscule
+            $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+            $file = uniqid(). $extension; // génère un nom aléatoire pour le fichier
+            if ($this->checkToken() == false) {
+                $errors[] = 'Erreur de session...';
+                exit;
+            } if ($_FILES['newAvatar']['error']) {
+                $errors[] = 'Erreur lors du chargement de l\'image...'; 
+            } if (!in_array($extension, $extensions)) { // Si l'extension n'est pas dans le tableau
+                $errors[] = 'Votre avatar doit être de type png, gif, jpg ou jpeg.';
+            } if ($size > $maxSize || ($_FILES['newAvatar']['error']) == 2) { // la superglobale $_FILES a déjà une base d'erreurs répertoriées sous diffrents numéros. Le numéro 2 correspond à un fichier torp volumineux
+                $errors[] = 'Le fichier est trop volumineux...200Ko max !';
+            }
+            if (!empty($errors)) {
+                $variables = compact(['errors']);
+                $this->view('common/modifyAccount', $variables);
+            } elseif (move_uploaded_file($_FILES['newAvatar']['tmp_name'], AVATAR_PATH . $file) == false) { // déplace le fichier uploadé (nom temporaire, destination du fichier (chemin + nom du fichier))
+                $errors[] = 'Echec de l\'upload !';
+                $result = $userManager->updateAvatar($file, $_SESSION['mail']);
+                if ($result == false) {
+                    $errors[] = 'Impossible de modifier l\'avatar, réessayer plus tard...';
+                    $variables = compact(['errors']);
+                    $this->view('common/modifyAccount', $variables);
+                }
+            } else {
+                $success = 'Avatar modifié avec succès !';
+                $variables = compact(['success']);
+                if (file_exists(AVATAR_PATH . $_SESSION['avatar']) && $_SESSION['avatar'] != 'default.png') { // vérifie que le fichier et son chemin existent et qu'il ne s'agit pas de l'avatar par défaut, afin de ne pas le supprimer du serveur...
+                    unlink(AVATAR_PATH . $_SESSION['avatar']); // supprime l'avatar précédent de l'utilisateur
+                    $_SESSION['avatar'] = $file;
+                    $this->view('common/modifyAccount', $variables);
+                }
+            }
+        } else {
+            $this->view('common/modifyAccount');
+        }
+    }
+    
 	public function login() {
         $errors = array();
         $userManager = new \Kldr\ModeleVivant\Model\UserManager();
@@ -149,27 +291,90 @@ class FrontendController extends MainController
                 $_SESSION['mail'] = $userManager->mail;
                 $_SESSION['avatar'] = $userManager->avatar;
                 $_SESSION['admin'] = $userManager->admin;
+                $_SESSION['id'] = $userManager->id;
                 header('Location: ./?action=modifyAccount');
             }
         }
-    }  
-/*
-    public function sendMailContact() {
+    } 
+
+// ADVERTISEMENTS
+    public function addAdvertisement() {
         if (isset($_POST['submit'])) {
-            $subject = 'Modèles vivants - Quelqu\'un vous a écrit !';
-            $sendMailAccount = 
-            $mailSended = mail('lulu@kldr.fr', $subject, $sendMailAccount, 'From : <'. $_POST['mail'] .'>');
-            if ($mailSended) {
-                $success = 'Votre email a bien été envoyé !';
+            $errors = array();
+            $adManager = new \Kldr\ModeleVivant\Model\AdManager();
+            if ($this->checkToken() == false) {
+            $errors[] = 'Erreur de session...';
+            $variables = compact(['errors']);
+            $this->view('common/error', $variables);
+            } elseif (empty(trim($_POST['id_category'])) || empty(trim($_POST['title'])) || empty(trim($_POST['town'])) || empty(trim($_POST['county'])) || empty(trim($_POST['content']))) {
+                $errors[] = 'Tous les champs ne sont pas remplis !';
+            }
+            if (!empty($errors)) {
+                $variables = compact(['errors']);
+                $this->view('common/advertisements', $variables);
             } else {
-                $errors = 'Echec de l\'envoi du mail...';
+                $result = $adManager->addAdvertisement($_POST['id_category'], $_SESSION['id_user'], $_POST['title'], $_POST['town'], $_POST['county'], $_POST['location'], $_POST['date_event'], $_POST['content']);
+                if ($result == false) {
+                    $errors[] = $result['Impossible de créer l\'annonce'];
+                    $variables = compact(['errors']);
+                    $this->view('common/advertisements', $variables);
+                } else {
+                    $this->view('common/advertisements'); 
+                }
             }
         } else {
-            $this->view('frontend/contact');
+            $this->view('common/advertisements');
+        }
+    }
+/*      
+    public function getAdvertisement() {
+        if (isset($_POST['submit'])) {
+            $errors = array();
+            $adManager = new \Kldr\ModeleVivant\Model\AdManager();
+        } else {
+            $this->view('common/advertisements');
+        }
+    }
+
+    public function editAdvertisement() {
+        $adManager = new \Kldr\ModeleVivant\Model\AdManager();
+        
+    }
+
+    public function deleteAdvertisement() {
+        
+    }
+
+    public function signalAd() {
+        
+    }
+
+// SEND MAIL
+    public function sendMailContact() {
+        if (isset($_POST['submit'])) {
+        $errors = array();
+        $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+        }
+        if ($this->checkToken() == false) {
+            $errors[] = 'Erreur de session...';
+        }
+
+        $to = lulu@kldr.fr;
+        $subject = 'Modèles vivants - Quelqu\'un vous a écrit !';
+        $message = "";
+        $headers = 'From: <'. $_POST['mail'] .'>';
+        $mailSent = mail($to, $subject, $message, $headers);
+        if ($mailSent == false) {
+            $errors[] = 'Le mail n\'a pu être envoyé...';
+            $variables = compact(['errors']);
+            $this->view('frontend/contact', $variables);
+        } else {
+            $success = 'Votre mail a bien été envoyé !';
+            $variables = compact(['success']);
+            $this->view('frontend/contact', $variables);
         }
     }
 */
-
     public function modifyAccount() {
         $this->view('common/modifyAccount');
     }

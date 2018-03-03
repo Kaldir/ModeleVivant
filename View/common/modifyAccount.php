@@ -9,7 +9,7 @@ if (isset($errors)) {
     foreach ($errors as $error) {
     ?>
     <div class="alert alert-danger" role="alert">
-        <strong>Erreur ! </strong><?php echo $error; ?>
+        <strong><?php echo $error; ?></strong>
     </div>
     <?php
     }
@@ -17,7 +17,7 @@ if (isset($errors)) {
 
 if (isset($success)) { ?>
 <div class="alert alert-success" role="alert">
-    <strong>Succès ! </strong><?php echo $success; ?>
+    <strong><?php echo $success; ?></strong>
 </div>
 <?php } ?>
 
@@ -25,7 +25,10 @@ if (isset($success)) { ?>
 <div class="container">
     <div class="row justify-content-center">
         <div id="modifyPseudo" class="modifyAccount col-md-6">
-            <h4 class="subButtonsStyle sbsToggler">Modification du pseudo</h4>
+            <div class="subButtonsStyle sbsToggler">
+                <h4>Modification du pseudo</h4>
+                <i class="fas fa-bars"></i>
+            </div>
             <div class="formStyle fsContent">
                 <div class="infosUser"><?php echo $_SESSION['pseudo']; ?></div>
                 <form action="index.php?action=updatePseudo" method="post" class="connexionUser">
@@ -41,15 +44,18 @@ if (isset($success)) { ?>
 
 <!-- MAIL -->
         <div id="modifyMail" class="modifyAccount col-md-6">
-            <h4 class="subButtonsStyle sbsToggler">Modification du mail</h4>
+            <div class="subButtonsStyle sbsToggler">
+                <h4>Modification du mail</h4>
+                <i class="fas fa-bars"></i>
+            </div>
             <div class="formStyle fsContent">
                 <div class="infosUser"><?php echo $_SESSION['mail']; ?></div>
                 <form action="index.php?action=updateMail" method="post" class="connexionUser">  
                     <input name="token" type="hidden" value="<?php echo $this->token; ?>"/>             
                     <label for="newMail">Nouvel email</label><br />
-                    <input type="text" id="newMail" name="newMail" required /><br />
-                    <label for="newMail">Confirmation du nouvel email</label><br />
-                    <input type="text" id="newMail" name="newMail" required /><br />
+                    <input type="email" id="newMail" name="newMail" required /><br />
+                    <label for="checkMail">Confirmation du nouvel email</label><br />
+                    <input type="email" id="checkMail" name="checkMail" required /><br />
                     <label for="password">Mot de passe</label><br />
                     <input type="password" class="password" name="password" required /><br />
                     <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
@@ -59,14 +65,18 @@ if (isset($success)) { ?>
 
 <!-- AVATAR -->
         <div id="modifyAvatar" class="modifyAccount col-md-6">
-            <h4 class="subButtonsStyle sbsToggler">Modification de l'avatar</h4>
+            <div class="subButtonsStyle sbsToggler">
+                <h4>Modification de l'avatar</h4>
+                <i class="fas fa-bars"></i>
+            </div>            
             <div class="formStyle fsContent">
-                <img class="infosUser infoUserAvatar" src="http://kaldir.fr/OCR/Projet_5/Acces_au_site/Public/img/feather12.png" alt="Votre_avatar" />
-                <form action="index.php?action=updateAvatar" method="post" class="connexionUser" enctype="multipart/form-data">     
+               <img class="infosUser infoUserAvatar" src="<?php echo AVATAR_PATH . $_SESSION['avatar']; ?>" alt="Votre_avatar" />
+                <form action="index.php?action=updateAvatar" method="post" class="connexionUser" enctype="multipart/form-data">
                     <input name="token" type="hidden" value="<?php echo $this->token; ?>"/>         
                     <label for="newAvatar">Télécharger un avatar depuis votre ordinateur</label><br />
-                    <input type="hidden" name="MAX_FILE_SIZE" value="300000"> <!-- limite la taille du fichier à 300Ko -->
-                    <input type="file" id="newAvatar" name="newAvatar"><br />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="200000"> <!-- limite la taille du fichier à 200Ko -->
+                    <input type="file" accept=".png, .jpeg, .jpg" id="newAvatar" name="newAvatar" required><br />
+                    <span>(200Ko max, format jpeg, jpg, png)</span><br />
                     <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
                 </form>
             </div>
@@ -74,7 +84,10 @@ if (isset($success)) { ?>
 
 <!-- PASSWORD -->
         <div id="modifyPassword" class="modifyAccount col-md-6">
-            <h4 class="subButtonsStyle sbsToggler">Modification du mot de passe</h4>
+            <div class="subButtonsStyle sbsToggler">
+                <h4>Modification du mot de passe</h4>
+                <i class="fas fa-bars"></i>
+            </div>            
             <div class="formStyle fsContent">
                 <form action="index.php?action=updatePassword" method="post" class="connexionUser">
                     <input name="token" type="hidden" value="<?php echo $this->token; ?>"/>

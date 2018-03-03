@@ -11,7 +11,16 @@ body {
     align-self: center;
     display: inline-block;
 }
-
+.alert {
+	text-align: center !important;
+}
+input {
+	margin-top: 10px;
+}
+.subButtonsStyle.sbsToggler {
+	justify-content: space-between;
+	padding: 10px 20px 0;
+}
 /* BUTTONS */
 .buttonStyle {
     color: white;
@@ -29,15 +38,22 @@ body {
 	    background-color: #5b2e92;
 	}
 .subButtonsStyle {
-	color: white;
+    color: white;
     background-color: #b48ed4;
-    padding: 5px;
     text-align: center;
     border-bottom-left-radius: 8px;
-	border-top-right-radius: 8px;
-	transition : all 0.5s;
-	cursor: pointer;
+    border-top-right-radius: 8px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    margin: 10px 0;
+    justify-content: center;
+    padding: 5px;
 }
+	.subButtonsStyle svg {
+		font-size: 1.5em;
+	}
 	.subButtonsStyle:hover {
 		text-decoration: none;
 	    color: white;
@@ -87,6 +103,7 @@ form {
 		align-self: center;
 		margin: 0;
 		width: 10%;
+		opacity: 0.5;
 	}
 
 /* SIDEBAR */
@@ -95,6 +112,21 @@ form {
     flex-direction: column;
     margin-bottom: 20px;
 }
+#researchSidebar {
+    	margin-top: 20px;
+	    text-align: center;
+	    background-color: #5b2e92;
+	    line-height: 1;
+}
+	#researchSidebar button {
+        width: 30px;
+		height: 30px;
+	}
+		#researchSidebar button:hover {
+	        background-color: white;
+	        color: #5b2e92;
+		}
+
 	#titleSidebar, .menu, #connexion, #disconnection {
 		border: 2px solid;
     	padding: 15px;
@@ -127,6 +159,9 @@ form {
 		#textIntro {
 			padding: 5px 20px;
 		}
+.sbsTogglerSidebar {
+	display: none;
+}
 
 /* MENU */
 .menu {
@@ -161,7 +196,7 @@ form {
 }
 
 /* FOOTER */
-#footerSidebar {
+.footer {
     padding: 15px 15px 0;
     margin-top: 20px;
     text-align: center;
@@ -169,6 +204,9 @@ form {
 	color: white;
 	border-bottom-left-radius: 8px;
     border-top-right-radius: 8px;
+}
+.footerResponsive {
+	display: none;
 }
 
 /* CONTENT */
@@ -181,6 +219,7 @@ form {
 	    width: 15%;
 	    align-self: flex-end;
 	    margin: 0 20px;
+	    opacity: 0.5;
 	}
 	#content .contentTitle, .contentSubTitle {
 		background-color: #5b2e92;
@@ -233,7 +272,6 @@ form {
 	    display: flex;
 	    flex-direction: column;
 	    text-align: center;
-
 	}
 	.homeBlocks {
 	    display: flex;
@@ -244,17 +282,18 @@ form {
 	    width: 40%;
 	    align-self: center;
 	    padding-bottom: 20px;
+	    opacity: 0.7;
 	}
 	#homeImg {
 		display: flex;
 	    justify-content: center;
 	}
-			#homeImg img {
-				width: 50%;
-				height: 50%;
-			    border: #5b2e92 solid 2px;
-			    border-radius: 10%;
-			}
+		#homeImg img {
+			width: 50%;
+			height: 50%;
+		    border: #5b2e92 solid 2px;
+		    border-radius: 10%;
+		}
 
 /* CONTACT */
 #checkBoxContact input {
@@ -269,12 +308,7 @@ form {
    		width: 50%;
    	}
 
-/* ADVERTISEMENTS */
-.advertisementsBlocks .subButtonsStyle, .postsBlocks .subButtonsStyle, .marketBlocks .subButtonsStyle, #disconnection .subButtonsStyle {
-    display: flex;
-    margin: 10px 0;
-    justify-content: center;
-}
+
 
 /* SLIDER */
 .slideshow {
@@ -322,4 +356,33 @@ form {
     height: 100px;
     border: #5b2e92 solid 1px;
     background-color: white;
+}
+#modifyAvatar span {
+	font-size: 0.8em;
+	font-style: italic;
+}
+
+/* AVERTISEMENTS */
+.adStyle {
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+@media screen and (max-width: 360px) {
+	.sbsTogglerSidebar {
+		display: flex;
+		margin-bottom: 0;
+		margin-top: 20px;
+	}
+	.fsContentSidebar {
+		display: none;
+	}
+	.footerSidebar {
+		display: none;
+	}
+	.footerResponsive {
+		display: flex;
+		margin: 0 0 20px;
+	    justify-content: center;
+	}
 }

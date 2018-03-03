@@ -17,7 +17,7 @@ ob_start(); ?>
             foreach ($errors as $error) {
             ?>
             <div class="alert alert-danger" role="alert">
-                <strong>Erreur ! </strong><?php echo $error; ?>
+                <strong><?php echo $error; ?></strong>
             </div>
             <?php
             }
@@ -25,7 +25,7 @@ ob_start(); ?>
 
         if (isset($success)) { ?>
         <div class="alert alert-success" role="alert">
-        	<strong>Succès ! </strong><?php echo $success; ?>
+        	<strong><?php echo $success; ?></strong>
         </div>
         <?php } ?>
         </form>
