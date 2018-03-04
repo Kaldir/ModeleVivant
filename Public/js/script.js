@@ -6,9 +6,16 @@ $(document).ready(function() {
     });
 });
 
+// SIDEBAR TOGGLER
+$(document).ready(function() {
+    $(".sbsTogglerResponsive").click(function() {
+    $(this).next(".fsContentResponsive").slideToggle();
+    });
+});
+
 // MENU TOGGLER
 $(document).ready(function() {
-    $(".sbsTogglerSidebar").click(function() {
-    $(this).next(".fsContentSidebar").slideToggle();
+    $(".sbsTogglerResponsive").click(function() {
+    $(this).next(".fsContentResponsive").slideToggle();
     });
 });

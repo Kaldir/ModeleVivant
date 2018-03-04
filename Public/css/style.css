@@ -17,10 +17,7 @@ body {
 input {
 	margin-top: 10px;
 }
-.subButtonsStyle.sbsToggler {
-	justify-content: space-between;
-	padding: 10px 20px 0;
-}
+
 /* BUTTONS */
 .buttonStyle {
     color: white;
@@ -59,6 +56,13 @@ input {
 	    color: white;
 	    background-color: #5b2e92;
 	}
+a.buttonStyle {
+	line-height: 37px;
+}
+.subButtonsStyle.sbsToggler {
+	justify-content: space-between;
+	padding: 10px 20px 0;
+}
 
 /* FORMS */
 form {
@@ -308,8 +312,6 @@ form {
    		width: 50%;
    	}
 
-
-
 /* SLIDER */
 .slideshow {
 	padding: 0 !important;
@@ -362,19 +364,74 @@ form {
 	font-style: italic;
 }
 
-/* AVERTISEMENTS */
+/* ADVERTISEMENTS */
 .adStyle {
 	margin-bottom: 20px;
 	padding: 20px;
 }
+#id_category {
+	margin: 10px 0 15px;
+    width: 50%;
+}
+
+/* MARKETPLACE */
+.marketBlocks img {
+	width: 150px;
+}
+.marketText {
+	padding: 15px;
+}
+	.marketText a {
+		color: #5b2e92;
+		text-decoration: none;
+		text-align: justify;
+    	display: flex;
+    	flex-direction: column;
+	}
+		.marketText img {
+			align-self: center;
+		}
+
+/* FRIENDS */
+.formStyle.friends {
+	flex-direction: row;
+	text-align: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+.friendsImg {
+    width: 300px;
+    overflow: hidden;
+    height: 100px;
+}
+	.friendsImg img {
+	    width: 200px;
+	}
+.friendsText {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ERRORS */
+.errorContent {
+	display: flex;
+    flex-direction: column;
+}
+	.errorContent button {
+		align-self: center;
+	}
 
 @media screen and (max-width: 360px) {
-	.sbsTogglerSidebar {
+	.subButtonsStyle.sbsTogglerSidebar {
 		display: flex;
 		margin-bottom: 0;
 		margin-top: 20px;
+		justify-content: space-between;
+		padding: 10px 20px 0;
 	}
-	.fsContentSidebar {
+	.fsContentSidebar, .fsContentResponsive {
 		display: none;
 	}
 	.footerSidebar {

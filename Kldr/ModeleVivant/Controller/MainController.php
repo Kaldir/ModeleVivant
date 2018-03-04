@@ -34,12 +34,4 @@ class MainController
 			require('./View/frontend/template.php');
 		}
 	}
-
-// CATEGORY
-	public function getCategory() {
-		$categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
-		$categoryManager->getCategory($_POST['id'], $_POST['name']);
-		$_POST['id'] = $categoryManager->id;
-		$_POST['name'] = $categoryManager->name;
-	}
 }

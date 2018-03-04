@@ -69,22 +69,11 @@ if (isset($_GET['action'])) {
             $frontendController->sendMailContact();
             break;  
 
-// TUTOS       
+// POSTS       
         case 'tutos':
             $frontendController->tutos();
             break; 
 
-// MARKETPLACE
-        case 'marketplace':
-            $frontendController->marketplace();
-            break; 
-
-// FRIENDS
-        case 'friends':
-            $frontendController->friends();
-            break;
-
-// POSTS
         case 'addPost':
             $frontendController->addPost();
             break;
@@ -95,7 +84,25 @@ if (isset($_GET['action'])) {
 
         case 'deletePost':
             $frontendController->deletePost();
+            break;
+
+        case 'displayOnePost':
+            $frontendController->displayOnePost();
             break; 
+
+        case 'getExcerpt':
+            $frontendController->getExcerpt();
+            break;
+            
+// MARKETPLACE
+        case 'marketplace':
+            $frontendController->marketplace();
+            break; 
+
+// FRIENDS
+        case 'friends':
+            $frontendController->friends();
+            break;
 
 // COMMENTS
         case 'addComment':
@@ -113,6 +120,8 @@ if (isset($_GET['action'])) {
         case 'signalComment':
             $frontendController->signalComment();
             break; 
+
+// CATEGORIES
 
 // ADVERTISEMENTS
         case 'advertisements':

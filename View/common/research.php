@@ -4,36 +4,50 @@ ob_start(); ?>
 <h3 class="contentTitle">Votre recherche</h3>
 
 <?php
-while ($post = $posts->fetch()) { // fetch permet de récupérer le résultat d'une requête
+if (!empty($posts)) {
 ?>
-
 <div class="subButtonsStyle sbsToggler">
 	<h4>Section tutos et partage d'expériences</h4>
     <i class="fas fa-bars"></i>
 </div>
+<?php
+}
+foreach ($posts as $post) {
+?>
+
 <div class="fsContent">
 	<div class="formStyle adStyle">
-		<?php echo $post['title']; ?>
-	</div>
-	<div class="formStyle adStyle">
-		<?php echo $post['content']; ?>
+		<strong><?php echo $post['title']; ?></strong>
+		<i class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></i>
+<!--
+	<p><?php // echo $this->getExcerpt($post['content']); ?></p>
+	    <a class="buttonStyle" href="index.php?action=displayOnePost&amp;id=<?php // echo htmlspecialchars($post['id']); ?>">Lire la suite...</a>
+-->
 	</div>
 </div>
 
 <?php
 }
-while ($ad = $ads->fetch()) {
+if (!empty($ads)) {
 ?>
 <div class="subButtonsStyle sbsToggler">
 	<h4>Section annonces</h4>
     <i class="fas fa-bars"></i>
 </div>
+<?php
+}
+foreach ($ads as $ad) {
+?>
+
 <div class="fsContent">
 	<div class="formStyle adStyle">
-		<?php echo $ad['title']; ?>
-	</div>
-	<div class="formStyle adStyle">
-		<?php echo $ad['content']; ?>
+		<strong><?php echo $ad['title']; ?></strong>
+		<i class="smallInfosText">publié le <?php echo htmlspecialchars($ad['creation_date_fr']); ?></i>
+		<strong><?php echo htmlspecialchars($ad['location']); ?></strong>
+<!--
+	<p><?php // echo $this->getExcerpt($ad['content']); ?></p>
+	    <a class="buttonStyle" href="index.php?action=displayOneAd&amp;id=<?php // echo htmlspecialchars($ad['id']); ?>">Lire la suite...</a>
+-->
 	</div>
 </div>
 <?php

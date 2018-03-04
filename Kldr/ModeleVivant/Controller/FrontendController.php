@@ -11,19 +11,19 @@ class FrontendController extends MainController
             $adManager = new \Kldr\ModeleVivant\Model\AdManager();
             if (empty(trim($_POST['keywords']))) {
                 $errors[] = 'Le champ n\'est pas rempli !';
-                $variables = compact(['errors']);
-                $this->view('common/error', $variables);
+                $variables = compact('errors');
+                $this->view('common/research', $variables);
             } else {
                 $keywords = trim($_POST['keywords']); // supprimer les espace en début et fin de chaîne
                 $keywords = preg_replace('!\s+!', '|', $keywords); // enlève tous les espaces et les remplace par |
                 $posts = $postManager->researchPost($_POST['keywords']);
                 $ads = $adManager->researchAd($_POST['keywords']);
-                if ($posts == false && $ads == false)  {
+                if (empty($posts) && empty($ads))  {
                     $errors[] = 'Aucun résultat ne correspond à votre recherche !';
-                    $variables = compact(['errors']);
-                    $this->view('common/error', $variables);
+                    $variables = compact('errors');
+                    $this->view('common/research', $variables);
                 } else {
-                    $variable = compact(['posts'], ['ads']);
+                    $variable = compact('posts', 'ads');
                     $this->view('common/research', $variable);
                 }
             }  
@@ -39,8 +39,8 @@ class FrontendController extends MainController
             $userManager = new \Kldr\ModeleVivant\Model\UserManager();
             if ($this->checkToken() == false) {
                 $errors[] = 'Erreur de session...';
-                $variables = compact(['errors']);
-                $this->view('common/error', $variables);
+                $variables = compact('errors');
+                $this->view('frontend/createAccount', $variables);
             } elseif (empty(trim($_POST['pseudo'])) || empty(trim($_POST['mail'])) || empty(trim($_POST['password'])) || empty(trim($_POST['checkPassword']))) { // on vérifie si un ou plusieurs des champs ne sont pas remplis
                 $errors[] = 'Tous les champs ne sont pas remplis !'; // sinon, on stocke une erreur dans $errors
             }
@@ -51,7 +51,7 @@ class FrontendController extends MainController
                 $errors[] = 'L\'adresse mail n\'est pas valide !';
             }
             if (!empty($errors)) { // si il y a une erreur avec les champs
-                $variables = compact(['errors']); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
+                $variables = compact('errors'); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
                 $this->view('frontend/createAccount', $variables); // on affiche la page de creation de compte avec le message d'erreur
             } else {
                 if ($userManager->checkUserByMail($_POST['mail']) == true) {
@@ -61,13 +61,13 @@ class FrontendController extends MainController
                     $errors[] = 'Ce pseudo est déjà pris !';
                 }
                 if (!empty($errors)) {
-                    $variables = compact(['errors']);
+                    $variables = compact('errors');
                     $this->view('frontend/createAccount', $variables);
                 } else {
                     $result = $userManager->createAccount($_POST['pseudo'], $_POST['mail'], $_POST['password']); // on envoie ces infos à la bdd afin de créer un compte
                     if ($result == false) { // si aucun compte n'est créé :
                         $errors[] = $result['Le compte n\'a pas pu être créé...'];
-                        $variables = compact(['errors']); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
+                        $variables = compact('errors'); // on compact $errors afin de pouvoir la réutiliser dans la view grâce à extract
                         $this->view('frontend/createAccount', $variables); // on affiche la page de creation de compte avec le message d'erreur
                     } else {
                         $this->home(); // si tout a fonctionné (un compte est créé), on affiche la page d'accueil
@@ -93,14 +93,14 @@ class FrontendController extends MainController
                 }
             }
             if (!empty($errors)) { // si il y a des erreurs :
-                $variables = compact(['errors']);
+                $variables = compact('errors');
                 $this->view('frontend/forgotPassword', $variables);
             } else {
                 $newPassword = bin2hex(openssl_random_pseudo_bytes(4)); // génère un pass de 8 caractères
                 $result = $userManager->updatePassword($newPassword, $_POST['mail']);
                 if ($result == false) { // rapport au rowCount, on vérifie si une ligne a été modifiée (voir userManager.php méthode updatePassword)
                     $errors[] = 'Le mot de passe n\'a pas été mis à jour...';
-                    $variables = compact(['errors']);
+                    $variables = compact('errors');
                     $this->view('frontend/forgotPassword', $variables);
                 } else {
                     $to = $_POST['mail'];
@@ -110,11 +110,11 @@ class FrontendController extends MainController
                     $mailSent = mail($to, $subject, $message, $headers);
                     if ($mailSent == false) {
                         $errors[] = 'Le mail n\'a pu être envoyé...';
-                        $variables = compact(['errors']);
+                        $variables = compact('errors');
                         $this->view('frontend/forgotPassword', $variables);
                     } else {
                         $success = 'Un email contenant un mot de passe temporaire vient de vous être envoyé !';
-                        $variables = compact(['success']);
+                        $variables = compact('success');
                         $this->view('frontend/forgotPassword', $variables);
                     }
                 }
@@ -138,17 +138,17 @@ class FrontendController extends MainController
                 $errors[] = 'Mauvais mot de passe !';
             }
             if(!empty($errors)) {
-                $variables = compact(['errors']);
+                $variables = compact('errors');
                 $this->view('common/modifyAccount', $variables);
             } else {
                 $result = $userManager->updatePassword($_POST['newPassword'], $_SESSION['mail']);
                 if ($result == false) {
                     $errors[] = 'Impossible de modifier le mot de passe, réessayer plus tard...';
-                    $variables = compact(['errors']);
+                    $variables = compact('errors');
                     $this->view('common/modifyAccount', $variables);
                 } else {
                     $success = 'Mot de passe mis à jour avec succès !';
-                    $variables = compact(['success']);
+                    $variables = compact('success');
                     $this->view('common/modifyAccount', $variables);
                 }
             }
@@ -171,17 +171,17 @@ class FrontendController extends MainController
                 $errors[] = 'Mauvais mot de passe !';
             }
             if(!empty($errors)) {
-                $variables = compact(['errors']);
+                $variables = compact('errors');
                 $this->view('common/modifyAccount', $variables);
             } else {
                 $result = $userManager->updatePseudo($_POST['newPseudo'], $_SESSION['mail']);
                 if ($result == false) {
                     $errors[] = 'Impossible de modifier le pseudo, réessayer plus tard...';
-                    $variables = compact(['errors']);
+                    $variables = compact('errors');
                     $this->view('common/modifyAccount', $variables);
                 } else {
                     $success = 'Pseudo modifié avec succès !';
-                    $variables = compact(['success']);
+                    $variables = compact('success');
                     $_SESSION['pseudo'] = $_POST['newPseudo'];
                     $this->view('common/modifyAccount', $variables);
                 }
@@ -207,17 +207,17 @@ class FrontendController extends MainController
                 $errors[] = 'Mauvais mot de passe !';
             }
             if(!empty($errors)) {
-                $variables = compact(['errors']);
+                $variables = compact('errors');
                 $this->view('common/modifyAccount', $variables);
             } else {
                 $result = $userManager->updateMail($_POST['newMail'], $_SESSION['mail']);
                 if ($result == false) {
                     $errors[] = 'Impossible de modifier le mail, réessayer plus tard...';
-                    $variables = compact(['errors']);
+                    $variables = compact('errors');
                     $this->view('common/modifyAccount', $variables);
                 } else {
                     $success = 'Mail modifié avec succès !';
-                    $variables = compact(['success']);
+                    $variables = compact('success');
                     $_SESSION['mail'] = $_POST['newMail'];
                     $this->view('common/modifyAccount', $variables);
                 }
@@ -247,19 +247,19 @@ class FrontendController extends MainController
                 $errors[] = 'Le fichier est trop volumineux...200Ko max !';
             }
             if (!empty($errors)) {
-                $variables = compact(['errors']);
+                $variables = compact('errors');
                 $this->view('common/modifyAccount', $variables);
             } elseif (move_uploaded_file($_FILES['newAvatar']['tmp_name'], AVATAR_PATH . $file) == false) { // déplace le fichier uploadé (nom temporaire, destination du fichier (chemin + nom du fichier))
                 $errors[] = 'Echec de l\'upload !';
                 $result = $userManager->updateAvatar($file, $_SESSION['mail']);
                 if ($result == false) {
                     $errors[] = 'Impossible de modifier l\'avatar, réessayer plus tard...';
-                    $variables = compact(['errors']);
+                    $variables = compact('errors');
                     $this->view('common/modifyAccount', $variables);
                 }
             } else {
                 $success = 'Avatar modifié avec succès !';
-                $variables = compact(['success']);
+                $variables = compact('success');
                 if (file_exists(AVATAR_PATH . $_SESSION['avatar']) && $_SESSION['avatar'] != 'default.png') { // vérifie que le fichier et son chemin existent et qu'il ne s'agit pas de l'avatar par défaut, afin de ne pas le supprimer du serveur...
                     unlink(AVATAR_PATH . $_SESSION['avatar']); // supprime l'avatar précédent de l'utilisateur
                     $_SESSION['avatar'] = $file;
@@ -276,14 +276,14 @@ class FrontendController extends MainController
         $userManager = new \Kldr\ModeleVivant\Model\UserManager();
         if (empty(trim($_POST['mail'])) || empty(trim($_POST['password']))) {
             $errors[] = 'Il manque des informations dans les champs !';
-            $variables = compact(['errors']);
+            $variables = compact('errors');
             $this->view('common/error', $variables);
         } else {
 
     		$login = $userManager->login($_POST['password'], $_POST['mail']);
             if ($login == false) {
                 $errors[] = 'Impossible de se connecter...';
-                $variables = compact(['errors']);
+                $variables = compact('errors');
                 $this->view('common/error', $variables);
             } else {
                 $_SESSION['connected'] = true;
@@ -291,39 +291,64 @@ class FrontendController extends MainController
                 $_SESSION['mail'] = $userManager->mail;
                 $_SESSION['avatar'] = $userManager->avatar;
                 $_SESSION['admin'] = $userManager->admin;
-                $_SESSION['id'] = $userManager->id;
+                $_SESSION['id_user'] = $userManager->id;
                 header('Location: ./?action=modifyAccount');
             }
         }
     } 
 
 // ADVERTISEMENTS
+    public function advertisements() {
+        $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
+        $categories = $categoryManager->getAdsCategories();
+        $variables = compact('categories');
+        $this->view('common/advertisements', $variables);
+    }
+
     public function addAdvertisement() {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && $_SESSION['connected']) {
             $errors = array();
             $adManager = new \Kldr\ModeleVivant\Model\AdManager();
+            $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
+            $categories = $categoryManager->getAdsCategories();         
             if ($this->checkToken() == false) {
-            $errors[] = 'Erreur de session...';
-            $variables = compact(['errors']);
-            $this->view('common/error', $variables);
-            } elseif (empty(trim($_POST['id_category'])) || empty(trim($_POST['title'])) || empty(trim($_POST['town'])) || empty(trim($_POST['county'])) || empty(trim($_POST['content']))) {
-                $errors[] = 'Tous les champs ne sont pas remplis !';
+                $errors[] = 'Erreur de session...';
+            } elseif (
+                empty(trim($_POST['id_category']))
+                || empty(trim($_POST['title']))
+                || empty(trim($_POST['town']))
+                || empty(trim($_POST['county']))
+                || !isset($_POST['location'])
+                || !isset($_POST['date_event'])
+                || empty(trim($_POST['content']))) {
+                $errors[] = 'Tous les champs requis ne sont pas remplis !';
+            }
+            elseif (empty($categoryManager->getAdCategory($_POST['id_category']))) {
+                $errors[] = 'Cette catégorie n\'existe pas...';
             }
             if (!empty($errors)) {
-                $variables = compact(['errors']);
+                $variables = compact('errors', 'categories');
                 $this->view('common/advertisements', $variables);
             } else {
-                $result = $adManager->addAdvertisement($_POST['id_category'], $_SESSION['id_user'], $_POST['title'], $_POST['town'], $_POST['county'], $_POST['location'], $_POST['date_event'], $_POST['content']);
+                $result = $adManager->addAdvertisement(
+                    $_SESSION['id_user'],
+                    $_POST['id_category'],
+                    $_POST['title'],
+                    $_POST['town'],
+                    $_POST['county'],
+                    $_POST['location'],
+                    $_POST['date_event'],
+                    $_POST['content']);
                 if ($result == false) {
                     $errors[] = $result['Impossible de créer l\'annonce'];
-                    $variables = compact(['errors']);
+                    $variables = compact('errors', 'categories');
                     $this->view('common/advertisements', $variables);
                 } else {
-                    $this->view('common/advertisements'); 
+                    header('Location: ./?action=advertisements');
                 }
             }
         } else {
-            $this->view('common/advertisements');
+            header('Location: ./?action=advertisements');
         }
     }
 /*      
@@ -366,11 +391,11 @@ class FrontendController extends MainController
         $mailSent = mail($to, $subject, $message, $headers);
         if ($mailSent == false) {
             $errors[] = 'Le mail n\'a pu être envoyé...';
-            $variables = compact(['errors']);
+            $variables = compact('errors');
             $this->view('frontend/contact', $variables);
         } else {
             $success = 'Votre mail a bien été envoyé !';
-            $variables = compact(['success']);
+            $variables = compact('success');
             $this->view('frontend/contact', $variables);
         }
     }
@@ -397,10 +422,6 @@ class FrontendController extends MainController
 
     public function friends() {
         $this->view('common/friends');
-    }
-
-    public function advertisements() {
-        $this->view('common/advertisements');
     }
 
     public function logout() {

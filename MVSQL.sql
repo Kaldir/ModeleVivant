@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: db706429770.db.1and1.com
--- Generation Time: Mar 01, 2018 at 06:44 PM
+-- Generation Time: Mar 04, 2018 at 01:45 PM
 -- Server version: 5.5.59-0+deb7u1-log
 -- PHP Version: 5.4.45-0+deb7u12
 
@@ -31,14 +31,25 @@ CREATE TABLE IF NOT EXISTS `mv_ad` (
   `id_category` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
+  `town` varchar(50) NOT NULL,
+  `county` int(11) NOT NULL,
+  `location` text,
+  `date_event` date DEFAULT NULL,
   `content` text NOT NULL,
   `creation_date` datetime NOT NULL,
-  `published` tinyint(1) NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_category` (`id_category`),
   KEY `id_user` (`id_user`),
   KEY `id_category_2` (`id_category`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `mv_ad`
+--
+
+INSERT INTO `mv_ad` (`id`, `id_category`, `id_user`, `title`, `town`, `county`, `location`, `date_event`, `content`, `creation_date`, `published`) VALUES
+(1, 2, 9, 'Testad', '', 0, '', '0000-00-00', 'testad lulu lo ad le test', '2018-03-22 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -50,7 +61,20 @@ CREATE TABLE IF NOT EXISTS `mv_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `mv_category`
+--
+
+INSERT INTO `mv_category` (`id`, `name`) VALUES
+(1, 'Cherche artiste'),
+(2, 'Cherche modèle'),
+(3, 'Evénement'),
+(4, 'Autre'),
+(5, 'Bonnes pratiques'),
+(6, 'Expériences vécues'),
+(7, 'Expériences rapportées');
 
 -- --------------------------------------------------------
 
@@ -62,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `mv_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_post` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `comment` text NOT NULL,
+  `content` text NOT NULL,
   `creation_date` datetime NOT NULL,
   `signalised` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
@@ -89,7 +113,14 @@ CREATE TABLE IF NOT EXISTS `mv_post` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_category` (`id_category`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `mv_post`
+--
+
+INSERT INTO `mv_post` (`id`, `id_user`, `id_category`, `title`, `content`, `creation_date`) VALUES
+(1, 9, 1, 'Test', 'test le testtest lulu', '2018-03-13 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -103,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `mv_user` (
   `pseudo` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
+  `avatar` varchar(255) NOT NULL DEFAULT 'default.png',
   `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
@@ -113,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `mv_user` (
 --
 
 INSERT INTO `mv_user` (`id`, `admin`, `pseudo`, `mail`, `password`, `avatar`, `creation_date`) VALUES
-(9, 0, 'Lulu', 'lulu@kldr.fr', '$2y$10$UhP2KKGSi5k7z3rTqp4x9.fsQ9wlut5N3Exd0Fha6j6tbRdAH392C', NULL, '2018-03-01 08:31:47');
+(9, 0, 'Lucie', 'lulu@kldr.fr', '$2y$10$UhP2KKGSi5k7z3rTqp4x9.fsQ9wlut5N3Exd0Fha6j6tbRdAH392C', '', '2018-03-01 08:31:47');
 
 --
 -- Constraints for dumped tables
@@ -123,15 +154,15 @@ INSERT INTO `mv_user` (`id`, `admin`, `pseudo`, `mail`, `password`, `avatar`, `c
 -- Constraints for table `mv_ad`
 --
 ALTER TABLE `mv_ad`
-  ADD CONSTRAINT `mv_ad_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `mv_user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `mv_ad_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `mv_category` (`id`);
+  ADD CONSTRAINT `mv_ad_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `mv_category` (`id`),
+  ADD CONSTRAINT `mv_ad_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `mv_user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `mv_comment`
 --
 ALTER TABLE `mv_comment`
-  ADD CONSTRAINT `mv_comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `mv_user` (`id`),
-  ADD CONSTRAINT `mv_comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `mv_post` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `mv_comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `mv_post` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `mv_comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `mv_user` (`id`);
 
 --
 -- Constraints for table `mv_post`
