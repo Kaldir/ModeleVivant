@@ -1,7 +1,5 @@
-<?php $title = 'MV - Affichage d\'un billet';
+<?php $pageTitle = '<?php echo $category['name']; ?>';
 ob_start(); ?>
-
-<h3 class="contentTitle"><?php echo $category['name']; ?></h3>
 
 <h4 class="subButtonsStyle"><?php echo $post['title']; ?></h4>
 

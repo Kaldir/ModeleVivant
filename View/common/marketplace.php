@@ -1,7 +1,5 @@
-<?php $title = 'MV - Achat de matériel';
+<?php $pageTitle = 'Les indispensables';
 ob_start(); ?>
-
-<h3 class="contentTitle">Les indispensables</h3>
 
 <div class="container-fluid marketContainer">
 	<div class="row marketRow">

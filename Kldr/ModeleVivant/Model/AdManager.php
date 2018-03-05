@@ -22,49 +22,56 @@ class AdManager extends Manager
         return true;
     }
 
-        public function getAdvertisements($id_category) {
-		$db = $this->dbConnect();
-	    $req = $db->prepare('SELECT id, id_category, id_user, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE id_category = ? ORDER BY comment_date DESC');
-	    $req->execute(array($id_category));
-	    if ($req->rowCount() < 1) {
-            return false;
-        }
-        return true;
+    public function getAdvertisement($id_ad) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE id = ? ORDER BY creation_date DESC');
+        $req->execute(array($id_ad));
+        $ad = $req->fetch();
+        return $ad;
     }
 
-    public function editAdvertisement($title, $town, $county, $location, $date_event, $content, $adId) {
+    public function getAdvertisements() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad ORDER BY creation_date DESC');
+        $ads = $req->fetchAll();
+        return $ads;
+    }
+
+    public function getAdvertisementsByCategory($id_category) {
+		$db = $this->dbConnect();
+	    $req = $db->prepare('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE id_category = ? ORDER BY creation_date DESC');
+	    $req->execute(array($id_category));
+        $ads = $req->fetchAll();
+        return $ads;
+    }
+
+    public function editAdvertisement($id_category, $title, $town, $county, $location, $date_event, $content, $id_ad) {
 	    $db = $this->dbConnect();
-	    $req = $db->prepare('UPDATE mv_ad SET title = ?, town = ?, county = ?, location = ?, date_event = ?,content = ?, signalised = 0 WHERE id = ?');
-	    $req->execute(array($title, $town, $county, $location, $date_event, $content, $adId));
+	    $req = $db->prepare('UPDATE mv_ad SET $id_category = ?, title = ?, town = ?, county = ?, location = ?, date_event = ?, content = ? WHERE id_ad = ?');
+	    $req->execute(array($id_category, $title, $town, $county, $location, $date_event, $content, $id_ad));
         if ($req->rowCount() < 1) {
             return false;
         }
         return true;
     }
 
-	public function deleteAdvertisement($adId) {
+	public function deleteAdvertisement($id_ad) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM mv_ad WHERE id = ?');
-        $req->execute(array($adId));
+        $req->execute(array($id_ad));
         if ($req->rowCount() < 1) {
             return false;
         }
         return true;
     }	
 
-    	public function signalAd($adId) {
+    public function publishedAd($id_ad) {
 	    $db = $this->dbConnect();
-		$req = $db->prepare('UPDATE mv_ad SET signalised = 1 WHERE id = ?');
-		$req->execute(array($adId));
+		$req = $db->prepare('UPDATE mv_ad SET published = 1 WHERE id = ?');
+		$req->execute(array($id_ad));
 		if ($req->rowCount() < 1) {
             return false;
         }
         return true;
-	}
-
-	    public function getAdsSignalised() { 
-		$db = $this->dbConnect();
-	    $signalised = $db->query('SELECT id, title, town, county, location, date_event, content, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE signalised = 1 ORDER BY creation_date DESC');
-    	return $signalised;
 	}
 }

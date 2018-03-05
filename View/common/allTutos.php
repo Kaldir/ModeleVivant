@@ -1,7 +1,5 @@
-<?php $title = 'MV - Affichage des billets';
+<?php $pageTitle = 'Bonnes pratiques et partage d\'expériences';
 ob_start(); ?>
-
-<h3 class="contentTitle">Bonnes pratiques et partage d'expériences</h3>
 
 <?php
 if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une session existe ET si elle est admin ou user (1 pour admin, 0 pour user)

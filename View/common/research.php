@@ -1,7 +1,5 @@
-<?php $title = 'MV - Recherche';
+<?php $pageTitle = 'Votre recherche';
 ob_start(); ?>
-
-<h3 class="contentTitle">Votre recherche</h3>
 
 <?php
 if (!empty($posts)) {
@@ -16,7 +14,7 @@ foreach ($posts as $post) {
 ?>
 
 <div class="fsContent">
-	<div class="formStyle adStyle">
+	<div class="formStyle searchStyle">
 		<strong><?php echo $post['title']; ?></strong>
 		<i class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></i>
 <!--
@@ -40,7 +38,7 @@ foreach ($ads as $ad) {
 ?>
 
 <div class="fsContent">
-	<div class="formStyle adStyle">
+	<div class="formStyle searchStyle">
 		<strong><?php echo $ad['title']; ?></strong>
 		<i class="smallInfosText">publié le <?php echo htmlspecialchars($ad['creation_date_fr']); ?></i>
 		<strong><?php echo htmlspecialchars($ad['location']); ?></strong>

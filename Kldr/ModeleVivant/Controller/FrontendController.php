@@ -125,7 +125,7 @@ class FrontendController extends MainController
     }
 
     public function updatePassword() {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && !$_SESSION['connected']) {
             $errors = array();
             $userManager = new \Kldr\ModeleVivant\Model\UserManager();
             if ($this->checkToken() == false) {
@@ -158,7 +158,7 @@ class FrontendController extends MainController
     }
 
     public function updatePseudo() {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && !$_SESSION['connected']) {
             $errors = array();
             $userManager = new \Kldr\ModeleVivant\Model\UserManager();
             if ($this->checkToken() == false) {
@@ -192,7 +192,7 @@ class FrontendController extends MainController
     }
 
     public function updateMail() {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && !$_SESSION['connected']) {
             $errors = array();
             $userManager = new \Kldr\ModeleVivant\Model\UserManager();
             if ($this->checkToken() == false) {
@@ -228,7 +228,7 @@ class FrontendController extends MainController
     }
 
     public function updateAvatar() {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && !$_SESSION['connected']) {
             $errors = array();
             $userManager = new \Kldr\ModeleVivant\Model\UserManager();
             $size = filesize($_FILES['newAvatar']['tmp_name']);
@@ -300,17 +300,32 @@ class FrontendController extends MainController
 // ADVERTISEMENTS
     public function advertisements() {
         $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
+        $adManager = new \Kldr\ModeleVivant\Model\AdManager();
         $categories = $categoryManager->getAdsCategories();
         $variables = compact('categories');
+        $errors = array();
+        if (!empty($_GET['id_category'])) {
+            $ads = $adManager->getAdvertisementsByCategory($_GET['id_category']);
+            if (empty($ads)) {
+                $errors[] = 'Aucune annonce dans cette catégorie.';
+                $variables = compact('errors', 'categories');
+            } else {
+                $variables = compact('ads', 'categories');
+            }
+            $this->view('common/advertisements', $variables);
+        } else {
+        $variables = compact('categories'); 
         $this->view('common/advertisements', $variables);
+        }
     }
 
     public function addAdvertisement() {
-        if (isset($_POST['submit']) && $_SESSION['connected']) {
+        if (isset($_POST['submit']) && !$_SESSION['connected']) {
             $errors = array();
             $adManager = new \Kldr\ModeleVivant\Model\AdManager();
             $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
-            $categories = $categoryManager->getAdsCategories();         
+            $categories = $categoryManager->getAdsCategories();
+            $variables = compact('categories');
             if ($this->checkToken() == false) {
                 $errors[] = 'Erreur de session...';
             } elseif (
@@ -351,25 +366,7 @@ class FrontendController extends MainController
             header('Location: ./?action=advertisements');
         }
     }
-/*      
-    public function getAdvertisement() {
-        if (isset($_POST['submit'])) {
-            $errors = array();
-            $adManager = new \Kldr\ModeleVivant\Model\AdManager();
-        } else {
-            $this->view('common/advertisements');
-        }
-    }
-
-    public function editAdvertisement() {
-        $adManager = new \Kldr\ModeleVivant\Model\AdManager();
-        
-    }
-
-    public function deleteAdvertisement() {
-        
-    }
-
+/*
     public function signalAd() {
         
     }
@@ -401,7 +398,11 @@ class FrontendController extends MainController
     }
 */
     public function modifyAccount() {
+        if (!$_SESSION['connected']) {
+            $this->home();
+        } else {
         $this->view('common/modifyAccount');
+        }
     }
 
     public function forgotPassword() {

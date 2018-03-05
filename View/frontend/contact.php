@@ -1,7 +1,5 @@
-<?php $title = 'MV - Contact';
+<?php $pageTitle = 'Formulaire de contact';
 ob_start(); ?>
-
-<h3 class="contentTitle">Formulaire de contact</h3>
 
 <p>Vous souhaitez partager une expérience et peut être la voir publiée sur ce site ou simplement m'écrire pour quoi que ce soit ? Utilisez le formulaire ci-dessous, je vous répondrais au plus vite !</p>
 
@@ -12,7 +10,6 @@ ob_start(); ?>
         <input type="text" id="pseudo" name="pseudo" required /><br />
         <label for="mail">Email</label><br />
         <input type="mail" class="mail" name="<?php $_POST['mail'] ?>" required /><br />
-
         <div id="checkBoxContact">
             <p>Vous êtes...</p>
             <label for="modelContact">Modèle</label><input type="radio" name="radioContact" id="modelContact" checked />
@@ -20,7 +17,6 @@ ob_start(); ?>
             <label for="bothContact">Les deux</label><input type="radio" name="radioContact" id="bothContact" />
             <label for="otherContact">Autre</label><input type="radio" name="radioContact" id="otherContact" />
         </div>
-
         <div id="listContact">
            <label for="subject">Votre message concerne :</label><br />
            <select name="subject" id="subject">
@@ -32,21 +28,9 @@ ob_start(); ?>
                <option value="other">Autre chose...</option>
            </select>
         </div>
-
         <label for="message">Message</label><br />
         <textarea id="message" name="message" required></textarea><br />
         <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
-
-        <?php if (!empty($error)) { ?>
-        <div class="alert alert-danger" role="alert">
-        	<strong><?php echo $error; ?></strong>
-        </div>
-        <?php }
-        if (!empty($success)) { ?>
-        <div class="alert alert-success" role="alert">
-          <strong><?php echo $success; ?></strong>
-        </div>
-        <?php } ?>
     </form>
 </div>
 

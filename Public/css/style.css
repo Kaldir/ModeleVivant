@@ -17,6 +17,10 @@ body {
 input {
 	margin-top: 10px;
 }
+.smallInfosText {
+	font-style: italic;
+	font-size: 0.8em;
+}
 
 /* BUTTONS */
 .buttonStyle {
@@ -364,14 +368,28 @@ form {
 	font-style: italic;
 }
 
+/* RESEARCH */
+.searchStyle {
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
 /* ADVERTISEMENTS */
 .adStyle {
 	margin-bottom: 20px;
 	padding: 20px;
+	text-align: justify;
+	justify-content: center;
 }
 #id_category {
 	margin: 10px 0 15px;
     width: 50%;
+}
+.adButtons {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	text-align: center;
 }
 
 /* MARKETPLACE */
@@ -414,16 +432,7 @@ form {
     align-items: center;
 }
 
-/* ERRORS */
-.errorContent {
-	display: flex;
-    flex-direction: column;
-}
-	.errorContent button {
-		align-self: center;
-	}
-
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 768px) {
 	.subButtonsStyle.sbsTogglerSidebar {
 		display: flex;
 		margin-bottom: 0;

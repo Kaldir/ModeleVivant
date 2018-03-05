@@ -1,7 +1,5 @@
-<?php $title = 'MV - Page d\'accueil';
+<?php $pageTitle = 'Bienvenue !';
 ob_start(); ?>
-
-<h3 class="contentTitle">Bienvenue !</h3>
 
 <div class="container">
 	<div class="row justify-content-center">

@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 	    <meta charset="utf-8" />
-	    <title><?php echo $title ?></title>
+	    <title>Modèles Vivants : <?php echo $pageTitle ?></title>
 	   	<meta name="description" content="Un site dédié aux modèles vivants." />
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
 		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
@@ -122,6 +122,10 @@ if ($_SESSION['connected'] == false) { // on vérifie si une session existe ou p
 <!-- CONTENT -->
 				<div id="contentDiv" class="col-md">
 					<div id="content">
+						<h3 class="contentTitle"><?php echo $pageTitle; ?></h3>
+
+						<?php require('./View/common/notifications.php'); ?>
+
 				        <?php echo $content ?>
 				    </div>
 

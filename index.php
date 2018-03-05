@@ -134,14 +134,18 @@ if (isset($_GET['action'])) {
 
         case 'getAdvertisement':
             $frontendController->getAdvertisement();
-            break;          
+            break;
 
         case 'editAdvertisement':
             $frontendController->editAdvertisement();
             break;
 
+        case 'adModifyForm':
+            $backendController->adModifyForm();
+            break;
+
         case 'deleteAdvertisement':
-            $frontendController->deleteAdvertisement();
+            $backendController->deleteAdvertisement();
             break;
 
         case 'signalAd':
@@ -151,7 +155,7 @@ if (isset($_GET['action'])) {
         case 'getAdsSignalised':
             $frontendController->getAdsSignalised();
             break;
-            
+
 // RESEARCH
         case 'research':
             $frontendController->research();

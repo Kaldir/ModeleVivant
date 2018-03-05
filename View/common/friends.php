@@ -1,7 +1,15 @@
-<?php $title = 'MV - Le coin des copains';
+<?php $pageTitle = 'Le coin des copains';
 ob_start(); ?>
 
-<h3 class="contentTitle">Le coin des copains</h3>
+<div class="formStyle friends">
+	<div class="friendsImg">
+		<img src="https://cdnb.artstation.com/p/assets/images/images/009/536/607/large/mikael-lav-lifedrawing-jan-14.jpg?1519564999" alt="BN_img" />
+	</div>
+	<div class="friendsText">
+		<p><strong>Mikael Lavandier</strong>, peintre amateur.</p>
+		<a href="https://haekel.artstation.com/" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+	</div>
+</div>
 
 <div class="formStyle friends">
 	<div class="friendsText">
