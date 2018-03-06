@@ -24,7 +24,7 @@ if (isset($_GET['action'])) {
             $frontendController->createAccount();
             break;
 
-        case 'createAccount':
+        case 'sendMailAccount':
             $frontendController->sendMailAccount();
             break;
 
@@ -56,6 +56,10 @@ if (isset($_GET['action'])) {
             $frontendController->modifyAccount();
             break;
 
+        case 'manageUsersAccounts':
+            $backendController->manageUsersAccounts();
+            break;
+
     	case 'logout':
             $frontendController->logout();
             break;
@@ -70,20 +74,24 @@ if (isset($_GET['action'])) {
             break;  
 
 // POSTS       
-        case 'tutos':
-            $frontendController->tutos();
+        case 'posts':
+            $frontendController->posts();
             break; 
 
         case 'addPost':
-            $frontendController->addPost();
+            $backendController->addPost();
             break;
 
         case 'editPost':
-            $frontendController->editPost();
+            $backendController->editPost();
             break; 
 
         case 'deletePost':
-            $frontendController->deletePost();
+            $backendController->deletePost();
+            break;
+
+        case 'modifyFormPost':
+            $backendController->modifyFormPost();
             break;
 
         case 'displayOnePost':
@@ -110,23 +118,30 @@ if (isset($_GET['action'])) {
             break;
 
         case 'editComment':
-            $frontendController->editComment();
+            $backendController->editComment();
             break; 
 
         case 'deleteComment':
-            $frontendController->deleteComment();
+            $backendController->deleteComment();
             break;
 
         case 'signalComment':
             $frontendController->signalComment();
             break; 
 
-// CATEGORIES
+// SIGNALISED ADVERTISEMENTS AND COMMENTS 
+        case 'reportedAdsAndComments':
+            $backendController->reportedAdsAndComments();
+            break; 
 
 // ADVERTISEMENTS
         case 'advertisements':
             $frontendController->advertisements();
             break; 
+
+        case 'pendingAdvertisements':
+            $backendController->pendingAdvertisements();
+            break;
 
         case 'addAdvertisement':
             $frontendController->addAdvertisement();
@@ -137,23 +152,27 @@ if (isset($_GET['action'])) {
             break;
 
         case 'editAdvertisement':
-            $frontendController->editAdvertisement();
+            $backendController->editAdvertisement();
             break;
 
-        case 'adModifyForm':
-            $backendController->adModifyForm();
+        case 'modifyFormAdvertisement':
+            $backendController->modifyFormAdvertisement();
             break;
 
         case 'deleteAdvertisement':
             $backendController->deleteAdvertisement();
             break;
 
-        case 'signalAd':
-            $frontendController->signalAd();
+        case 'signalAdvertisement':
+            $frontendController->signalAdvertisement();
             break; 
 
-        case 'getAdsSignalised':
-            $frontendController->getAdsSignalised();
+        case 'getSignalisedAdvertisement':
+            $backendController->getSignalisedAdvertisement();
+            break;
+
+        case 'publishAdvertisement':
+            $backendController->publishAdvertisement();
             break;
 
 // RESEARCH

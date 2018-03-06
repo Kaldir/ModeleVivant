@@ -22,34 +22,70 @@ ob_start(); ?>
 
 <div class="container-fluid homeContainer">
 	<div class="row homeRow">
+
 		<div class="homeBlocks col-md-4" id="homeIntro">
-			<p>Modèle débutant, confirmé, en devenir ? Artiste ? Curieux ? Vous trouverez dans les différentes rubriques de quoi étancher votre soif.</p>
+			<p>Modèle débutant, confirmé, en devenir ? Artiste ? Curieux ? Vous trouverez pleins d'infos dans les différentes rubriques.</p>
 			<img src="./Public/img/feather10.png" class="feather" alt="featherHome_img" />
 		</div>
 
-		<div class="homeBlocks col-md-4" id="homeTutos">
-			<a href="index.php?action=tutos" class="subButtonsStyle">Tutos, partage d'expériences</a>
-			<p>Contient des anecdotes, vécues personnellements par des modèles et des artistes, recueillis par le biais de ce site ou lors de discussions de comptoir, quand les gens se relâchent et confient avec humour les plus cocasses situations.</p>
+		<div class="homeBlocks col-md-4">
+			<div class="subButtonsStyle sbsTogglerResponsive">
+				<strong>Tutos, partage d'expériences</strong>
+			</div>
+            <div class="formStyle fsContentResponsive homeStyle">
+				<p>Contient des anecdotes, vécues personnellements par des modèles et des artistes, recueillis par le biais de ce site ou lors de séances.</p>
+				<div class="homeLink">
+					<a href="index.php?action=tutos" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+				</div>
+			</div>
 		</div>
 		
-		<div class="homeBlocks col-md-4" id="homeMarket">	
-			<a href="index.php?action=marketplace" class="subButtonsStyle">Les indispensables</a>
-			<p>Vous trouverez des idées et suggestions d'outils permettant d'améliorer le confort du modèle, le mettre en valeur et récupérer.</p>
+		<div class="homeBlocks col-md-4">	
+			<div class="subButtonsStyle sbsTogglerResponsive">
+				<strong>Les indispensables</strong>
+			</div>
+			<div class="formStyle fsContentResponsive homeStyle">
+				<p>Des idées et suggestions d'outils qui s'adressent autant aux artistes qu'aux modèles, permettant d'améliorer le confort, de mettre en valeur et de récupérer.</p>
+				<div class="homeLink">
+					<a href="index.php?action=marketplace" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+				</div>
+			</div>
 		</div>
 		
-		<div class="homeBlocks col-md-4" id="homeAds">	
-			<a href="index.php?action=advertisements" class="subButtonsStyle">Petites annonces</a>
-			<p>Vous permet de poster par catégorie, que ce soit des propositions de pose, une recherche de modèle ou encore pour diffuser un événement.</p>
+		<div class="homeBlocks col-md-4">	
+			<div class="subButtonsStyle sbsTogglerResponsive">
+				<strong>Petites annonces</strong>
+			</div>
+			<div class="formStyle fsContentResponsive homeStyle">
+				<p>Vous permet de poster par catégorie, que ce soit des propositions de pose, une recherche de modèle ou encore pour la diffusion un événement.</p>
+				<div class="homeLink">
+					<a href="index.php?action=advertisements" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+				</div>
+			</div>
 		</div>
 
-		<div class="homeBlocks col-md-4" id="homeFriends">	
-			<a href="index.php?action=friends" class="subButtonsStyle">Le coin des copains</a>
-			<p>Comme son nom l'indique, regroupe les sites des artistes qui ont contribués à enjoliver ce site.</p>
+		<div class="homeBlocks col-md-4">	
+			<div class="subButtonsStyle sbsTogglerResponsive">
+				<strong>Le coin des copains</strong>
+			</div>
+			<div class="formStyle fsContentResponsive homeStyle">
+				<p>Sites d'artistes variés, ayant pour certains contribués à enjoliver ce site.</p>
+				<div class="homeLink">
+					<a href="index.php?action=friends" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+				</div>
+			</div>
 		</div>
 
-		<div class="homeBlocks col-md-4" id="homeContact">	
-			<a href="index.php?action=contact" class="subButtonsStyle">Contact <i class="fas fa-paper-plane"></i></a>
-			<p>Vous êtes vivement encouragés à utiliser ce formulaire pour transmettre vos histoires afin qu'elles soient publiées !</p>
+		<div class="homeBlocks col-md-4">	
+			<div class="subButtonsStyle sbsTogglerResponsive">
+				<strong>Contact</strong>
+			</div>
+			<div class="formStyle fsContentResponsive homeStyle">
+				<p>Vous êtes vivement encouragés à utiliser ce formulaire pour transmettre vos histoires afin qu'elles soient publiées !</p>
+				<div class="homeLink">
+					<a href="index.php?action=contact" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,7 +1,3 @@
-<?php
-if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une session existe et si elle est admin.
-?>
-
 <!doctype html>
 <html lang="fr">
 	<head>
@@ -40,7 +36,30 @@ if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une s
 						<button type="submit" name="submit" class="buttonStyle" value="Rechercher"><i class='fas fa-search'></i></button>
 					</form>
 				</div>
-
+<?php
+if (!$_SESSION['connected'] || $_SESSION['admin'] == 0) {
+?>
+	            <div class="subButtonsStyle sbsTogglerSidebar">
+	                <h4>Présentation</h4>
+	                <i class="fas fa-bars"></i>
+	            </div>
+	            <div class="fsContentSidebar">
+					<div id="titleSidebar">
+			            <a href="index.php">
+			            	<h1 id="title">Modèles vivants</h1>
+			        	</a>
+			        	<a href="index.php"><img class="logo" src="./Public/img/lecture.png" alt="logo_MV" /></a>
+				        
+				        <div id="textIntro">
+				        	<p>Ce site est dédié aux modèles vivants, aux artistes et aux curieux.<br />
+		                	Vous y trouverez des anecdotes vécues et rapportées, ainsi que des pratiques propres à ce métier original.</p>
+		                </div>
+			        </div>
+			    </div>
+<?php
+}
+elseif ($_SESSION['admin'] == 1) {
+?>
 	            <div class="subButtonsStyle sbsTogglerSidebar">
 	                <h4>Gestion administrateur</h4>
 	                <i class="fas fa-bars"></i>
@@ -49,13 +68,14 @@ if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une s
 					<div id="titleSidebar">
 			            <a href="index.php">
 			            	<h1 id="title">Gestion administrateur</h1>
-			        	</a>
-			        	
+			        	</a>			        	
 				        <a href="index.php"><img class="logo" src="./Public/img/lecture.png" alt="logo_MV" /></a>
 				    </div>
 			    </div>
-
-	<!-- MENU -->
+<?php
+}
+?>
+	<!-- MENU -->	
 				<div class="subButtonsStyle sbsTogglerSidebar">
 	                <h4>Menu</h4>
 	                <i class="fas fa-bars"></i>
@@ -65,24 +85,60 @@ if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une s
 						<div id="menuLinks">
 							<nav>
 								<ul>
-									<li><a href="index.php?action=tutos">Tutos, partage d'expériences</a></li>
+<?php
+if ($_SESSION['connected'] && $_SESSION['admin'] == 1) {
+?>
+									<li><a href="index.php?action=pendingAdvertisements">Annonces à valider</a></li>
+									<li><a href="index.php?action=reportedAdsAndComments">Annonces et commentaires signalés</a></li>
+									<li><a href="index.php?action=manageUsersAccounts">Gestion des comptes membres</a></li>
+<?php
+}
+?>
+									<li><a href="index.php?action=posts">Tutos, partage d'expériences</a></li>
 									<li><a href="index.php?action=marketplace">Les indispensables</a></li>
 									<li><a href="index.php?action=advertisements">Petites annonces</a></li>
 									<li><a href="index.php?action=friends">Le coin des copains</a></li>
-									<li><a href="index.php?action=contact">Contact<i class="fas fa-paper-plane"></i></a></li>
+									<li><a href="index.php?action=contact">Contact<i class="fas fa-paper-plane
+									"></i></a></li>
 								</ul>
 							</nav>
 						</div>
 					</div>
 				</div>
 
-	<!-- DECONNEXION AND ADMINISTRATION OF ADMIN ACCOUNT -->			
+	<!-- CONNEXION -->			
+<?php
+if (!$_SESSION['connected']) {
+?>
+				<div class="subButtonsStyle sbsTogglerSidebar">
+	                <h4>Connexion</h4>
+	                <i class="fas fa-bars"></i>
+	            </div>
+	            <div class="fsContentSidebar">
+					<div id="connexion">
+						<h2>Connexion</h2>
+					    <form action="index.php?action=login" method="post" class="connexion">			   
+					        <label for="mail">Email</label><br />
+					        <input type="mail" class="mail" name="mail" required /><br />
+					        <label for="password">Mot de passe</label><br />
+					        <input type="password" class="password" name="password" required /><br />
+					        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
+					    </form>				    
+
+  						<a href="index.php?action=createAccount" class="" id="createAccount">Pas encore de compte ?</a><br />
+					    <a href="index.php?action=forgotPassword" class="" id="forgotPassword">Mot de passe oublié ?</a>
+					</div>
+				</div>
+<?php
+} else { // Si une session existe, on affiche le formulaire de gestion de compte (gestion et déconnexion)
+?>
 					<div id="disconnection">
-						<h2>Déconnexion</h2>
 					    <a href="index.php?action=modifyAccount" class="subButtonsStyle">Gestion du compte</a>
 					    <a href="index.php?action=logout" class="subButtonsStyle">Déconnexion</a>
 					</div>
-
+<?php
+}
+?>
 	<!-- FOOTER -->
 					<div class="pushFooter"></div>
 
@@ -93,10 +149,11 @@ if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une s
 
 <!-- CONTENT -->
 				<div id="contentDiv" class="col-md">
-
-					<?php require('./View/common/notifications.php'); ?>
-
 					<div id="content">
+						<h3 class="contentTitle"><?php echo $pageTitle; ?></h3>
+
+						<?php require('./View/common/notifications.php'); ?>
+
 				        <?php echo $content ?>
 				    </div>
 
@@ -126,13 +183,19 @@ if ($_SESSION['connected'] && $_SESSION['admin'] == 1) { // on vérifie si une s
 	<script src="./Public/js/slider.js"></script>
 	<script src="./Public/js/script.js"></script>
 	<script src="./Public/js/tinymce/tinymce.min.js"></script>
-	<script>tinymce.init({ selector:'.formattingTinyMce' });</script>
+	<script>tinymce.init({ selector:'.textareaTinyMce' });</script>
 	<script src="./Public/js/tinymce/jquery.tinymce.min.js"></script>
 	<script>$("p:empty").remove();</script> <!-- permet d'enlever les <p> vides générés par tinyMCE -->
-		
+
+<!-- DISPLAY MODAL IF SIGNALISED COMMENT -->
+<!--
+	<?php
+	if (!empty($signalised)) {
+	?>
+	    <script> $('#modalSignal').modal('show'); </script>
+	<?php
+	}
+	?>
+-->
 	</body>
 </html>
-
-<?php
-}
-?>

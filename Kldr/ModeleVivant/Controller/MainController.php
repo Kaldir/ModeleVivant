@@ -28,10 +28,6 @@ class MainController
 		$_SESSION['token'] = $this->token; // stock un token dans $_SESSION à chaque fois que l'on affiche une view
 		extract($variables); // fonction qui sert à aller chercher les variables contenues dans une variable contenant un array, et permet de les réutiliser ailleurs
 		require('./View/' . $view . '.php');
-		if (!empty($_SESSION['admin'])) {
-			require('./View/backend/template.php');
-		} else {
-			require('./View/frontend/template.php');
-		}
+		require('./View/common/template.php');
 	}
 }

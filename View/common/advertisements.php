@@ -24,17 +24,17 @@ foreach ($categories as $category) {
 ?>
 			</select><br />
         	<label for="title">Intitulé *</label><br />
-            <input type="text" id="title" name="title" required value="hop"/><br />
+            <input type="text" id="title" name="title" required/><br />
             <label for="town">Ville *</label><br />
-            <input type="text" id="town" name="town" required value="hop" /><br />
+            <input type="text" id="town" name="town" required /><br />
             <label for="county">Département *</label><br />
-            <input type="number" min="01" max="99" id="county" name="county" required value="65"/><br />
+            <input type="number" min="01" max="99" id="county" name="county" required/><br />
             <label for="location">Emplacement précis</label><br />
-            <input type="text" id="location" name="location" value="hop"/><br />
+            <input type="text" id="location" name="location"/><br />
 			<label for="date">Date</label><br />
-	        <input type="date" name="date_event" /><br />
+	        <input type="date" name="date_event"/><br />
             <label for="content">Contenu *</label><br />
-			<textarea id="content" name="content" required>hop</textarea><br />
+			<textarea id="content" name="content" required></textarea><br />
             <button type="submit" name="submit" class="buttonStyle" value="Ajouter"><i class='fas fa-check'></i></button>
         </div>
     </form>
@@ -60,8 +60,7 @@ foreach ($categories as $category) {
 </div>
 
 <?php
-if (!empty($ads)) {
-	foreach ($ads as $ad) {
+foreach ($ads as $ad) {
 ?>
 	<div class="formStyle adStyle">
 		<div class="container-fluid adContainer">
@@ -76,19 +75,13 @@ if (!empty($ads)) {
 					<p><?php  echo htmlspecialchars($ad['content']); ?></p>
 				</div>
 
-			<!-- EDIT & DELETE AD IF ADMIN-->
+<!-- EDIT & DELETE AD IF ADMIN-->
 	<?php
-	// if ($_SESSION['admin'] == 1) {
+	if ($_SESSION['admin'] == 1) {
 	?>
 				<div class="adBlocks col-md-1">
 					<div class="adButtons">
-						<form action="index.php?action=editAdvertisement" method="post">
-					    	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
-					    	<input name="id_ad" type="hidden" value="<?php echo $ad['id']; ?>"/ >
-					    	<button type="submit" name="submit" class="buttonStyle" value="Publier l'annonce"><i class="fas fa-check" title="Publier l'annonce" aria-hidden="true"></i></button>
-						</form>
-
-					    <form action="index.php?action=adModifyForm" method="post">
+					    <form action="index.php?action=modifyFormAdvertisement" method="post">
 					    	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
 					    	<input name="id_ad" type="hidden" value="<?php echo $ad['id']; ?>"/ >
 					    	<button type="submit" name="submit" class="buttonStyle" value="Modifier"><i class="fas fa-pencil-alt" title="Modifier" aria-hidden="true"></i></button>
@@ -102,13 +95,11 @@ if (!empty($ads)) {
 					</div>
 				</div>
 		<?php
-		// }
+		}
 		?>
 			</div>
 		</div>
 	</div>
-	<?php
-
-	}
+<?php
 }
 $content = ob_get_clean(); ?>

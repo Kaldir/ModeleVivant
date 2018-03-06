@@ -21,11 +21,11 @@ foreach ($categories as $category) {
             <label for="town">Ville *</label><br />
             <input type="text" id="town" name="town" required value="<?php echo $ad['town']; ?>" /><br />
             <label for="location">Département *</label><br />
-            <input type="number" min="01" max="99" id="county" name="county" required value="<?php echo $ad['number']; ?>"/><br />
+            <input type="number" min="01" max="99" id="county" name="county" required value="<?php echo $ad['county']; ?>"/><br />
             <label for="location">Emplacement précis</label><br />
             <input type="text" id="location" name="location" value="<?php echo $ad['location']; ?>"/><br />
 			<label for="date">Date</label><br />
-	        <input type="date" name="date_event" value="<?php echo $ad['date']; ?>"/><br />
+	        <input type="date" name="date_event" value="<?php echo $ad['date_event']; ?>"/><br />
             <label for="content">Contenu *</label><br />
 			<textarea id="content" name="content" required><?php echo $ad['content']; ?></textarea><br />
             <button type="submit" name="submit" class="buttonStyle" value="Publier l'annonce"><i class="fas fa-check" title="Publier l'annonce" aria-hidden="true"></i></button>

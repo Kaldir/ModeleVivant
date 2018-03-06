@@ -6,7 +6,7 @@ class AdManager extends Manager
 // RESEARCH
 	public function researchAd($keywords) {
 		$db = $this->dbConnect();
-        $req = $db->query('SELECT content, title FROM mv_ad WHERE content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'" ORDER BY creation_date');
+        $req = $db->query('SELECT title, town, county, location, date_event, content, creation_date FROM mv_ad WHERE content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'" ORDER BY creation_date');
         $ad = $req->fetchAll();
         return $ad;
     }
@@ -30,16 +30,16 @@ class AdManager extends Manager
         return $ad;
     }
 
-    public function getAdvertisements() {
+    public function getPendingAdvertisements() {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad ORDER BY creation_date DESC');
+        $req = $db->query('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE published = 0 ORDER BY creation_date DESC');
         $ads = $req->fetchAll();
         return $ads;
     }
 
     public function getAdvertisementsByCategory($id_category) {
 		$db = $this->dbConnect();
-	    $req = $db->prepare('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE id_category = ? ORDER BY creation_date DESC');
+	    $req = $db->prepare('SELECT id, id_category, id_user, title, town, county, location, date_event, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad WHERE id_category = ? AND published = 1 ORDER BY creation_date DESC');
 	    $req->execute(array($id_category));
         $ads = $req->fetchAll();
         return $ads;
@@ -47,7 +47,7 @@ class AdManager extends Manager
 
     public function editAdvertisement($id_category, $title, $town, $county, $location, $date_event, $content, $id_ad) {
 	    $db = $this->dbConnect();
-	    $req = $db->prepare('UPDATE mv_ad SET $id_category = ?, title = ?, town = ?, county = ?, location = ?, date_event = ?, content = ? WHERE id_ad = ?');
+	    $req = $db->prepare('UPDATE mv_ad SET id_category = ?, title = ?, town = ?, county = ?, location = ?, date_event = ?, content = ?, published = 1 WHERE id = ?');
 	    $req->execute(array($id_category, $title, $town, $county, $location, $date_event, $content, $id_ad));
         if ($req->rowCount() < 1) {
             return false;
@@ -65,7 +65,7 @@ class AdManager extends Manager
         return true;
     }	
 
-    public function publishedAd($id_ad) {
+    public function publishAdvertisement($id_ad) {
 	    $db = $this->dbConnect();
 		$req = $db->prepare('UPDATE mv_ad SET published = 1 WHERE id = ?');
 		$req->execute(array($id_ad));

@@ -6,14 +6,14 @@ ob_start(); ?>
 		<img src="https://cdnb.artstation.com/p/assets/images/images/009/536/607/large/mikael-lav-lifedrawing-jan-14.jpg?1519564999" alt="BN_img" />
 	</div>
 	<div class="friendsText">
-		<p><strong>Mikael Lavandier</strong>, peintre amateur.</p>
+		<p><strong>Mikael Lavandier</strong> - peintre amateur.</p>
 		<a href="https://haekel.artstation.com/" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
 	</div>
 </div>
 
 <div class="formStyle friends">
 	<div class="friendsText">
-		<p><strong>Amaury Brumauld</strong>, story-boarder.</p>
+		<p><strong>Amaury Brumauld</strong> - story-boarder.</p>
 		<a href="http://www.amaurybrumauld.com/" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
 	</div>
 	<div class="friendsImg">
@@ -23,17 +23,17 @@ ob_start(); ?>
 
 <div class="formStyle friends">
 	<div class="friendsImg">
-		<img src="http://www.bertrandnamur.com/img/gallery/jazz%20fusion/17.JPG" alt="BN_img" />
+		<img src="http://www.bertrandnamur.com/img/gallery/aquatique/06.JPG" alt="BN_img" />
 	</div>
 	<div class="friendsText">
-		<p><strong>Bertrand Namur</strong>, peintre.</p>
+		<p><strong>Bertrand Namur</strong> - peintre.</p>
 		<a href="http://www.bertrandnamur.com/" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
 	</div>
 </div>
 
 <div class="formStyle friends">
 	<div class="friendsText">
-		<p><strong>Marine Chauvet</strong>, dessinatrice et encadreuse.</p>
+		<p><strong>Marine Chauvet</strong> - dessinatrice & encadreuse.</p>
 		<a href="http://www.chauvetdesign.com/" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
 	</div>
 	<div class="friendsImg">
@@ -43,10 +43,10 @@ ob_start(); ?>
 
 <div class="formStyle friends">
 	<div class="friendsImg">
-		<img src="https://orig00.deviantart.net/6f35/f/2006/339/b/9/universal_animal_by_canapin.jpg" alt="CC_img" />
+		<img src="https://orig00.deviantart.net/6345/f/2008/360/0/c/eyebot_by_canapin.png" alt="CC_img" />
 	</div>
 	<div class="friendsText">
-		<p><strong>Coin-coin</strong>, artiste tout court.</p>
+		<p><strong>Coin-coin</strong> - artiste graphique.</p>
 		<a href="https://canapin.deviantart.com/" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
 	</div>
 </div>

@@ -28,8 +28,8 @@ ob_start(); ?>
                <option value="other">Autre chose...</option>
            </select>
         </div>
-        <label for="message">Message</label><br />
-        <textarea id="message" name="message" required></textarea><br />
+        <label for="content">Message</label><br />
+        <textarea id="content" name="content" required></textarea><br />
         <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
     </form>
 </div>

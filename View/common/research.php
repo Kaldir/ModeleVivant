@@ -40,7 +40,7 @@ foreach ($ads as $ad) {
 <div class="fsContent">
 	<div class="formStyle searchStyle">
 		<strong><?php echo $ad['title']; ?></strong>
-		<i class="smallInfosText">publié le <?php echo htmlspecialchars($ad['creation_date_fr']); ?></i>
+		<i class="smallInfosText">publié le <?php echo htmlspecialchars($ad['creation_date']); ?></i>
 		<strong><?php echo htmlspecialchars($ad['location']); ?></strong>
 <!--
 	<p><?php // echo $this->getExcerpt($ad['content']); ?></p>
