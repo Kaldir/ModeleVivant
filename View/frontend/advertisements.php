@@ -18,7 +18,7 @@ if ($_SESSION['connected'] == true) {
 <?php
 foreach ($categories as $category) {
 ?>
-				<option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+				<option value="<?php echo htmlspecialchars($category['id']); ?>"><?php echo htmlspecialchars($category['name']); ?></option>
 <?php
 }
 ?>
@@ -51,7 +51,7 @@ foreach ($categories as $category) {
 foreach ($categories as $category) {
 ?>
 		<div class="advertisementsBlocks col-md-6">
-			<a href="index.php?action=advertisements&id_category=<?php echo $category['id']; ?>" class="subButtonsStyle"><?php echo $category['name']; ?></a>
+			<a href="index.php?action=advertisements&id_category=<?php echo htmlspecialchars($category['id']); ?>" class="subButtonsStyle"><?php echo $category['name']; ?></a>
 		</div>
 <?php
 }
@@ -66,30 +66,29 @@ foreach ($ads as $ad) {
 		<div class="container-fluid adContainer">
 			<div class="row adRow">
 				<div class="adBlocks col-md">
-					<strong><?php echo htmlspecialchars($ad['title']); ?></strong>
-					<p class="smallInfosText">publié le <?php echo htmlspecialchars($ad['creation_date_fr']); ?></p>
+					<strong class="titleForm"><?php echo htmlspecialchars($ad['title']); ?></strong>
+					<p class="smallInfosText">publié le <?php echo htmlspecialchars($ad['creation_date_fr']); ?> par <a class="mailto" href="mailto:<?php echo htmlspecialchars($ad['user_mail']); ?>"><?php echo htmlspecialchars($ad['user_pseudo']); ?> <img class="userAvatarAdCom infosUser infoUserAvatar" src="<?php echo AVATAR_PATH . $ad['user_avatar']; ?>" alt="avatar_user" /></a></p>
 					<p><strong><?php echo htmlspecialchars($ad['town']); ?></strong>
 					 - (<?php echo htmlspecialchars($ad['county']); ?>)</p>
-					<p class="smallInfosText"><?php echo htmlspecialchars($ad['location']); ?></p>
-					<strong><?php echo htmlspecialchars($ad['date_event']); ?></strong>
-					<p><?php  echo htmlspecialchars($ad['content']); ?></p>
+					<p class="smallInfosText">Lieu : <?php echo htmlspecialchars($ad['location']); ?> - Date : <?php echo htmlspecialchars($ad['date_event_fr']); ?></strong></p>
+					<p><?php echo htmlspecialchars($ad['content']); ?></p>
 				</div>
 
 <!-- EDIT & DELETE AD IF ADMIN-->
 	<?php
-	if ($_SESSION['admin'] == 1) {
+	if (!empty($_SESSION['admin'])) {
 	?>
 				<div class="adBlocks col-md-1">
 					<div class="adButtons">
 					    <form action="index.php?action=modifyFormAdvertisement" method="post">
 					    	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
-					    	<input name="id_ad" type="hidden" value="<?php echo $ad['id']; ?>"/ >
+					    	<input name="id_ad" type="hidden" value="<?php echo htmlspecialchars($ad['id']); ?>"/ >
 					    	<button type="submit" name="submit" class="buttonStyle" value="Modifier"><i class="fas fa-pencil-alt" title="Modifier" aria-hidden="true"></i></button>
 						</form>
 
 					    <form action="index.php?action=deleteAdvertisement" method="post">
 					    	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
-					    	<input name="id_ad" type="hidden" value="<?php echo $ad['id']; ?>"/ >
+					    	<input name="id_ad" type="hidden" value="<?php echo htmlspecialchars($ad['id']); ?>"/ >
 					    	<button type="submit" name="submit" class="buttonStyle" value="Supprimer" onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette annonce ?'));"><i class="fa fa-trash" title="Supprimer" aria-hidden="true"></i></button>
 						</form>
 					</div>

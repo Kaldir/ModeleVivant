@@ -3,6 +3,42 @@ namespace Kldr\ModeleVivant\Controller;
 
 class BackendController extends MainController
 {
+// ACCOUNT
+    public function manageUsersAccounts() {
+        if (empty($_SESSION['admin'])) {
+            header('Location: ./');
+        }
+        $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+        $users = $userManager->getUsersAccount();
+        $variables = compact('users');
+        $this->view('backend/manageUsersAccounts', $variables);
+    }
+
+    public function deleteUserAccount() {
+        if (empty($_SESSION['admin'])) {
+            header('Location: ./');
+        }
+        $userManager = new \Kldr\ModeleVivant\Model\UserManager();
+        $users = $userManager->getUsersAccount();
+        $variables = compact('users');
+        if ($this->checkToken() == false) {
+            $errors[] = 'Erreur de session...';
+            $variables = compact('errors', 'users');
+            $this->view('backend/manageUsersAccounts', $variables);
+            exit;
+        }
+        $result = $userManager->deleteUserAccount($_POST['id_user']);
+        if ($result == false) {
+            $errors[] = 'Le compte n\'a pas pu être supprimé...';
+            $variables = compact('errors', 'users');
+        } else {
+            $success = 'Compte supprimé avec succès !';
+            $users = $userManager->getUsersAccount();
+            $variables = compact('success', 'users');
+        }
+        $this->view('backend/manageUsersAccounts', $variables);
+    }        
+
 // ADVERTISEMENTS
     public function pendingAdvertisements() {
         if (empty($_SESSION['admin'])) {
@@ -40,7 +76,7 @@ class BackendController extends MainController
         }
         if (!empty($errors)) {
             $variables = compact('errors', 'categories', 'ads');
-            $this->view('common/advertisements', $variables);
+            $this->view('frontend/advertisements', $variables);
             exit;
         }
         $result = $adManager->editAdvertisement(
@@ -59,7 +95,7 @@ class BackendController extends MainController
             $success = 'Annonce modifiée avec succès !';
             $variables = compact('success', 'categories', 'ads');
         }            
-        $this->view('common/advertisements', $variables);
+        $this->view('frontend/advertisements', $variables);
     }
 
     public function deleteAdvertisement() {
@@ -67,14 +103,13 @@ class BackendController extends MainController
     	$categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
         $categories = $categoryManager->getAdsCategories();
         $ads = array();
-        $errors = array();
     	if (empty($_SESSION['admin'])) {
             header('Location: ./');
     	}
         if ($this->checkToken() == false) {
             $errors[] = 'Erreur de session...';
             $variables = compact('errors', 'ads');
-            $this->view('common/advertisements', $variables);
+            $this->view('frontend/advertisements', $variables);
             exit;
         }
     	$result = $adManager->deleteAdvertisement($_POST['id_ad']);
@@ -85,10 +120,13 @@ class BackendController extends MainController
         	$success = 'Annonce supprimée avec succès !';
             $variables = compact('success', 'categories', 'ads');
     	}
-        $this->view('common/advertisements', $variables);
+        $this->view('frontend/advertisements', $variables);
     }
 
 	public function modifyFormAdvertisement() {
+        if (empty($_SESSION['admin'])) {
+            header('Location: ./');
+        }
     	$adManager = new \Kldr\ModeleVivant\Model\AdManager();
     	$categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
     	$categories = $categoryManager->getAdsCategories();
@@ -103,7 +141,6 @@ class BackendController extends MainController
     public function publishAdvertisement() {
         $adManager = new \Kldr\ModeleVivant\Model\AdManager();
         $ads = array();
-        $errors = array();
         if (empty($_SESSION['admin'])) {
             header('Location: ./');
         }
@@ -153,7 +190,7 @@ class BackendController extends MainController
         }
         if (!empty($errors)) {
             $variables = compact('errors', 'categories', 'posts');
-            $this->view('common/allPosts', $variables);
+            $this->view('frontend/allPosts', $variables);
             exit;
         }
         $result = $postManager->addPost(
@@ -164,12 +201,12 @@ class BackendController extends MainController
         if ($result == false) {
             $errors[] = 'Impossible de créer le billet';
             $variables = compact('errors', 'categories', 'posts');
-            $this->view('common/allPosts', $variables);
+            $this->view('frontend/allPosts', $variables);
         } else {
             $success = 'Billet publié avec succès !';
             $variables = compact('success', 'categories', 'posts');
         }
-        $this->view('common/allPosts', $variables);
+        $this->view('frontend/allPosts', $variables);
     }
 
     public function editPost() {
@@ -194,13 +231,13 @@ class BackendController extends MainController
         }
         if (!empty($errors)) {
             $variables = compact('errors', 'categories', 'posts');
-            $this->view('common/allPosts', $variables);
+            $this->view('frontend/allPosts', $variables);
             exit;
         }
         if (empty($_POST['id_post'])) {
             $errors[] = 'Ce billet n\'existe pas...';
             $variables = compact('errors', 'posts');
-            $this->view('common/allPosts', $variables);
+            $this->view('frontend/allPosts', $variables);
             exit;
         }
         $result = $postManager->editPost(
@@ -215,7 +252,7 @@ class BackendController extends MainController
             $success = 'Billet modifié avec succès !';
             $variables = compact('success', 'categories', 'posts');
         }            
-        $this->view('common/allPosts', $variables);
+        $this->view('frontend/allPosts', $variables);
     }
 
     public function deletePost() {
@@ -223,14 +260,13 @@ class BackendController extends MainController
         $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
         $categories = $categoryManager->getPostsCategories();
         $posts = array();
-        $errors = array();
         if (empty($_SESSION['admin'])) {
             header('Location: ./');
         }
         if ($this->checkToken() == false) {
             $errors[] = 'Erreur de session...';
             $variables = compact('errors', 'posts');
-            $this->view('common/allPosts', $variables);
+            $this->view('frontend/allPosts', $variables);
             exit;
         }
         $result = $postManager->deletePost($_POST['id_post']);
@@ -241,10 +277,13 @@ class BackendController extends MainController
             $success = 'Billet supprimé avec succès !';
             $variables = compact('success', 'categories', 'posts');
         }
-        $this->view('common/allPosts', $variables);
+        $this->view('frontend/allPosts', $variables);
     }
 
     public function modifyFormPost() {
+        if (empty($_SESSION['admin'])) {
+            header('Location: ./');
+        }
         $postManager = new \Kldr\ModeleVivant\Model\PostManager();
         $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
         $categories = $categoryManager->getPostsCategories();

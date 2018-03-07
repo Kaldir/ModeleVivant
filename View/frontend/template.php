@@ -37,7 +37,7 @@
 					</form>
 				</div>
 <?php
-if (!$_SESSION['connected'] || $_SESSION['admin'] == 0) {
+if (!$_SESSION['connected'] || empty($_SESSION['admin'])) {
 ?>
 	            <div class="subButtonsStyle sbsTogglerSidebar">
 	                <h4>Présentation</h4>
@@ -58,7 +58,7 @@ if (!$_SESSION['connected'] || $_SESSION['admin'] == 0) {
 			    </div>
 <?php
 }
-elseif ($_SESSION['admin'] == 1) {
+elseif (!empty($_SESSION['admin'])) {
 ?>
 	            <div class="subButtonsStyle sbsTogglerSidebar">
 	                <h4>Gestion administrateur</h4>
@@ -89,7 +89,7 @@ elseif ($_SESSION['admin'] == 1) {
 if ($_SESSION['connected'] && $_SESSION['admin'] == 1) {
 ?>
 									<li><a href="index.php?action=pendingAdvertisements">Annonces à valider</a></li>
-									<li><a href="index.php?action=reportedAdsAndComments">Annonces et commentaires signalés</a></li>
+									<li><a href="index.php?action=reportedComments">Commentaires signalés</a></li>
 									<li><a href="index.php?action=manageUsersAccounts">Gestion des comptes membres</a></li>
 <?php
 }
@@ -119,7 +119,7 @@ if (!$_SESSION['connected']) {
 						<h2>Connexion</h2>
 					    <form action="index.php?action=login" method="post" class="connexion">			   
 					        <label for="mail">Email</label><br />
-					        <input type="mail" class="mail" name="mail" required /><br />
+					        <input type="email" class="mail" name="mail" required /><br />
 					        <label for="password">Mot de passe</label><br />
 					        <input type="password" class="password" name="password" required /><br />
 					        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
@@ -152,7 +152,7 @@ if (!$_SESSION['connected']) {
 					<div id="content">
 						<h3 class="contentTitle"><?php echo $pageTitle; ?></h3>
 
-						<?php require('./View/common/notifications.php'); ?>
+						<?php require('./View/frontend/notifications.php'); ?>
 
 				        <?php echo $content ?>
 				    </div>
@@ -182,6 +182,7 @@ if (!$_SESSION['connected']) {
 	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	<script src="./Public/js/slider.js"></script>
 	<script src="./Public/js/script.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="./Public/js/tinymce/tinymce.min.js"></script>
 	<script>tinymce.init({ selector:'.textareaTinyMce' });</script>
 	<script src="./Public/js/tinymce/jquery.tinymce.min.js"></script>

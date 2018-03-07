@@ -93,4 +93,21 @@ class UserManager extends Manager
         }
         return true;
     }
+
+    public function getUsersAccount() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, pseudo, mail, avatar FROM mv_user WHERE admin = 0 ORDER BY pseudo');
+        $users = $req->fetchAll();
+        return $users;
+    }
+
+    public function deleteUserAccount($id_user) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM mv_user WHERE id = ?');
+        $req->execute(array($id_user));
+        if ($req->rowCount() < 1) {
+            return false;
+        }
+        return true;
+    }
 }

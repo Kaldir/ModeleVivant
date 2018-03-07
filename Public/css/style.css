@@ -22,6 +22,9 @@ input {
 	font-style: italic;
 	font-size: 0.8em;
 }
+.formStyle .titleForm {
+	font-size: 1.5em;
+}
 
 /* BUTTONS */
 .buttonStyle {
@@ -39,6 +42,13 @@ input {
 	    color: white;
 	    background-color: #5b2e92;
 	}
+	a.buttonStyle {
+    	line-height: 37px;
+	}
+	.buttonStyle.Arrow {
+    	line-height: 37px;
+    	text-align: center;
+	}
 .subButtonsStyle {
     color: white;
     background-color: #b48ed4;
@@ -47,7 +57,6 @@ input {
     border-top-right-radius: 8px;
     transition: all 0.5s;
     cursor: pointer;
-    margin-bottom: 20px;
     display: flex;
     margin: 10px 0;
     justify-content: center;
@@ -61,13 +70,19 @@ input {
 	    color: white;
 	    background-color: #5b2e92;
 	}
-a.buttonStyle {
-	line-height: 37px;
-}
-.subButtonsStyle.sbsToggler {
-	justify-content: space-between;
-	padding: 10px 20px 0;
-}
+	.subButtonsStyle.sbsToggler {
+		justify-content: space-between;
+		padding: 10px 20px 0;
+	}
+	.postTitle {
+		color: white;
+	    background-color: #b48ed4;
+	    text-align: center;
+	    border-bottom-left-radius: 8px;
+	    border-top-right-radius: 8px;
+	    margin: 10px 0 20px;
+	    padding: 5px;
+	}
 
 /* FORMS */
 form {
@@ -327,6 +342,11 @@ form {
 	#listContact #subject {
    		width: 50%;
    	}
+.g-recaptcha {
+   	display: flex;
+    justify-content: center;
+    margin: 15px;
+}
 
 /* SLIDER */
 .slideshow {
@@ -335,13 +355,13 @@ form {
 	overflow: hidden;
 	margin-bottom: 30px;
 	border-radius: 5px;
+	border: #b48ed4 dashed 2px;
 }
 	.slideshow > * {
 		flex: 1 0 100%;
 		transition : all 0.5s; /* permet une transistion visuellement agréable sur tous les éléments grâce à "all" */
 		text-align: center;
 		padding: 10px;
-	    background-color: #b48ed4;
 	}
 .startStop {
 	cursor: pointer;
@@ -350,12 +370,26 @@ form {
     font-size: 0.8em;
 	padding: 5px;
 	position: absolute;
+	color: #b48ed4;
 	}
 		.startStop:hover {
-			color: white;
+			color: #5b2e92;
 		}
+.postBlocks.slider a {
+	background-color: #b48ed4;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-style: italic;
+    font-size: 0.8em;
+    transition : all 0.5s;
+}
+	.postBlocks.slider a:hover {
+		text-decoration: none;
+		background-color: #5b2e92;
+	}
 
-/* MODIFY ACOUNT */
+/* ACCOUNT */
 .modifyAccount {
 	margin-bottom: 30px;
 }
@@ -375,9 +409,17 @@ form {
     border: #5b2e92 solid 1px;
     background-color: white;
 }
+.userAvatarAdCom {
+	width: 50px;
+    height: 50px;
+}
 #modifyAvatar span {
 	font-size: 0.8em;
 	font-style: italic;
+}
+.userBlocks {
+	margin: 0 0 20px;
+	text-align: center;
 }
 
 /* RESEARCH */
@@ -399,6 +441,10 @@ form {
 	flex-direction: column;
 	justify-content: flex-end;
 	text-align: center;
+}
+.mailto {
+	font-weight: bold;
+	text-decoration: none !important;
 }
 
 /* MARKETPLACE */

@@ -6,16 +6,16 @@ class PostManager extends Manager
 // RESEARCH
 	public function researchPost($keywords) {
 		$db = $this->dbConnect();
-        $req = $db->query('SELECT content, title FROM mv_post WHERE content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'" ORDER BY creation_date');
+        $req = $db->query('SELECT id, content, title, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'" ORDER BY creation_date');
         $post = $req->fetchAll();
         return $post;
     }
 
 // POSTS
-    public function addPost($id_user, $id_category, $title, $content) {
+    public function addPost($id_category, $title, $content) {
 	    $db = $this->dbConnect();
-	    $req = $db->prepare('INSERT INTO mv_post(id_user, id_category, title, content, creation_date) VALUES(?, ?, ?, ?, NOW())');
-        $req->execute(array($id_user, $id_category, $title, $content));
+	    $req = $db->prepare('INSERT INTO mv_post(id_category, title, content, creation_date) VALUES(?, ?, ?, NOW())');
+        $req->execute(array($id_category, $title, $content));
         if ($req->rowCount() < 1) {
             return false;
         }
@@ -24,7 +24,7 @@ class PostManager extends Manager
 
     public function getPost($id_post) {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, id_category, id_user, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE id = ? ORDER BY creation_date DESC');
+        $req = $db->prepare('SELECT mv_category_posts.name AS category_name, mv_post.id, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post JOIN mv_category_posts ON id_category = mv_category_posts.id WHERE mv_post.id = ? ORDER BY creation_date DESC');
         $req->execute(array($id_post));
         $post = $req->fetch();
         return $post;
@@ -32,15 +32,22 @@ class PostManager extends Manager
 
     public function getPosts() {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, id_category, id_user, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post ORDER BY creation_date DESC');
+        $req = $db->query('SELECT id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post ORDER BY creation_date DESC');
         $posts = $req->fetchAll();
         return $posts;
     }
 
     public function getPostsByCategory($id_category) {
 		$db = $this->dbConnect();
-	    $req = $db->prepare('SELECT id, id_category, id_user, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE id_category = ? ORDER BY creation_date DESC');
+	    $req = $db->prepare('SELECT id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE id_category = ? ORDER BY creation_date DESC');
 	    $req->execute(array($id_category));
+        $posts = $req->fetchAll();
+        return $posts;
+    }
+
+    public function getSliderPosts() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post ORDER BY creation_date DESC LIMIT 3');
         $posts = $req->fetchAll();
         return $posts;
     }
@@ -63,5 +70,12 @@ class PostManager extends Manager
             return false;
         }
         return true;
-    }	
+    }
+
+    public function nbPost() { // Compte le nombre total de billets contenu dans la bdd
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT COUNT(*) FROM mv_post');
+        $nbPost = $req->fetchAll();
+        return $nbPost;
+    }
 }

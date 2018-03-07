@@ -4,18 +4,19 @@ ob_start(); ?>
 <div class="container">
 	<div class="row justify-content-center">
 		<div id="slideshow" class="slideshow col-md">
-			<div>
-				<h4>Billet 01</h4><br />
-				<p>Test</p>					
-			</div>
-			<div>
-				<h4>Billet 02</h4><br />
-				<p>Test</p>					
-			</div>
-			<div>
-				<h4>Billet 03</h4><br />
-				<p>Test</p>					
-			</div>
+<?php
+foreach ($posts as $post) {
+?>
+                <div class="postBlocks slider col-md">
+                    <strong class="titleForm"><?php echo htmlspecialchars($post['title']); ?></strong>
+                    <p class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></p>                    
+                    <p><?php echo $this->getExcerpt($post['content']); ?></p>
+
+                    <a href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>">Lire la suite...</a>
+                </div>
+<?php
+}
+?>
 		</div>
 	</div>
 </div>
@@ -35,7 +36,7 @@ ob_start(); ?>
             <div class="formStyle fsContentResponsive homeStyle">
 				<p>Contient des anecdotes, vécues personnellements par des modèles et des artistes, recueillis par le biais de ce site ou lors de séances.</p>
 				<div class="homeLink">
-					<a href="index.php?action=tutos" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
+					<a href="index.php?action=posts" class="buttonStyle"><i class="fas fa-arrow-right"></i></a>
 				</div>
 			</div>
 		</div>

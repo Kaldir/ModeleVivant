@@ -60,6 +60,10 @@ if (isset($_GET['action'])) {
             $backendController->manageUsersAccounts();
             break;
 
+        case 'deleteUserAccount':
+            $backendController->deleteUserAccount();
+            break;
+
     	case 'logout':
             $frontendController->logout();
             break;
@@ -129,9 +133,8 @@ if (isset($_GET['action'])) {
             $frontendController->signalComment();
             break; 
 
-// SIGNALISED ADVERTISEMENTS AND COMMENTS 
-        case 'reportedAdsAndComments':
-            $backendController->reportedAdsAndComments();
+        case 'reportedComments':
+            $backendController->reportedComments();
             break; 
 
 // ADVERTISEMENTS
@@ -182,7 +185,9 @@ if (isset($_GET['action'])) {
 
 // PAR DEFAUT, AFFICHAGE DE LA PAGE D'ACCUEIL
         default:
-            $frontendController->home();
+            header('HTTP/1.0 404 Not Found');
+            $frontendController->view('frontend/404');
+            exit;
     }
 
 } else {

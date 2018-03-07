@@ -9,28 +9,28 @@ ob_start(); ?>
         <label for="pseudo">Pseudo</label><br />
         <input type="text" id="pseudo" name="pseudo" required /><br />
         <label for="mail">Email</label><br />
-        <input type="mail" class="mail" name="<?php $_POST['mail'] ?>" required /><br />
+        <input type="email" class="mail" name="mail" required /><br />
         <div id="checkBoxContact">
             <p>Vous êtes...</p>
-            <label for="modelContact">Modèle</label><input type="radio" name="radioContact" id="modelContact" checked />
-            <label for="artistContact">Artiste</label><input type="radio" name="radioContact" id="artistContact" /><br />
-            <label for="bothContact">Les deux</label><input type="radio" name="radioContact" id="bothContact" />
-            <label for="otherContact">Autre</label><input type="radio" name="radioContact" id="otherContact" />
+            <label for="modelContact">Modèle</label><input type="radio" value="Modèle" name="radioContact" id="modelContact" checked />
+            <label for="artistContact">Artiste</label><input type="radio" value="Artiste" name="radioContact" id="artistContact" /><br />
+            <label for="bothContact">Les deux</label><input type="radio" value="Artiste et Modèle" name="radioContact" id="bothContact" />
+            <label for="otherContact">Autre</label><input type="radio" value="ni artiste, ni modèle" name="radioContact" id="otherContact" />
         </div>
         <div id="listContact">
            <label for="subject">Votre message concerne :</label><br />
            <select name="subject" id="subject">
-               <option value="story">Une histoire à raconter</option>
-               <option value="market">Une question sur du matériel</option>
-               <option value="question">Une question sur les modèles</option>
-               <option value="suggestion">Une suggestion</option>
-               <option value="account">Un problème avec votre compte</option>
-               <option value="other">Autre chose...</option>
+               <option value="Une histoire à raconter">Une histoire à raconter</option>
+               <option value="Une question sur du matériel">Une question sur du matériel</option>
+               <option value="Une question sur les modèles">Une question sur les modèles</option>
+               <option value="Une suggestion">Une suggestion</option>
+               <option value="Un problème avec mon compte">Un problème avec votre compte</option>
+               <option value="Autre chose...">Autre chose...</option>
            </select>
         </div>
         <label for="content">Message</label><br />
         <textarea id="content" name="content" required></textarea><br />
-        <button type="submit" name="submit" class="buttonStyle" value="Connexion"><i class='fas fa-check'></i></button>
+        <button type="submit" name="submit" class="buttonStyle" value="Envoyer"><i class='fas fa-check'></i></button>
     </form>
 </div>
 

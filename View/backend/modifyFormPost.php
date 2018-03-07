@@ -4,20 +4,20 @@ ob_start(); ?>
 <div class="formStyle">
     <form action="index.php?action=editPost" method="post">
     	<input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
-    	<input name="id_post" type="hidden" value="<?php echo $post['id']; ?>"/ >
+    	<input name="id_post" type="hidden" value="<?php echo htmlspecialchars($post['id']); ?>"/ >
         <div>
 			<label for="id_category">Catégorie *</label><br />
 			<select name="id_category" id="id_category" required>
 <?php
 foreach ($categories as $category) {
 ?>
-				<option value="<?php echo $category['id']; ?>" <?php if ($category['id'] == $post['id_category']) { echo 'selected'; } ?>><?php echo $category['name']; ?></option>
+				<option value="<?php echo htmlspecialchars($category['id']); ?>" <?php if ($category['id'] == $post['id_category']) { echo 'selected'; } ?>><?php echo htmlspecialchars($category['name']); ?></option>
 <?php
 }
 ?>
             </select><br />
             <label for="title">Titre *</label><br />
-            <input type="text" id="title" name="title" required value="<?php echo $post['title']; ?>"/><br />
+            <input type="text" id="title" name="title" required value="<?php echo htmlspecialchars($post['title']); ?>"/><br />
             <label for="content">Contenu *</label><br />
             <textarea class="textareaTinyMce" id="content" name="content"><?php echo $post['content']; ?></textarea><br />
             <button type="submit" name="submit" class="buttonStyle" value="Valider"><i class="fas fa-check" title="Valider" aria-hidden="true"></i></button>
