@@ -2,7 +2,7 @@
 ob_start(); ?>
 
 <?php
-if (!empty($_SESSION['admin'])) { // on vérifie si une session existe ET si elle est admin ou user (1 pour admin, 0 pour user)
+if (!empty($_SESSION['admin'])) {
 ?>
 
 <div class="subButtonsStyle sbsToggler">
@@ -51,7 +51,8 @@ foreach ($categories as $category) {
     </div>
 </div>
 <?php
-foreach ($posts as $post) {
+if (!empty($posts)) {
+    foreach ($posts as $post) {
 ?>
     <div class="formStyle postStyle">
         <div class="container-fluid postContainer">
@@ -90,5 +91,6 @@ foreach ($posts as $post) {
         </div>
     </div>
 <?php
+    }
 }
 $content = ob_get_clean(); ?>

@@ -24,6 +24,10 @@ if (isset($_GET['action'])) {
             $frontendController->createAccount();
             break;
 
+        case 'createAccountProcessing':
+            $frontendController->createAccountProcessing();
+            break;
+
         case 'sendMailAccount':
             $frontendController->sendMailAccount();
             break;
@@ -115,27 +119,6 @@ if (isset($_GET['action'])) {
         case 'friends':
             $frontendController->friends();
             break;
-
-// COMMENTS
-        case 'addComment':
-            $frontendController->addComment();
-            break;
-
-        case 'editComment':
-            $backendController->editComment();
-            break; 
-
-        case 'deleteComment':
-            $backendController->deleteComment();
-            break;
-
-        case 'signalComment':
-            $frontendController->signalComment();
-            break; 
-
-        case 'reportedComments':
-            $backendController->reportedComments();
-            break; 
 
 // ADVERTISEMENTS
         case 'advertisements':

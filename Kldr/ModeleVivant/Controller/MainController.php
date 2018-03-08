@@ -18,6 +18,42 @@ class MainController
         return true;
     }
 
+// NOTIFICATIONS
+     public function hasErrors() {
+        if(empty($_SESSION['errors'])) {
+            return false;
+        }
+        return true;
+    }
+
+    public function hasSuccess() {
+        if(empty($_SESSION['success'])) {
+            return false;
+        }
+        return true;
+    }
+
+    public function addError($error) {
+        $_SESSION['errors'][] = $error;
+    }
+
+    public function addSuccess($success) {
+        $_SESSION['success'][] = $success;
+    }
+
+// REDIRECTION
+    public function redirect($page = false, $vars = []) {
+        $path = './'; // correspond à la page index (chemin par défaut)
+        if(!empty(trim($page))) { // si on a mis une page en argument
+            $path .= 'index.php?action='.$page; // ajoute l'action définie comme argument
+            if(is_array($vars) && !empty($vars)) { // si on a mis des données en arguments dans $vars
+                $path .= '&'; // ajoute ce symbole au chemin défini précédemment
+                $path .= http_build_query($vars); // méthode php qui construit une query string au format url à partir d'un tableau
+            }
+        }
+        header('Location: '.$path);
+    }
+
 // HOME
     public function home() {
         $postManager = new \Kldr\ModeleVivant\Model\PostManager();

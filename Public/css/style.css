@@ -83,7 +83,16 @@ input {
 	    margin: 10px 0 20px;
 	    padding: 5px;
 	}
-
+/* RANDOM PICS */
+#randomPicOnePost {
+    display: flex;
+    justify-content: center;
+}
+	#randomPicOnePost img {
+		max-height: 500px;
+	    width: auto;
+	    border-radius: 30px;
+	}
 /* FORMS */
 form {
 	text-align: center;
@@ -509,5 +518,8 @@ form {
 	.adButtons {
 		flex-direction: row;
     	justify-content: center;
+	}
+	#randomPicOnePost {
+		display: none;
 	}
 }

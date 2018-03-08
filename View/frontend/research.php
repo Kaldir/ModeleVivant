@@ -9,8 +9,7 @@ if (!empty($posts)) {
     <i class="fas fa-bars"></i>
 </div>
 <?php
-}
-foreach ($posts as $post) {
+	foreach ($posts as $post) {
 ?>
 
 <div class="fsContent">
@@ -23,6 +22,7 @@ foreach ($posts as $post) {
 </div>
 
 <?php
+	}
 }
 if (!empty($ads)) {
 ?>
@@ -31,8 +31,7 @@ if (!empty($ads)) {
     <i class="fas fa-bars"></i>
 </div>
 <?php
-}
-foreach ($ads as $ad) {
+	foreach ($ads as $ad) {
 ?>
 
 <div class="fsContent">
@@ -46,6 +45,7 @@ foreach ($ads as $ad) {
 	</div>
 </div>
 <?php
+	}
 }
 ?>
 

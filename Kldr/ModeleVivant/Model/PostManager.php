@@ -24,7 +24,7 @@ class PostManager extends Manager
 
     public function getPost($id_post) {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT mv_category_posts.name AS category_name, mv_post.id, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post JOIN mv_category_posts ON id_category = mv_category_posts.id WHERE mv_post.id = ? ORDER BY creation_date DESC');
+        $req = $db->prepare('SELECT mv_category_posts.name AS category_name, mv_post.id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post JOIN mv_category_posts ON id_category = mv_category_posts.id WHERE mv_post.id = ? ORDER BY creation_date DESC');
         $req->execute(array($id_post));
         $post = $req->fetch();
         return $post;

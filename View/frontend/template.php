@@ -31,13 +31,14 @@
 
 	<!-- INTRODUCTION -->
 				<div id="researchSidebar">
-					<form action="index.php?action=research" method="Post">
+					<form action="index.php" method="GET">
+						<input type="hidden" name="action" value="research"/>
 						<input type="text" name="keywords" placeholder="Rechercher"/>
 						<button type="submit" name="submit" class="buttonStyle" value="Rechercher"><i class='fas fa-search'></i></button>
 					</form>
 				</div>
 <?php
-if (!$_SESSION['connected'] || empty($_SESSION['admin'])) {
+if (empty($_SESSION['admin'])) {
 ?>
 	            <div class="subButtonsStyle sbsTogglerSidebar">
 	                <h4>Présentation</h4>
@@ -86,10 +87,9 @@ elseif (!empty($_SESSION['admin'])) {
 							<nav>
 								<ul>
 <?php
-if ($_SESSION['connected'] && $_SESSION['admin'] == 1) {
+if (!empty($_SESSION['admin'])) {
 ?>
 									<li><a href="index.php?action=pendingAdvertisements">Annonces à valider</a></li>
-									<li><a href="index.php?action=reportedComments">Commentaires signalés</a></li>
 									<li><a href="index.php?action=manageUsersAccounts">Gestion des comptes membres</a></li>
 <?php
 }
@@ -184,19 +184,8 @@ if (!$_SESSION['connected']) {
 	<script src="./Public/js/script.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="./Public/js/tinymce/tinymce.min.js"></script>
-	<script>tinymce.init({ selector:'.textareaTinyMce' });</script>
 	<script src="./Public/js/tinymce/jquery.tinymce.min.js"></script>
+	<script>tinymce.init({ selector:'.textareaTinyMce' });</script>
 	<script>$("p:empty").remove();</script> <!-- permet d'enlever les <p> vides générés par tinyMCE -->
-
-<!-- DISPLAY MODAL IF SIGNALISED COMMENT -->
-<!--
-	<?php
-	if (!empty($signalised)) {
-	?>
-	    <script> $('#modalSignal').modal('show'); </script>
-	<?php
-	}
-	?>
--->
 	</body>
 </html>

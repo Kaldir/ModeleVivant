@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: db706429770.db.1and1.com
--- Generation Time: Mar 06, 2018 at 10:30 PM
+-- Generation Time: Mar 08, 2018 at 08:33 PM
 -- Server version: 5.5.59-0+deb7u1-log
 -- PHP Version: 5.4.45-0+deb7u12
 
@@ -42,16 +42,16 @@ CREATE TABLE IF NOT EXISTS `mv_ad` (
   KEY `id_category` (`id_category`),
   KEY `id_user` (`id_user`),
   KEY `id_category_2` (`id_category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `mv_ad`
 --
 
 INSERT INTO `mv_ad` (`id`, `id_category`, `id_user`, `title`, `town`, `county`, `location`, `date_event`, `content`, `creation_date`, `published`) VALUES
-(21, 1, 9, 'Modèle féminin cherche poses', 'Limoges', 87, 'Vieille ville', '2018-03-22', 'Donec eu diam gravida dolor elementum posuere at at lectus. Nam sem nulla, luctus id tristique eu, elementum eu ex. In at rutrum tortor, a imperdiet magna.', '2018-03-06 22:18:36', 1),
-(22, 2, 9, 'Cherche modèle pour cours avec professeur', 'Poitiers', 86, 'Ecole des beaux-arts', '2018-03-03', 'Cras sit amet turpis vestibulum, consectetur eros sit amet, aliquam elit.', '2018-03-06 22:20:42', 1),
-(23, 1, 9, 'Cherche artiste pour pose visage', 'Montélimar', 7, 'Centre de la Blaiserie', '2018-03-25', 'Aliquam in mi eu ipsum malesuada vestibulum quis id elit. Duis venenatis metus lacus, ac viverra eros lacinia ac. Etiam varius augue accumsan diam vehicula iaculis.', '2018-03-06 22:25:00', 0),
+(21, 1, 16, 'Modèle féminin cherche poses', 'Limoges', 87, 'Vieille ville', '2018-03-17', 'Donec eu diam gravida dolor elementum posuere at at lectus. Nam sem nulla, luctus id tristique eu, elementum eu ex. In at rutrum tortor, a imperdiet magna.', '2018-03-06 22:18:36', 1),
+(22, 2, 11, 'Cherche modèle pour cours avec professeur', 'Poitiers', 86, 'Ecole des beaux-arts', '2018-03-03', 'Cras sit amet turpis vestibulum, consectetur eros sit amet, aliquam elit.', '2018-03-06 22:20:42', 1),
+(23, 1, 11, 'Cherche artiste pour pose visage', 'Montélimar', 7, 'Centre de la Blaiserie', '2018-03-25', 'Aliquam in mi eu ipsum malesuada vestibulum quis id elit. Duis venenatis metujs lacus, ac viverra eros lacinia ac. Etiam varius augue accumsan diam vehicula iaculis.', '2018-03-06 22:25:00', 1),
 (24, 3, 9, 'Happening de modèle !', 'Bruxelles', 99, 'Ecole des arts appliqués', '2018-03-26', 'Sed felis diam, porttitor non facilisis eu, laoreet quis augue. Etiam finibus nunc sed lorem placerat congue. ', '2018-03-06 22:26:57', 1);
 
 -- --------------------------------------------------------
@@ -100,27 +100,6 @@ INSERT INTO `mv_category_posts` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mv_comment`
---
-
-CREATE TABLE IF NOT EXISTS `mv_comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_post` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `content` text NOT NULL,
-  `creation_date` datetime NOT NULL,
-  `signalised` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_post` (`id_post`),
-  KEY `id_user` (`id_user`),
-  KEY `id_post_2` (`id_post`),
-  KEY `id_post_3` (`id_post`),
-  KEY `id_user_2` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `mv_post`
 --
 
@@ -136,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `mv_post` (
   KEY `id_category` (`id_category`),
   KEY `id_category_2` (`id_category`),
   KEY `id_user_2` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `mv_post`
@@ -152,7 +131,7 @@ INSERT INTO `mv_post` (`id`, `id_user`, `id_category`, `title`, `content`, `crea
 (16, 9, 1, 'Gérer la douleur', '<p><span style="font-family: ''Open Sans'', Arial, sans-serif; text-align: justify;">Suspendisse potenti. Fusce et nulla vel ante tempor ullamcorper. Curabitur velit ante, feugiat non mauris sed, commodo sagittis enim. Etiam libero metus, euismod ac tellus non, ultricies aliquam nisl. Mauris et tortor pharetra orci laoreet cursus. In massa elit, bibendum sed posuere vel, condimentum eu nunc. Nulla vel dolor a mauris vestibulum faucibus. Ut non placerat nisi. Vestibulum pretium dignissim lacus, ullamcorper sodales augue vehicula at. Ut blandit sed nunc sit amet vulputate. Sed tristique consequat nulla nec dignissim. Pellentesque rutrum elit eu semper rutrum. In aliquet mi tortor, ac suscipit erat tincidunt id. Duis egestas tempor lacus, nec viverra nunc placerat pharetra. Donec ut volutpat lacus.</span></p>', '2018-03-06 22:12:52'),
 (17, 9, 3, 'A quoi tu penses quand tu poses ?', '<p><span style="font-family: ''Open Sans'', Arial, sans-serif; text-align: justify;">Vivamus tincidunt augue ultricies, lobortis est in, venenatis odio. Donec sit amet magna mi. In scelerisque rutrum malesuada. Vestibulum congue elit eget dignissim porttitor. Etiam massa eros, suscipit nec orci vel, viverra gravida orci. Praesent molestie mollis metus ac euismod. Etiam venenatis egestas aliquam. Nulla in pellentesque turpis, sed iaculis massa. Morbi vel dignissim diam. Aenean molestie blandit dolor sed suscipit. Cras condimentum turpis sed rhoncus lobortis.</span></p>', '2018-03-06 22:13:14'),
 (18, 9, 1, 'Les étirements', '<p><span style="font-family: ''Open Sans'', Arial, sans-serif; text-align: justify;">Nam vel nunc ut quam interdum iaculis. Fusce sodales lorem nec erat vestibulum, et lacinia urna dapibus. Nam viverra non turpis ac suscipit. Donec tellus purus, volutpat in tempus vel, dapibus ut felis. Nam tincidunt porttitor sem, vitae interdum nulla. Morbi id urna sem. Vestibulum ut diam ipsum. Mauris laoreet elit leo, eget placerat purus posuere efficitur. Vivamus consequat condimentum blandit. Praesent placerat lacinia urna, et suscipit justo convallis eu.</span></p>', '2018-03-06 22:14:12'),
-(20, 9, 3, 'Les différents points de vue', '<p><span style="font-family: ''Open Sans'', Arial, sans-serif; text-align: justify;">Donec faucibus faucibus pretium. Vestibulum nec purus vel lacus viverra ultrices cursus aliquam sapien. Praesent tristique iaculis consectetur. Integer in auctor enim, sed dictum nisl. Proin lacinia nibh vitae tortor placerat, a ultricies erat tincidunt. Aliquam urna leo, fermentum id lectus non, vestibulum vulputate tellus. In et quam laoreet, viverra urna id, tristique neque.</span></p>', '2018-03-06 22:15:40');
+(20, 9, 1, 'Les différents points de vue', '<p><span style="font-family: ''Open Sans'', Arial, sans-serif; text-align: justify;">Donec faucibus faucibus prketium. Vestibulum nec purus vel lacus viverra ultrices cursus aliquam sapien. Praesent tristique iaculis consectetur. Integer in auctor enim, sed dictum nisl. Proin lacinia nibh vitae tortor placerat, a ultricies erat tincidunt. Aliquam urna leo, fermentum id lectus non, vestibulum vulputate tellus. In et quam laoreet, viverra urna id, tristique neque.</span></p>', '2018-03-06 22:15:40');
 
 -- --------------------------------------------------------
 
@@ -169,15 +148,16 @@ CREATE TABLE IF NOT EXISTS `mv_user` (
   `avatar` varchar(255) NOT NULL DEFAULT 'default.png',
   `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `mv_user`
 --
 
 INSERT INTO `mv_user` (`id`, `admin`, `pseudo`, `mail`, `password`, `avatar`, `creation_date`) VALUES
-(9, 1, 'Lucie', 'lulu@kldr.fr', '$2y$10$gPYl8lkx7Q04UBoSfXW5Ru3R1BL5SXSvDZjFO.zv9GswOdC50xh3K', 'default.png', '2018-03-01 08:31:47'),
-(10, 0, 'Milo', 'kaladri@gmail.com', '$2y$10$NbjbJJHYgvt14sE2PLo44u/zFN3rYVMbGIgelImRVetBQRec4bkNC', 'default.png', '2018-03-06 15:02:59');
+(9, 1, 'Lucie', 'lulu@kldr.fr', '$2y$10$r4OJf62yl3/4jqMHMZdu6eMtIkaDzec78Nw2Nn.GAvolh7qf86bVy', '5aa15b1c5d3af.png', '2018-03-01 08:31:47'),
+(11, 0, 'Margot', 'kaladri@gmail.com', '$2y$10$zbyiQe9j7nwvGl8T55FNP.M8mwJ87Y/G2.bf8iknQertAzehjl5oC', '5aa0df1ddf136.png', '2018-03-07 17:57:13'),
+(16, 0, 'Milo', 'kaladri@kldr.fr', '$2y$10$c8r1IWpBjtcY.CrI7EtQsemxWdgo1b0cyrHe/.drKS53Tl/gJPvP.', '5aa0e0c652c31.png', '2018-03-07 21:58:41');
 
 --
 -- Constraints for dumped tables
@@ -189,13 +169,6 @@ INSERT INTO `mv_user` (`id`, `admin`, `pseudo`, `mail`, `password`, `avatar`, `c
 ALTER TABLE `mv_ad`
   ADD CONSTRAINT `mv_ad_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `mv_category_ads` (`id`),
   ADD CONSTRAINT `mv_ad_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `mv_user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `mv_comment`
---
-ALTER TABLE `mv_comment`
-  ADD CONSTRAINT `mv_comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `mv_post` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `mv_comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `mv_user` (`id`);
 
 --
 -- Constraints for table `mv_post`

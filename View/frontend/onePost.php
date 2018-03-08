@@ -11,17 +11,17 @@ if (!empty($post)) {
     <div class="container-fluid postContainer">
         <div class="row postRow">
             <div class="postBlocks col-md">
-                <strong class="titleForm"><?php echo htmlspecialchars($post['title']); ?></strong>
+                <strong clwass="titleForm"><?php echo htmlspecialchars($post['title']); ?></strong>
                 <p class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></p>                    
                 <p><?php echo ($post['content']); ?></p>
             </div>
+            <div class="postBlocks col-md-1">
+                <div class="postButtons">
 
 <!-- EDIT AND DELETE POST FOR ADMIN -->
 <?php
 if (!empty($_SESSION['admin'])) {
 ?>
-           <div class="postBlocks col-md-1">
-                <div class="postButtons">
                     <form action="index.php?action=modifyFormPost" method="post">
                         <input name="token" type="hidden" value="<?php echo $this->token; ?>"/ >
                         <input name="id_post" type="hidden" value="<?php echo htmlspecialchars($post['id']); ?>"/ >
@@ -42,6 +42,11 @@ if (!empty($_SESSION['admin'])) {
         </div>
     </div>
 </div>
+
+<div id="randomPicOnePost">
+    <?php echo '<img src="./Public/img/random/'. $img .'" alt="Dessins_MV"/>'; ?>
+</div>
+
 <?php  
 }
 $content = ob_get_clean(); ?>
