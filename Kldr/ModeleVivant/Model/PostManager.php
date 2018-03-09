@@ -12,10 +12,10 @@ class PostManager extends Manager
     }
 
 // POSTS
-    public function addPost($id_category, $title, $content) {
+    public function addPost($id_user, $id_category, $title, $content) {
 	    $db = $this->dbConnect();
-	    $req = $db->prepare('INSERT INTO mv_post(id_category, title, content, creation_date) VALUES(?, ?, ?, NOW())');
-        $req->execute(array($id_category, $title, $content));
+	    $req = $db->prepare('INSERT INTO mv_post(id_user, id_category, title, content, creation_date) VALUES(?, ?, ?, ?, NOW())');
+        $req->execute(array($id_user, $id_category, $title, $content));
         if ($req->rowCount() < 1) {
             return false;
         }
@@ -37,10 +37,15 @@ class PostManager extends Manager
         return $posts;
     }
 
-    public function getPostsByCategory($id_category) {
+    public function getPostsByCategory($id_category, $page = 1) {
+        $firstElement = ($page - 1) * ELEMENT_PER_PAGE; // numéro du 1er élément de la page affichée
+        
 		$db = $this->dbConnect();
-	    $req = $db->prepare('SELECT id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE id_category = ? ORDER BY creation_date DESC');
-	    $req->execute(array($id_category));
+	    $req = $db->prepare('SELECT id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE id_category = ? ORDER BY creation_date DESC LIMIT ?, ?');
+        $req->bindValue(1, $id_category); // permet d'attribuer les valeurs dans l'ordre d'apparition des "?" de la requête
+        $req->bindValue(2, $firstElement, \PDO::PARAM_INT); // $firstElement représente le premier l'élément de la page affichée
+        $req->bindValue(3, ELEMENT_PER_PAGE, \PDO::PARAM_INT);
+	    $req->execute();
         $posts = $req->fetchAll();
         return $posts;
     }
@@ -72,10 +77,11 @@ class PostManager extends Manager
         return true;
     }
 
-    public function nbPost() { // Compte le nombre total de billets contenu dans la bdd
+    public function nbPostsByCategory($id_category) { // Compte le nombre total de billets contenu dans la bdd
         $db = $this->dbConnect();
-        $req = $db->query('SELECT COUNT(*) FROM mv_post');
-        $nbPost = $req->fetchAll();
-        return $nbPost;
+        $req = $db->prepare('SELECT COUNT(*) FROM mv_post WHERE id_category = ?');
+        $req->execute(array($id_category));
+        $nbPosts = $req->fetchColumn();
+        return $nbPosts;
     }
 }

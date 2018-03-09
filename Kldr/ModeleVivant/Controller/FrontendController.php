@@ -330,20 +330,21 @@ class FrontendController extends MainController
     public function advertisements() {
         $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
         $categories = $categoryManager->getAdsCategories();
-        $ads = array();
         if (empty($_GET['id_category'])) {
-            $variables = compact('categories', 'ads');
+            $variables = compact('categories');
             $this->view('frontend/advertisements', $variables);
             exit;
         }
         $adManager = new \Kldr\ModeleVivant\Model\AdManager();
-        $ads = $adManager->getAdvertisementsByCategory($_GET['id_category']);
+        $nbAds = $adManager->nbAdsByCategory($_GET['id_category']);
+        if (!isset($_GET['page'])) {
+            $_GET['page'] = 1;
+        }
+        $ads = $adManager->getAdvertisementsByCategory($_GET['id_category'], $_GET['page']);
         if (empty($ads)) {
             $this->addError('Aucune annonce dans cette catégorie.');
-            $variables = compact('categories', 'ads');
-        } else {
-            $variables = compact('ads', 'categories');
-        }
+        } 
+        $variables = compact('ads', 'categories', 'nbAds');
         $this->view('frontend/advertisements', $variables);
     }
 
@@ -421,11 +422,15 @@ class FrontendController extends MainController
             exit;
         }
         $postManager = new \Kldr\ModeleVivant\Model\PostManager();
-        $posts = $postManager->getPostsByCategory($_GET['id_category']);
+        $nbPosts = $postManager->nbPostsByCategory($_GET['id_category']);
+        if (!isset($_GET['page'])) {
+            $_GET['page'] = 1;
+        }
+        $posts = $postManager->getPostsByCategory($_GET['id_category'], $_GET['page']);
         if (empty($posts)) {
             $this->addError('Aucune publication dans cette catégorie.');
         }
-        $variables = compact('posts', 'categories');
+        $variables = compact('posts', 'categories', 'nbPosts');
         $this->view('frontend/allPosts', $variables);
     }
 

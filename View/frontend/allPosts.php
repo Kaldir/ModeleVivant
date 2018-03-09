@@ -35,8 +35,6 @@ foreach ($categories as $category) {
 }
 ?>
 
-<!--  PAGINATION A GERER -->
-
 <div class="container-fluid postsContainer">
     <div class="row postsRow">
 <?php
@@ -50,7 +48,12 @@ foreach ($categories as $category) {
 ?>
     </div>
 </div>
+
 <?php
+if (isset($nbPosts)) {
+$this->pagination($nbPosts);
+}
+
 if (!empty($posts)) {
     foreach ($posts as $post) {
 ?>
@@ -62,7 +65,7 @@ if (!empty($posts)) {
                     <p class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></p>                    
                     <p><?php echo $this->getExcerpt($post['content']); ?></p>
 
-                    <a href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>"><div class="buttonStyle Arrow" title="Lire la suite..."><i class="fas fa-arrow-right"  aria-hidden="true"></i></div></a>
+                    <div class="buttonStyle Arrow" title="Lire la suite..."><a href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>"><i class="fas fa-arrow-right"  aria-hidden="true"></i></a></div>
                 </div>
 
 <!-- EDIT & DELETE IF ADMIN-->

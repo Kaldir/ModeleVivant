@@ -49,6 +49,10 @@ input {
     	line-height: 37px;
     	text-align: center;
 	}
+		.buttonStyle.Arrow a {
+	    	color: white;
+	    	text-decoration: none;
+		}
 .subButtonsStyle {
     color: white;
     background-color: #b48ed4;
@@ -112,6 +116,29 @@ form {
     border-radius: 30px;
     padding: 15px 0;
 }
+
+/* PAGINATION */
+.containerPagination {
+	display: flex;
+    justify-content: center;
+}
+.pagination {
+    margin: 10px;
+    text-align: center;
+    font-weight: bold;
+    border: solid 1px;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+	.pagination p {
+		align-self: flex-end;
+	}
+	.pagination a {
+		line-height: 37px;
+		text-decoration: none;
+		color: white;
+	}
 
 /* HEADER */
 #titleBlog {

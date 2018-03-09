@@ -42,7 +42,6 @@ foreach ($categories as $category) {
 <?php
 }
 ?>
-<!--  PAGINATION A GERER -->
 
 <div class="container-fluid advertisementsContainer">
 	<div class="row advertisementsRow">
@@ -60,7 +59,12 @@ foreach ($categories as $category) {
 </div>
 
 <?php
-foreach ($ads as $ad) {
+if (isset($nbAds)) {
+$this->pagination($nbAds);
+}
+
+if (!empty($ads)) {
+	foreach ($ads as $ad) {
 ?>
 	<div class="formStyle adStyle">
 		<div class="container-fluid adContainer">
@@ -100,5 +104,6 @@ foreach ($ads as $ad) {
 		</div>
 	</div>
 <?php
+	}
 }
 $content = ob_get_clean(); ?>

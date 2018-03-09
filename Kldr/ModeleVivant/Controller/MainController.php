@@ -79,4 +79,17 @@ class MainController
         }
         return $string;
     }
+
+// PAGINATION
+    public function pagination($nbElements) {
+        // parse_str : extrait les variables de QUERY_STRING et les mets dans le tableau $queryArray
+        // QUERY_STRING : retourne les variable GET de l'url sous forme de string
+        parse_str($_SERVER['QUERY_STRING'], $queryArray); 
+        $nbPages = ceil($nbElements/ELEMENT_PER_PAGE); // ceil : nombre de billet divisé par 3 (voir constants.php) arrondi au nombre supérieur
+        for ($i = 1; $i < $nbPages + 1; $i++) {
+            $queryArray["page"] = $i; 
+            $queryString = http_build_query($queryArray); // reconstruit une url à partir du tableau queryArray
+            require('./View/frontend/pagination.php');
+        }
+    }
 }

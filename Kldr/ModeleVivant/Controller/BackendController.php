@@ -282,7 +282,6 @@ class BackendController extends MainController
         $postManager = new \Kldr\ModeleVivant\Model\PostManager();
         $categoryManager = new \Kldr\ModeleVivant\Model\CategoryManager();
         $categories = $categoryManager->getPostsCategories();
-        $posts = array();
         $result = $postManager->deletePost($_POST['id_post']);
         if ($result == false) {
             $this->addError('Le billet n\'a pas pu être supprimé...');
