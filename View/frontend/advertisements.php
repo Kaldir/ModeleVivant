@@ -50,7 +50,7 @@ foreach ($categories as $category) {
 foreach ($categories as $category) {
 ?>
 		<div class="advertisementsBlocks col-md-6">
-			<a href="index.php?action=advertisements&id_category=<?php echo htmlspecialchars($category['id']); ?>" class="subButtonsStyle"><?php echo $category['name']; ?></a>
+			<a href="index.php?action=advertisements&id_category=<?php echo htmlspecialchars($category['id']); ?>" class="subButtonsStyle sbsTogglerCategories"><?php echo $category['name']; ?><i class="fas fa-caret-square-down"></i></a>
 		</div>
 <?php
 }

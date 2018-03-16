@@ -17,13 +17,13 @@ class FrontendController extends MainController
         $postManager = new \Kldr\ModeleVivant\Model\PostManager();
         $adManager = new \Kldr\ModeleVivant\Model\AdManager();
         $keywords = trim($_GET['keywords']); // supprimer les espace en début et fin de chaîne
-        $keywords = preg_replace('!\s+!', '|', $keywords); // enlève les espaces et les remplace par |
+        $keywords = preg_replace('!\s+!', '|', $keywords); // enlève les espaces et les remplace par | (pipe) pour permettre à mySQL d'ifentifier qu'il y a plusieurs mots, grâce à l'opérateur "RLIKE" (voir model).
         $posts = $postManager->researchPost($_GET['keywords']);
         $ads = $adManager->researchAd($_GET['keywords']);
         if (empty($posts) && empty($ads))  {
             $this->addError('Aucun résultat ne correspond à votre recherche !');
         }
-        $variables = compact('posts', 'ads');
+        $variables = compact('posts', 'ads'); // permet de passer des variables à la méthode "view" en conservant les noms originaux de ces variables.
         $this->view('frontend/research', $variables);
     }
 
@@ -33,7 +33,7 @@ class FrontendController extends MainController
         }
 
     public function createAccountProcessing() {
-        if (!$_SESSION['connected'] || !isset($_POST['submit'])) {
+        if ($_SESSION['connected'] || !isset($_POST['submit'])) {
             $this->redirect();
             exit;
         }
@@ -76,7 +76,7 @@ class FrontendController extends MainController
         }
         $userManager = new \Kldr\ModeleVivant\Model\UserManager();
         if ($userManager->checkUserByMail($_POST['mail']) == true) {
-                $this->addError('Cet email est déjà utilisé !');
+            $this->addError('Cet email est déjà utilisé !');
         }
         if ($userManager->checkUserByPseudo($_POST['pseudo']) == true) {
             $this->addError('Ce pseudo est déjà pris !');
@@ -437,7 +437,17 @@ class FrontendController extends MainController
     public function displayOnePost() {
         $postManager = new \Kldr\ModeleVivant\Model\PostManager();
         $post = $postManager->getPost($_GET['id_post']);
-        $imgs = array('random01.jpg', 'random02.jpg', 'random03.jpg', 'random04.jpg', 'random05.jpg', 'random06.jpg', 'random07.jpg', 'random08.jpg', 'random09.jpg', 'random10.jpg' );
+        $imgs = array(
+            'random01.jpg',
+            'random02.jpg',
+            'random03.jpg',
+            'random04.jpg',
+            'random05.jpg',
+            'random06.jpg',
+            'random07.jpg',
+            'random08.jpg',
+            'random09.jpg',
+            'random10.jpg' );
         $img_id = mt_rand(0,(count($imgs)-1));
         $img = $imgs[$img_id];
         if (empty($post)) {
@@ -476,13 +486,12 @@ class FrontendController extends MainController
             $this->redirect('contact');
             exit;
         }
-        $to = 'lulu@kldr.fr';
-        $subject = 'Modèles vivants - Quelqu\'un vous a écrit !';
+        $to = "lulu@kldr.fr";
+        $subject = "Modèles vivants - Quelqu'un vous a écrit !";
         $message = "Sujet : ". $_POST['subject'] ."\r\n
         Bonjour, je suis ". $_POST['pseudo'] .", je suis ". $_POST['radioContact'] ."\r\n
-        Message :".$_POST['content'] ."\r\n.
-        Merci et bonne journée !";
-        $headers = 'From: <'. $_POST['mail'] .'>';
+        Message : ". $_POST['content'] . "";
+        $headers = "From: <". $_POST['mail'] .">";
         $mailSent = mail($to, $subject, $message, $headers);
         if ($mailSent == false) {
             $this->addError('Le mail n\'a pu être envoyé...');

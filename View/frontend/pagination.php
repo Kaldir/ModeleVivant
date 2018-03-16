@@ -7,9 +7,9 @@ if ($i == 1) { // si on affiche le premier numéro de la boucle, on ouvre le div
 <?php
 }
 ?>
-		<div class='divNumber buttonStyle'> <!-- sera affiché à chaque passage de la boucle -->
+		<div class='divNumber'> <!-- sera affiché à chaque passage de la boucle -->
 			<span class='nb'>
-				<a href='index.php?<?php echo $queryString; ?>'><?php echo $i; ?></a>
+				<a class="buttonStyle" href='index.php?<?php echo $queryString; ?>'><?php echo $i; ?></a>
 			</span>
 		</div>
 <?php

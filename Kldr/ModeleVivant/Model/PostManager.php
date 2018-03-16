@@ -6,9 +6,9 @@ class PostManager extends Manager
 // RESEARCH
 	public function researchPost($keywords) {
 		$db = $this->dbConnect();
-        $req = $db->query('SELECT id, content, title, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'" ORDER BY creation_date');
-        $post = $req->fetchAll();
-        return $post;
+        $req = $db->query('SELECT id, content, title, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post WHERE content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'" ORDER BY creation_date DESC');
+        $posts = $req->fetchAll();
+        return $posts;
     }
 
 // POSTS
@@ -30,12 +30,13 @@ class PostManager extends Manager
         return $post;
     }
 
-    public function getPosts() {
+/*    public function getPosts() {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, id_category, title, content, creation_date, DATE_FORMAT(creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_post ORDER BY creation_date DESC');
         $posts = $req->fetchAll();
         return $posts;
     }
+*/
 
     public function getPostsByCategory($id_category, $page = 1) {
         $firstElement = ($page - 1) * ELEMENT_PER_PAGE; // numéro du 1er élément de la page affichée

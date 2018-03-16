@@ -1,7 +1,6 @@
 <?php $pageTitle = 'Votre recherche';
-ob_start(); ?>
+ob_start();
 
-<?php
 if (!empty($posts)) {
 ?>
 <div class="subButtonsStyle sbsToggler">
@@ -17,7 +16,7 @@ if (!empty($posts)) {
 		<strong class="titleForm"><?php echo htmlspecialchars($post['title']); ?></strong>
 		<i class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></i>
 		<p><?php echo $this->getExcerpt($post['content']); ?></p>
-	    <a href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>"><div class="buttonStyle Arrow" title="Lire la suite..."><i class="fas fa-arrow-right"  aria-hidden="true"></i></div></a>
+	    <a class="buttonStyle arrow" title="Lire la suite..." href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>"><i class="fas fa-arrow-right"  aria-hidden="true"></i></a>
 	</div>
 </div>
 

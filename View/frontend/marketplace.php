@@ -3,7 +3,7 @@ ob_start(); ?>
 
 <div class="container-fluid marketContainer">
 	<div class="row marketRow">
-		<div class="marketBlocks col-md-4">
+		<div class="marketBlocks col-md-6 col-lg-4">
 			<div class="subButtonsStyle sbsTogglerResponsive">
 			<strong>Le tabouret</strong>
 			</div>
@@ -15,7 +15,7 @@ ob_start(); ?>
 			</div>
 		</div>
 
-		<div class="marketBlocks col-md-4">
+		<div class="marketBlocks col-md-6 col-lg-4">
 			<div class="subButtonsStyle sbsTogglerResponsive">
 			<strong>Le chauffage soufflant</strong>
 			</div>
@@ -27,7 +27,7 @@ ob_start(); ?>
 			</div>
 		</div>
 
-		<div class="marketBlocks col-md-4">
+		<div class="marketBlocks col-md-6 col-lg-4">
 			<div class="subButtonsStyle sbsTogglerResponsive">
 			<strong>Le tapis de gym</strong>
 			</div>
@@ -39,7 +39,7 @@ ob_start(); ?>
 			</div>
 		</div>
 
-		<div class="marketBlocks col-md-4">
+		<div class="marketBlocks col-md-6 col-lg-4">
 			<div class="subButtonsStyle sbsTogglerResponsive">
 			<strong>Le paravent</strong>
 			</div>
@@ -51,7 +51,7 @@ ob_start(); ?>
 			</div>
 		</div>
 
-		<div class="marketBlocks col-md-4">
+		<div class="marketBlocks col-md-6 col-lg-4">
 			<div class="subButtonsStyle sbsTogglerResponsive">
 			<strong>Le baton</strong>
 			</div>
@@ -63,7 +63,7 @@ ob_start(); ?>
 			</div>
 		</div>
 
-		<div class="marketBlocks col-md-4">
+		<div class="marketBlocks col-md-6 col-lg-4">
 			<div class="subButtonsStyle sbsTogglerResponsive">
 			<strong>Les accessoires</strong>
 			</div>

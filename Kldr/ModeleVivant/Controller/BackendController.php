@@ -84,7 +84,7 @@ class BackendController extends MainController
         elseif (empty($categoryManager->getAdCategory($_POST['id_category']))) {
             $this->addError('Cette catégorie n\'existe pas...');
         }
-        if ($this->hasError()) {
+        if ($this->hasErrors()) {
             $this->redirect('advertisements');
             exit;
         }

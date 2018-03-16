@@ -41,7 +41,7 @@ foreach ($categories as $category) {
 foreach ($categories as $category) {
 ?>
         <div class="postsBlocks col-md-4">
-            <a href="index.php?action=posts&id_category=<?php echo htmlspecialchars($category['id']); ?>" class="subButtonsStyle"><?php echo htmlspecialchars($category['name']); ?></a>
+            <a href="index.php?action=posts&id_category=<?php echo htmlspecialchars($category['id']); ?>" class="subButtonsStyle sbsTogglerCategories"><?php echo htmlspecialchars($category['name']); ?><i class="fas fa-caret-square-down"></i></a>
         </div>
 <?php
 }
@@ -65,7 +65,7 @@ if (!empty($posts)) {
                     <p class="smallInfosText">publié le <?php echo htmlspecialchars($post['creation_date_fr']); ?></p>                    
                     <p><?php echo $this->getExcerpt($post['content']); ?></p>
 
-                    <div class="buttonStyle Arrow" title="Lire la suite..."><a href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>"><i class="fas fa-arrow-right"  aria-hidden="true"></i></a></div>
+                    <a class="buttonStyle arrow" title="Lire la suite..." href="index.php?action=displayOnePost&amp;id_post=<?php echo htmlspecialchars($post['id']); ?>"><i class="fas fa-arrow-right"  aria-hidden="true"></i></a>
                 </div>
 
 <!-- EDIT & DELETE IF ADMIN-->

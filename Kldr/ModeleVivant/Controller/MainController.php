@@ -7,7 +7,7 @@ class MainController
 	public $token;
 
     function __construct() {
-        $this->token = bin2hex(random_bytes(32));
+        $this->token = bin2hex(random_bytes(32)); // génère un token de 64 caractères aléatoirement
     }
 
     public function checkToken() {
@@ -42,12 +42,12 @@ class MainController
     }
 
 // REDIRECTION
-    public function redirect($page = false, $vars = []) {
+    public function redirect($page = false, $vars = []) { // cette méthode permet de construire les urls pour rediriger sur les pages contenant les arguments demandés (actions et numéro) - en passant des variables (facultatives) dans l'url.
         $path = './'; // correspond à la page index (chemin par défaut)
         if(!empty(trim($page))) { // si on a mis une page en argument
-            $path .= 'index.php?action='.$page; // ajoute l'action définie comme argument
+            $path .= 'index.php?action='.$page; // ajoute l'action définie comme variable d'url
             if(is_array($vars) && !empty($vars)) { // si on a mis des données en arguments dans $vars
-                $path .= '&'; // ajoute ce symbole au chemin défini précédemment
+                $path .= '&'; // ce symbole permet de séparer les différentes variables dans l'url
                 $path .= http_build_query($vars); // méthode php qui construit une query string au format url à partir d'un tableau
             }
         }
@@ -64,7 +64,7 @@ class MainController
 
 // VIEW
 	public function view($view = 'frontend/home', $variables = array()) {
-		$_SESSION['token'] = $this->token; // stock un token dans $_SESSION à chaque fois que l'on affiche une view
+		$_SESSION['token'] = $this->token; // stocke un token dans $_SESSION à chaque fois que l'on affiche une view
 		extract($variables); // fonction qui sert à aller chercher les variables contenues dans une variable contenant un array, et permet de les réutiliser ailleurs
 		require('./View/' . $view . '.php');
 		require('./View/frontend/template.php');

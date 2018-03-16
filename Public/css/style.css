@@ -44,12 +44,13 @@ input {
 	}
 	a.buttonStyle {
     	line-height: 37px;
+    	display: flex;
+    	justify-content: center;
 	}
-	.buttonStyle.Arrow {
-    	line-height: 37px;
-    	text-align: center;
+	.buttonStyle.arrow {
+    	padding-top: 10px;
 	}
-		.buttonStyle.Arrow a {
+		.buttonStyle.arrow a {
 	    	color: white;
 	    	text-decoration: none;
 		}
@@ -77,6 +78,9 @@ input {
 	.subButtonsStyle.sbsToggler {
 		justify-content: space-between;
 		padding: 10px 20px 0;
+	}
+	.subButtonsStyle.sbsTogglerCategories {
+		justify-content: space-between;
 	}
 	.postTitle {
 		color: white;
@@ -424,7 +428,7 @@ form {
 		text-decoration: none;
 		background-color: #5b2e92;
 	}
-
+	
 /* ACCOUNT */
 .modifyAccount {
 	margin-bottom: 30px;
@@ -523,13 +527,16 @@ form {
     align-items: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 	.subButtonsStyle.sbsTogglerSidebar {
 		display: flex;
 		margin-bottom: 0;
 		margin-top: 20px;
 		justify-content: space-between;
 		padding: 10px 20px 0;
+	}
+	.postButtons {
+		flex-direction: row;
 	}
 	.fsContentSidebar, .fsContentResponsive {
 		display: none;
@@ -549,4 +556,10 @@ form {
 	#randomPicOnePost {
 		display: none;
 	}
+	.formStyle.friends {
+		padding: 20px;
+	}
+		.friendsImg {
+			margin: 10px;
+		}
 }

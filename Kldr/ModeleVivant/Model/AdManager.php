@@ -7,8 +7,8 @@ class AdManager extends Manager
 	public function researchAd($keywords) {
 		$db = $this->dbConnect();
         $req = $db->query('SELECT mv_user.mail AS user_mail, mv_user.pseudo AS user_pseudo, mv_user.avatar AS user_avatar, mv_ad.id, id_category, id_user, title, town, county, location, date_event, DATE_FORMAT(date_event, \'%d/%m/%Y\') AS date_event_fr, content, mv_ad.creation_date, DATE_FORMAT(mv_ad.creation_date, \'%d/%m/%Y (%Hh%imin%ss)\') AS creation_date_fr FROM mv_ad JOIN mv_user ON id_user = mv_user.id WHERE published = 1 AND (content RLIKE "'.$keywords.'" OR title RLIKE "'.$keywords.'") ORDER BY mv_ad.creation_date DESC');
-        $ad = $req->fetchAll();
-        return $ad;
+        $ads = $req->fetchAll();
+        return $ads;
     }
 
 // ADVERTISEMENTS
